@@ -11,9 +11,9 @@ export const TWRNContext = createContext<TWRNContextType>(DEFAULT_VALUES);
 
 export const TWRNProvider: React.FC<TWRNProviderProps> = ({
   children,
-  mode = 'light',
-  styles = {},
+  theme,
 }) => {
+  const {mode = 'light', styles = {}, colors = {}} = theme ?? {};
   const [modeState, setModeState] = useState<Mode>(
     // Ensures its dark or light mode
     mode === 'dark' ? 'dark' : 'light',
@@ -30,6 +30,7 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
         toggleMode,
         setMode: setModeState,
         styles,
+        colors,
       }}>
       {children}
     </TWRNContext.Provider>

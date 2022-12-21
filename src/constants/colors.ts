@@ -3,7 +3,7 @@ export interface ColorsType {
 }
 [];
 
-export const colors: ColorsType = {
+export const COLORS: ColorsType = {
   'blue-50': '#EFF6FF',
   'blue-100': '#DBEAFE',
   'blue-200': '#BFDBFE',

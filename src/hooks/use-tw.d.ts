@@ -1,2 +1,2 @@
 export type StylesType = string;
-export type TailwindStylesGeneratorType = (StylesType) => any;
+export type TailwindStylesGeneratorType = (StylesType: string) => any;
