@@ -16,10 +16,8 @@ const styled =
         return validStringStyle;
       };
       const twStringStyle = getStyle();
-      console.log({twStringStyle});
       const twStyles = tw(twStringStyle);
       const {style: propStyles, ...restProps} = props;
-      console.log({twStyles});
       return (
         <ReactComponent
           style={{
