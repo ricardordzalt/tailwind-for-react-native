@@ -1,32 +1,31 @@
 import React from 'react';
 import useTW from '../hooks/use-tw';
 
+const getStyle = (stringStyles: any[], propsValues: any) => {
+  const validStringStyles = stringStyles[0].map(
+    (stringLine: string, index: number) => {
+      const interpolationResult = stringStyles[index + 1]?.(propsValues) ?? '';
+      const stringPiece = stringLine.replace(/\n/g, '');
+      return `${stringPiece}${interpolationResult}`;
+    },
+  );
+  const validStringStyle = validStringStyles.join(' ');
+  return validStringStyle;
+};
+
 const styled =
-  ReactComponent =>
-  (...args) => {
-    return props => {
+  (ReactComponent: React.ComponentType) =>
+  (...args: any[]) => {
+    return (props: any) => {
       const {tw} = useTW();
-      const getStyle = () => {
-        const validStringStyles = args[0].map((stringLine, index) => {
-          const interpolationResult = args[index + 1]?.(props) ?? '';
-          const stringPiece = stringLine.replaceAll('\n', '');
-          return `${stringPiece}${interpolationResult}`;
-        });
-        const validStringStyle = validStringStyles.join(' ');
-        return validStringStyle;
-      };
-      const twStringStyle = getStyle();
+      const twStringStyle = getStyle(args, props);
       const twStyles = tw(twStringStyle);
       const {style: propStyles, ...restProps} = props;
-      return (
-        <ReactComponent
-          style={{
-            ...twStyles,
-            ...propStyles,
-          }}
-          {...restProps}
-        />
-      );
+      const allStyles = {
+        ...twStyles,
+        ...propStyles,
+      };
+      return <ReactComponent style={allStyles} {...restProps} />;
     };
   };
 
