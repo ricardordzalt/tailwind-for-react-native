@@ -1,5 +1,4 @@
 function getPropByString(obj, propString) {
-  console.log(obj.white)
   if (!propString || typeof propString !== 'string')
     return undefined;
 
@@ -16,7 +15,6 @@ function getPropByString(obj, propString) {
     }
   }
   const result = obj[props[i]];
-  console.log(result)
   return result;
 }
 
