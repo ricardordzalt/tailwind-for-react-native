@@ -1,5 +1,6 @@
 import {getStyleFromStyleStringType} from './get-style-from-style-string.d';
 import stylesPrefixes from '../styles/prefixes';
+import getPropByString from "./get-prop-by-string";
 
 const getStyleFromStyleString = ({
   styleString,
@@ -11,30 +12,34 @@ const getStyleFromStyleString = ({
     value: string | number = '';
   if (
     splittedStyleString.length > 2 &&
-    colors[
+    getPropByString(
+      colors,
       `${splittedStyleString[splittedStyleString.length - 2]}-${
         splittedStyleString[splittedStyleString.length - 1]
-      }`
-    ]
+      }`,
+    )
   ) {
     splittedStyleString.forEach((el, index) => {
       if (index >= splittedStyleString.length - 2 && !value) {
-        value =
-          colors[
-            `${splittedStyleString[splittedStyleString.length - 2]}-${
-              splittedStyleString[splittedStyleString.length - 1]
-            }`
-          ];
+        value = getPropByString(
+          colors,
+          `${splittedStyleString[splittedStyleString.length - 2]}-${
+            splittedStyleString[splittedStyleString.length - 1]
+          }`,
+        );
       } else if (index < splittedStyleString.length - 2) {
         keyProp += index === 0 ? el : '-' + el;
       }
     });
   } else if (
     splittedStyleString.length === 2 &&
-    colors[splittedStyleString[splittedStyleString.length - 1]]
+    getPropByString(colors, splittedStyleString[splittedStyleString.length - 1])
   ) {
     keyProp = splittedStyleString[0];
-    value = colors[splittedStyleString[splittedStyleString.length - 1]];
+    value = getPropByString(
+      colors,
+      splittedStyleString[splittedStyleString.length - 1]
+    );
   } else {
     splittedStyleString.forEach((el, index) => {
       if (index === splittedStyleString.length - 1) {
@@ -60,7 +65,9 @@ const getStyleFromStyleString = ({
         } else {
           value = el;
         }
-        value = colors[value] ? colors[value] : value;
+        value = getPropByString(colors, value)
+          ? getPropByString(colors, value)
+          : value;
       } else {
         keyProp += index === 0 ? el : '-' + el;
       }
