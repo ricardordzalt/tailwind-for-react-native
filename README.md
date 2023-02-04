@@ -12,168 +12,123 @@ or using yarn:
 
 ### Usage
 
-#### The styled function
-
-Using the styled function with tagged template literals allow you to customize components 
-with the clases of tailwind-for-react-native (See Available Properties section).
+#### React Native template wrote with tailwind-for-react-native
 
 
 ```js
-import { styled } from 'tailwind-for-react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
-const App = () => {
-  const [MainView, BlueButton, TextButton] = useStyler([
-    [View, 'bg-#c22 flex-1 justify-center items-center'],
-    [Pressable, 'rounded-hp(3) w-wp(60) h-wp(20) bg-#22c items-center justify-center',],
-    [Text, 'text-white font-bold font-size-hp(1.7) text-center'],
-  ]);
+import React from 'react';
+import type {PropsWithChildren} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
+
+type SectionProps = PropsWithChildren<{
+  title: string;
+}>;
+
+const Container = styled(View)`
+  mt-32
+  px-24
+`;
+
+const Title = styled(Text)`
+  font-size-24
+  font-weight-600
+  color-black
+  dark:color-white
+`;
+
+const Subtitle = styled(Text)`
+  mt-8
+  font-size-18
+  font-weight-400
+  color-black
+  dark:color-light
+`;
+
+const HighlightText = styled(Text)`
+  font-weight-700
+`;
+
+function Section({children, title}: SectionProps): JSX.Element {
   return (
-    <MainView>
-      <BlueButton>
-        <TextButton>I'm a styled pressable button</TextButton>
-      </BlueButton>
-    </MainView>
+    <Container>
+      <Title>{title}</Title>
+      <Subtitle>{children}</Subtitle>
+    </Container>
   );
 }
 
-```
-
-![Example](https://github.com/ricardordzalt/rnstyler/blob/master/assets/example.png?raw=true)
-
-### Theme
-
-Import ThemeProvider wrapper and define some options by passing an object to theme prop.
-
-```js
-import {ThemeProvider} from 'rn-styler';
-
-...
-
-<ThemeProvider
-    theme={options}
-  >
-    <App />
-  </ThemeProvider>
-
-```
-* See how to configure your theme options here below
-
-#### Options
-
-##### Colors
-
-Pass an object with the custom colors you will need use along your application:
-
-
-```js
-import {ThemeProvider} from 'rn-styler';
-
-const options = {
-    colors: {
-        navyBlue: '#000080',
-    }
+function YourApp(): JSX.Element {
+  const {tw, mode} = useTW();
+  const backgroundStyle = tw('bg-white dark:bg-dark');
+  return (
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar
+        barStyle={mode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}>
+        <Header />
+        <View style={tw('bg-white dark:bg-black')}>
+          <Section title="Step One">
+            Edit <HighlightText>App.tsx</HighlightText> to change this screen
+            and then come back to see your edits.
+          </Section>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
+          <LearnMoreLinks />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
-...
-
-<ThemeProvider
-    theme={options}
-  >
-    <App />
-</ThemeProvider>
-
-
-```
-
-And use with useStyler hook in your components:
-
-```js
 const App = () => {
-    const [ViewNavyBlue] = useStyler([
-        [View, 'bg-navyBlue',]
-    ])
-
-    return (
-        <ViewNavyBlue>
-            ....
-        </ViewNavyBlue>
-    )
+  const mode = useColorScheme();
+  return (
+    <TWRNProvider theme={{mode, colors: Colors}}>
+      <YourApp />
+    </TWRNProvider>
+  );
 };
-```
 
-##### useColors hook
-
-Use useColors hook to get all colors configured in your ThemeProvider.
-
-```js
-import { useColors } from 'rn-styler';
-
-const App = () => {
-    const colors = useColors();
-
-    return (
-        <CustomText color={colors.navyBlue}>
-            ....
-        </CustomText>
-    )
-};
-```
-
-
-##### Custom Properties
-
-Pass an object with the custom properties you will re-use along your application:
-
-
-```js
-import {ThemeProvider} from 'rn-styler';
-
-const options = {
-    properties: {
-        customShadow: {
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 12,
-          },
-          shadowOpacity: 0.58,
-          shadowRadius: 16.00,
-          elevation: 24,
-        },
-        'background-red-fontSize-big-custom-class': {
-          backgroundColor: 'red',
-          fontSize: 20,
-        }
-    }
-}
-
-...
-
-<ThemeProvider
-    theme={options}
-  >
-    <App />
-</ThemeProvider>
+export default App;
 
 
 ```
 
-And use with useStyler hook in your components:
 
-```js
-const App = () => {
-    const [CustomView] = useStyler([
-        [View, 'customShadow background-red-fontSize-big-custom-class']
-    ]);
-
-    return (
-        <CustomView>
-            ....
-        </CustomView>
-    )
-};
-```
 
 ### Available Computed Properties
 
@@ -305,6 +260,11 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 | Class      | Affected Properties | Accepted Values |
 | ----------- | ----------- | ----------- |
 | font-size      | fontSize       | number, wp(number), hp(number)       |
+#### Font Weight
+
+| Class      | Affected Properties | Accepted Values |
+| ----------- | ----------- | ----------- |
+| font-weight      | fontWeight       | number       |
 
 #### Flex
 

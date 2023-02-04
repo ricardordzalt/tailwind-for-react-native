@@ -1,4 +1,4 @@
-import React, {useState, createContext, useContext} from 'react';
+import React, {useState, createContext, useContext, useEffect} from 'react';
 import {Mode, TWRNContextType, TWRNProviderProps} from './tw-rn-provider.d';
 
 const DEFAULT_VALUES: TWRNContextType = {
@@ -18,6 +18,12 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
     // Ensures its dark or light mode
     mode === 'dark' ? 'dark' : 'light',
   );
+
+  useEffect(() => {
+    if (['dark', 'light'].includes(theme?.mode ?? '')) {
+      setModeState(theme?.mode ?? 'dark');
+    }
+  }, [theme?.mode]);
 
   const toggleMode = () => {
     setModeState(prevMode => (prevMode === 'dark' ? 'light' : 'dark'));
