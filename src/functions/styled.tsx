@@ -13,6 +13,19 @@ const getStyle = (stringStyles: any[], propsValues: any) => {
   return validStringStyle;
 };
 
+const combineTWAndPropStyles = (twStyles: any, propStyles: any) => {
+  if (Array.isArray(propStyles)) {
+    const allStyles = [...propStyles, twStyles];
+    return allStyles;
+  } else {
+    const allStyles = {
+      ...twStyles,
+      ...propStyles,
+    };
+    return allStyles;
+  }
+};
+
 const styled =
   (ReactComponent: React.ComponentType) =>
   (...args: any[]) => {
@@ -21,10 +34,7 @@ const styled =
       const twStringStyle = getStyle(args, props);
       const twStyles = tw(twStringStyle);
       const {style: propStyles, ...restProps} = props;
-      const allStyles = {
-        ...twStyles,
-        ...propStyles,
-      };
+      const allStyles = combineTWAndPropStyles(twStyles, propStyles);
       return <ReactComponent style={allStyles} {...restProps} />;
     };
   };

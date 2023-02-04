@@ -42,6 +42,7 @@ const stylesPrefixes = {
   bg: 'backgroundColor',
   color: 'color',
   'font-size': 'fontSize',
+  'font-weight': 'fontWeight',
   'flex-shrink': 'flexShrink',
   text: 'color',
   'flex-grow': 'flexGrow',
