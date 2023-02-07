@@ -47,27 +47,39 @@ const useTW = (): any => {
           ...styles,
           ...matchedStyle,
         };
-      } else if (currentStyleString.includes('.')) {
-        const matchedNestedStyle = getNestedStyleFromString(
-          allStyles,
-          currentStyleString,
-        );
-        if (matchedNestedStyle) {
+      } else {
+        if (currentStyleString.includes('.')) {
+          const matchedNestedStyle = getNestedStyleFromString(
+            allStyles,
+            currentStyleString,
+          );
+          if (matchedNestedStyle) {
+            styles = {
+              ...styles,
+              ...matchedStyle,
+            };
+          } else {
+            const style = getStyleFromStyleString({
+              styleString: currentStyleString,
+              window,
+              colors: allColors,
+            });
+            styles = {
+              ...styles,
+              ...style,
+            };
+          }
+        } else {
+          const style = getStyleFromStyleString({
+            styleString: currentStyleString,
+            window,
+            colors: allColors,
+          });
           styles = {
             ...styles,
-            ...matchedStyle,
+            ...style,
           };
         }
-      } else {
-        const style = getStyleFromStyleString({
-          styleString: currentStyleString,
-          window,
-          colors: allColors,
-        });
-        styles = {
-          ...styles,
-          ...style,
-        };
       }
     }
     return styles;
