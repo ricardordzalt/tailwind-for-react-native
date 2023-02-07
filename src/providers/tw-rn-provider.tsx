@@ -1,4 +1,5 @@
 import React, {useState, createContext, useContext, useEffect} from 'react';
+import { COLORS } from "../constants/colors";
 import {Mode, TWRNContextType, TWRNProviderProps} from './tw-rn-provider.d';
 
 const DEFAULT_VALUES: TWRNContextType = {
@@ -13,7 +14,11 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
   children,
   theme,
 }) => {
-  const {mode = 'light', styles = {}, colors = {}} = theme ?? {};
+  const {mode = 'light', styles = {}, colors: colorsTheme = {}} = theme ?? {};
+  const colors = {
+    ...COLORS,
+    ...colorsTheme,
+  };
   const [modeState, setModeState] = useState<Mode>(
     // Ensures its dark or light mode
     mode === 'dark' ? 'dark' : 'light',

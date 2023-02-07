@@ -7,7 +7,7 @@ import getFilteredArrayOfStyleStringsByMode from '../utils/get-filtered-array-of
 import getStyleFromStyleString from '../utils/get-style-from-style-string';
 import stylesSeparator from '../utils/styles-separator';
 import {TailwindStylesGeneratorType, StylesType} from './use-tw.d';
-import getNestedStyleFromString from "../utils/get-nested-style-from-string";
+import getNestedStyleFromString from '../utils/get-nested-style-from-string';
 
 const useTW = (): any => {
   // For screen dimensions
