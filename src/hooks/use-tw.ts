@@ -56,7 +56,7 @@ const useTW = (): any => {
           if (matchedNestedStyle) {
             styles = {
               ...styles,
-              ...matchedStyle,
+              ...matchedNestedStyle,
             };
           } else {
             const style = getStyleFromStyleString({

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import {TWRNProvider, useTW, styled} from '../src';
 
 const Title = styled(Text)`
@@ -10,6 +10,18 @@ const Title = styled(Text)`
 
 const SubTitle = styled(Text)`
   font-size-30  color-#d36684 dark:color-white
+`;
+
+const CustomButton = styled(Pressable)`
+  buttons.base
+  buttons.primary
+  dark:buttons.customs.alternativeBlue
+  mt-hp(3)
+`;
+
+const ButtonTitle = styled(Text)`
+  font-size-20
+  color-white
 `;
 
 const App = () => {
@@ -24,11 +36,11 @@ const App = () => {
         Title
       </Title>
       <SubTitle>Subtitle</SubTitle>
-      <Button
-        title="Toggle mode"
+      <CustomButton
         onPress={toggleMode}
-        color={mode === 'dark' ? 'red' : colors?.primaryColor?.base}
-      />
+        color={mode === 'dark' ? 'red' : colors?.primaryColor?.base}>
+        <ButtonTitle>Toggle mode</ButtonTitle>
+      </CustomButton>
     </View>
   );
 };
@@ -133,6 +145,23 @@ const AppWrapper = () => {
         styles: {
           'big-font-size': {
             fontSize: 50,
+          },
+          buttons: {
+            base: {
+              borderRadius: 10,
+              padding: 10,
+              width: '80%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            },
+            primary: {
+              backgroundColor: '#55a',
+            },
+            customs: {
+              alternativeBlue: {
+                backgroundColor: '#88d',
+              },
+            },
           },
         },
         mode: 'dark',
