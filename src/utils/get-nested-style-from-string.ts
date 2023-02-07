@@ -1,4 +1,4 @@
-const getNestedObjectValue = (obj: any, path: string) => {
+const getNestedStyleFromString = (obj: any, path: string) => {
   if (!path) {
     return;
   }
@@ -6,4 +6,4 @@ const getNestedObjectValue = (obj: any, path: string) => {
   return properties.reduce((acc, prop) => acc && acc[prop], obj);
 };
 
-export default getNestedObjectValue;
+export default getNestedStyleFromString;
