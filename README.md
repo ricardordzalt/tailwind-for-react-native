@@ -16,6 +16,7 @@ or using yarn:
 
 
 ```js
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -125,9 +126,44 @@ const App = () => {
 
 export default App;
 
-
 ```
 
+### styled
+
+#### Create new componentes with styled function
+
+La función styled, nos permite crear componentes a partir de otro, utilizando tagged template literals. Para ello utilizamos styled, y le pasamos como parámetro un componente que acepte un objeto de estilos en la propiedad style.
+
+```js
+
+import { Pressable, Text } from ‘react-native’;
+import { styled } from ‘tailwind-for-react-native’;
+
+const ButtomContainer = styled(Pressable)`
+  rounded-8
+  padding-6
+  height-50
+  width-70%
+  justify-center
+  items-center
+`;
+
+const ButtomText = styled(Text)`
+  font-size-16
+  color-#fff
+`;
+
+const MyComponent = () ⇒ {
+  return (
+    <ButtonContainer>
+      <ButtonText>
+        Press me
+      </ButtonText>
+    </ButtonContainer>
+  );
+};
+
+```
 
 
 ### Available Computed Properties
