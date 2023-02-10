@@ -139,7 +139,7 @@ La función styled, nos permite crear componentes a partir de otro, utilizando t
 import { Pressable, Text } from ‘react-native’;
 import { styled } from ‘tailwind-for-react-native’;
 
-const ButtomContainer = styled(Pressable)`
+const Button = styled(Pressable)`
   rounded-8
   padding-6
   height-50
@@ -148,21 +148,54 @@ const ButtomContainer = styled(Pressable)`
   items-center
 `;
 
-const ButtomText = styled(Text)`
+const ButtonText = styled(Text)`
   font-size-16
   color-#fff
 `;
 
 const MyComponent = () ⇒ {
   return (
-    <ButtonContainer>
+    <Button>
       <ButtonText>
         Press me
       </ButtonText>
-    </ButtonContainer>
+    </Button>
   );
 };
 
+```
+
+#### Pasar props
+
+Puedes pasar props a los componentes creados por la función styled, y acceder a ellos en la interpolación. El siguiente ejemplo recibe un color para el color de fondo del botón
+
+
+```js
+import { Pressable, Text } from "react-native";
+import { styled } from "tailwind-for-react-native";
+
+// This component uses color prop to set backgroundColor style
+// and uses #fff as default value
+const Button = styled(Pressable)`
+  bg-${({ color }) => color ?? "#fff"}
+`;
+
+const App = () => {
+  return (
+    <>
+      {/* This button is red */}
+      <Button color="#f00">
+        <Text>Press me</Text>
+      </Button>
+      {/* This button is blue */}
+      <Button color="#00f">
+        <Text>Press me</Text>
+      </Button>
+    </>
+  );
+};
+
+export default App;
 ```
 
 
