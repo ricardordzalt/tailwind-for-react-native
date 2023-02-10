@@ -16,7 +16,6 @@ or using yarn:
 
 
 ```js
-
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -123,9 +122,6 @@ const App = () => {
     </TWRNProvider>
   );
 };
-
-export default App;
-
 ```
 
 ### Función styled
@@ -153,7 +149,7 @@ const ButtonText = styled(Text)`
   color-#fff
 `;
 
-const MyComponent = () ⇒ {
+const MyComponent = () => {
   return (
     <Button>
       <ButtonText>
@@ -203,10 +199,96 @@ export default App;
 
 #### Función tw
 ```js
-  tw: (string) ⇒ styles
+  tw: (string) => styles
 ```
 
 La función tw es otra alternativa para crear nuestros estilos. Nos permite crear un estilo a partir de una cadena de texto con los estilos que queremos aplicar.
+#### Modo oscuro
+```js
+  mode: ‘light’ | ‘dark’ - default ‘light’
+```
+
+Podemos utilizar mode para saber si nuestro estado actual es dark o light.
+
+#### Colores
+```js
+  colors: Object
+```
+El objeto colors nos permite acceder a los colores disponibles para usar en nuestros en estilos.
+
+### TWRNProvider
+
+Podemos extender las funcionalidades de la librería, pasando valores al TWRNProvider.
+
+#### mode
+
+Podemos controlar el estado del modo actual del provider, ya sea ‘light’ o ‘dark’ 
+
+#### colors
+
+Pasa un objeto de colores al provider, para poder acceder a ellos mediante estilos que acepte un color, tales como backgroundColor(bg) o color(color).
+
+#### styles
+
+A veces necesitamos agregar más estilos de los que la librería cuenta por default. Para ello podemos pasar al provider, un objeto de nuevos estilos y utilizarlos dentro de nuestras funciones.
+
+#### Diseño responsive
+
+Una forma de crear interfaces que se adapten a las dimensiones de las pantallas de diferentes dispositivos, es usar porcentajes. Cuando creemos estilos, podemos pasar como valores a algunas propiedades con las funciones dentro de estilos hp(number) y wp(number), las cuales, nos retornarán como valor, el porcentaje del alto o ancho de la pantalla, respectivamente.
+
+```js
+import { Button }  from ‘react-native’;
+import { styled }  from ‘tailwind-for-react-native’;
+
+const SmallButton = styled(Button)`
+  w-wp(50)
+  h-hp(10)
+`;
+```
+
+El código anterior, crea un nuevo componente a partir de un botón de react native y le agrega los estilos width con el 50% del ancho de la pantalla del dipositivo, y height con el 10% del alto de la pantalla del dispositivo. Puedes usar hp y wp en cualquier estilo que acepte números.
+
+### Modo oscuro
+
+Es posible condicionar estilos para ser aplicados solamente al modo oscuro, si queremos controlar el estado del modo oscuro es posible usar TWRNProvider y pasarle el valor mode a la prop theme. Incluso podemos combinarlo con el hook useColorScheme, el cual proporciona y se suscribe a actualizaciones de esquemas de color desde el módulo Apariencia y actualizar nuestros estilos cuando se detecte un cambio hecho por el usuario, en el modo del dispositivo.
+
+```js
+import { useColorScheme } from 'react-native';
+import { TWRNProvider } from 'tailwind-for-react-native';
+
+const App = () => {
+  const mode = useColorScheme();
+  return (
+    <TWRNProvider theme={{mode}}>
+      <YourApp />
+    </TWRNProvider>
+  );
+};
+```
+
+Y dentro de tu aplicación
+
+```js
+const Container = styled(View)`
+  bg-white
+  dark:bg-black
+`;
+```
+
+El estilo bg-white, el cual regresa un backgroundColor: ‘white’ como valor, se aplicará siempre, sin embargo, puede ser sobreescrito por el segundo estilo: dark:bg-black, cuando el tema configurado en el estado del provider sea “dark”.
+
+### Plataforma (iOS, Android)
+
+Podemos condicionar estilos a una plataforma específica (Android o iOS), anteponiento la palabra android o ios a los estilos que queramos condicionar.
+
+```js
+const Container = styled(View)`
+  android:bg-#a4c639
+  ios:bg-#5856d6
+`;
+```
+
+El backgroundColor con valor #a4c639 será aplicado solo en dispositivos con sistema operativo Android, y el backgroundColor #5856d6 será aplicado solo en dispositivos iOS.
 
 ### Available Computed Properties
 
