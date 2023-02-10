@@ -128,7 +128,7 @@ export default App;
 
 ```
 
-### styled
+### Función styled
 
 #### Create new componentes with styled function
 
@@ -198,6 +198,15 @@ const App = () => {
 export default App;
 ```
 
+
+### Hook useTW
+
+#### Función tw
+```js
+  tw: (string) ⇒ styles
+```
+
+La función tw es otra alternativa para crear nuestros estilos. Nos permite crear un estilo a partir de una cadena de texto con los estilos que queremos aplicar.
 
 ### Available Computed Properties
 
