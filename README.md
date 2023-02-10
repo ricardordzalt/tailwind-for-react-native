@@ -132,8 +132,8 @@ La función styled, nos permite crear componentes a partir de otro, utilizando t
 
 ```js
 
-import { Pressable, Text } from ‘react-native’;
-import { styled } from ‘tailwind-for-react-native’;
+import { Pressable, Text } from ‘react-native';
+import { styled } from ‘tailwind-for-react-native';
 
 const Button = styled(Pressable)`
   rounded-8
@@ -205,7 +205,7 @@ export default App;
 La función tw es otra alternativa para crear nuestros estilos. Nos permite crear un estilo a partir de una cadena de texto con los estilos que queremos aplicar.
 #### Modo oscuro
 ```js
-  mode: ‘light’ | ‘dark’ - default ‘light’
+  mode: ‘light' | ‘dark' - default ‘light'
 ```
 
 Podemos utilizar mode para saber si nuestro estado actual es dark o light.
@@ -222,7 +222,7 @@ Podemos extender las funcionalidades de la librería, pasando valores al TWRNPro
 
 #### mode
 
-Podemos controlar el estado del modo actual del provider, ya sea ‘light’ o ‘dark’ 
+Podemos controlar el estado del modo actual del provider, ya sea ‘light' o ‘dark' 
 
 #### colors
 
@@ -237,8 +237,8 @@ A veces necesitamos agregar más estilos de los que la librería cuenta por defa
 Una forma de crear interfaces que se adapten a las dimensiones de las pantallas de diferentes dispositivos, es usar porcentajes. Cuando creemos estilos, podemos pasar como valores a algunas propiedades con las funciones dentro de estilos hp(number) y wp(number), las cuales, nos retornarán como valor, el porcentaje del alto o ancho de la pantalla, respectivamente.
 
 ```js
-import { Button }  from ‘react-native’;
-import { styled }  from ‘tailwind-for-react-native’;
+import { Button }  from ‘react-native';
+import { styled }  from ‘tailwind-for-react-native';
 
 const SmallButton = styled(Button)`
   w-wp(50)
@@ -275,7 +275,7 @@ const Container = styled(View)`
 `;
 ```
 
-El estilo bg-white, el cual regresa un backgroundColor: ‘white’ como valor, se aplicará siempre, sin embargo, puede ser sobreescrito por el segundo estilo: dark:bg-black, cuando el tema configurado en el estado del provider sea “dark”.
+El estilo bg-white, el cual regresa un backgroundColor: ‘white' como valor, se aplicará siempre, sin embargo, puede ser sobreescrito por el segundo estilo: dark:bg-black, cuando el tema configurado en el estado del provider sea “dark”.
 
 ### Plataforma (iOS, Android)
 
