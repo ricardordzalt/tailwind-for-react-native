@@ -246,7 +246,7 @@ const SmallButton = styled(Button)`
 `;
 ```
 
-El código anterior, crea un nuevo componente a partir de un botón de react native y le agrega los estilos width con el 50% del ancho de la pantalla del dipositivo, y height con el 10% del alto de la pantalla del dispositivo. Puedes usar hp y wp en cualquier estilo que acepte números.
+El código anterior, crea un nuevo componente a partir de un botón de react native y le agrega los estilos width con el 50% del ancho de la pantalla del dipositivo, y height con el 10% del alto de la pantalla del dispositivo. Puedes usar hp y wp en cualquier estilo que acepte valores numéricos.
 
 ### Modo oscuro
 
