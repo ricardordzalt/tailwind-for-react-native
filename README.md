@@ -1,3 +1,11 @@
+test
+
+<details>
+  <summary>See ...</summary>
+  <br>
+</details>
+
+
 # Get started
 
 ### Installation
@@ -6,7 +14,7 @@ Install this library with npm:
 
     npm i tailwind-for-react-native
 
-or using yarn:
+or with yarn:
 
     yarn add tailwind-for-react-native
 
@@ -14,6 +22,7 @@ or using yarn:
 
 #### React Native template wrote with tailwind-for-react-native
 
+See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native
 
 ```js
 /**
@@ -47,19 +56,19 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-const Container = styled(View)`
+const SectionContainer = styled(View)`
   mt-32
   px-24
 `;
 
-const Title = styled(Text)`
+const SectionTitle = styled(Text)`
   font-size-24
   font-weight-600
   color-black
   dark:color-white
 `;
 
-const Subtitle = styled(Text)`
+const SectionDescription = styled(Text)`
   mt-8
   font-size-18
   font-weight-400
@@ -73,10 +82,10 @@ const HighlightText = styled(Text)`
 
 function Section({children, title}: SectionProps): JSX.Element {
   return (
-    <Container>
-      <Title>{title}</Title>
-      <Subtitle>{children}</Subtitle>
-    </Container>
+    <SectionContainer>
+      <SectionTitle>{title}</SectionTitle>
+      <SectionDescription>{children}</SectionDescription>
+    </SectionContainer>
   );
 }
 
