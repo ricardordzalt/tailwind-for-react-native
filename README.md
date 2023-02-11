@@ -1,7 +1,7 @@
 test
 
 <details>
-  <summary>See ...</summary>
+  <summary>See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native</summary>
   <br>
 </details>
 
@@ -31,7 +31,6 @@ See [React Native template version 0.71](https://github.com/facebook/react-nativ
  *
  * @format
  */
-
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -131,6 +130,9 @@ const App = () => {
     </TWRNProvider>
   );
 };
+
+export default App;
+
 ```
 
 ### Función styled
