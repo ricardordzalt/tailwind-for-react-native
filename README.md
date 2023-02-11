@@ -18,15 +18,12 @@ or with yarn:
 
     yarn add tailwind-for-react-native
 
-### Usage
-
-#### Example
+### Example
 See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native
 <details>
-  <summary>Expand</summary>
+  <summary>Expand example</summary>
   <br>
-  
-  This is how you add `code` in a dropdown:
+
   ```javascript
     import React from 'react';
     import type {PropsWithChildren} from 'react';
@@ -131,6 +128,8 @@ See [React Native template version 0.71](https://github.com/facebook/react-nativ
     export default App;
   ```
 </details>
+
+
 
 ### Función styled
 
