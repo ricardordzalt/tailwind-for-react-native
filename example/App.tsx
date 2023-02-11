@@ -22,11 +22,23 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
+//  {
+//    marginTop: 32,
+//    paddingLeft: 24,
+//    paddingRigh: 24,
+//  }
 const SectionContainer = styled(View)`
   mt-32
   px-24
 `;
 
+//  {
+//    fontSize: 24,
+//    fontWeight: 600,
+//    color: '#000',
+//    Next style applies only on dark mode
+//    color: '#fff',
+//  }
 const SectionTitle = styled(Text)`
   font-size-24
   font-weight-600
@@ -34,6 +46,14 @@ const SectionTitle = styled(Text)`
   dark:color-white
 `;
 
+//  {
+//    marginTop: 8,
+//    fontSize: 18,
+//    fontWeight: 400,
+//    color: '#000',
+//    Next style applies only on dark mode
+//    color: '#DAE1E7', <-- Comes from provider's theme, also it comes from Colors object import
+//  }
 const SectionDescription = styled(Text)`
   mt-8
   font-size-18
@@ -42,6 +62,9 @@ const SectionDescription = styled(Text)`
   dark:color-light
 `;
 
+//  {
+//    fontWeight: 700,
+//  }
 const HighlightText = styled(Text)`
   font-weight-700
 `;
@@ -57,6 +80,11 @@ function Section({children, title}: SectionProps): JSX.Element {
 
 function YourApp(): JSX.Element {
   const {tw, mode} = useTW();
+  //  {
+  //    color: '#fff',
+  //    Next style applies only on dark mode
+  //    color: '##444', <-- Comes from provider's theme, also it comes from Colors object import
+  //  }
   const backgroundStyle = tw('bg-white dark:bg-dark');
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -68,6 +96,13 @@ function YourApp(): JSX.Element {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        {/*
+          {
+            color: '#fff',
+            Next style applies only on dark mode
+            color: '##000', <-- Comes from provider's theme, also it comes from Colors object import
+          }
+        */}
         <View style={tw('bg-white dark:bg-black')}>
           <Section title="Step One">
             Edit <HighlightText>App.tsx</HighlightText> to change this screen
@@ -88,7 +123,6 @@ function YourApp(): JSX.Element {
     </SafeAreaView>
   );
 }
-
 const App = () => {
   const mode = useColorScheme();
   return (
