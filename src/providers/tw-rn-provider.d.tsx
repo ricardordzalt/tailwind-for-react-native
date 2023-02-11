@@ -1,6 +1,6 @@
 import {Dispatch, SetStateAction} from 'react';
 
-export type Mode = 'light' | 'dark';
+export type Mode = 'light' | 'dark' | null;
 
 export type TWRNTheme = {
   mode?: Mode;
