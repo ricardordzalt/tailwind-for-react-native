@@ -22,10 +22,8 @@ or with yarn:
 
 #### Example
 
-See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native
-
 <details>
-  <summary>Expand...</summary>
+  <summary>See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native</summary>
   <br>
   
   This is how you add `code` in a dropdown:
