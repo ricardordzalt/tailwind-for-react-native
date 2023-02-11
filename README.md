@@ -20,11 +20,14 @@ or with yarn:
 
 ### Usage
 
-#### React Native template wrote with tailwind-for-react-native
+#### Example
 
 See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native
 
-```js
+<details>
+  <summary>Expand</summary>  
+  <br>
+  ```js
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -134,6 +137,7 @@ const App = () => {
 export default App;
 
 ```
+</details>
 
 ### Función styled
 
