@@ -1,11 +1,3 @@
-test
-
-<details>
-  <summary>See [React Native template version 0.71](https://github.com/facebook/react-native/blob/0.71-stable/template/App.tsx) wrote with tailwind-for-react-native</summary>
-  <br>
-</details>
-
-
 # Get started
 
 ### Installation
