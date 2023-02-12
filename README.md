@@ -165,8 +165,8 @@ The styled function allows us to create components from another component using 
 
 ```js
 
-import { Pressable, Text } from ‘react-native';
-import { styled } from ‘tailwind-for-react-native';
+import { Pressable, Text } from 'react-native';
+import { styled } from 'tailwind-for-react-native';
 
 const Button = styled(Pressable)`
   rounded-8
@@ -238,7 +238,7 @@ export default App;
 In addition to the styled function, the tw function allows us to create a style from a string of text with the styles we want to apply.
 #### Modo oscuro
 ```js
-  mode: ‘light' | ‘dark' - default ‘light'
+  mode: 'light' | 'dark' - default 'light'
 ```
 
 We can use mode to know if our current state is dark or light.
@@ -270,8 +270,8 @@ Sometimes we need to add more styles than the library has by default. To do this
 A way to create interfaces that adapt to the dimensions of the screens of different devices is to use percentages. When we create styles, we can pass values to some properties with the functions within styles hp(number) and wp(number), which will return as a value, the percentage of the height or width of the screen, respectively.
 
 ```js
-import { Button }  from ‘react-native';
-import { styled }  from ‘tailwind-for-react-native';
+import { Button }  from 'react-native';
+import { styled }  from 'tailwind-for-react-native';
 
 const SmallButton = styled(Button)`
   w-wp(50)
