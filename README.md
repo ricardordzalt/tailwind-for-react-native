@@ -161,7 +161,7 @@ React Native v0.71 default [template](https://github.com/facebook/react-native/b
 
 #### Create new componentes with styled function
 
-The styled function allows us to create components from another component using tagged template literals. We use styled and pass it as a parameter a component that accepts a styles object in the style property.
+The styled function allows us to create components from another component using tagged template literals. We use styled and pass it as a parameter a component that accepts a style prop.
 
 ```js
 
@@ -283,7 +283,7 @@ The code above creates a new component from a React Native button and adds the s
 
 ### Modo oscuro
 
-It is possible to condition styles to be applied only in dark mode, if we want to control the dark mode state it is possible to use TWRNProvider and pass the value of mode to the theme property. We can even combine it with the useColorScheme hook, which provides and subscribes to updates of color schemes from the Appearance module and updates our styles when a change made by the user in the device mode is detected.
+It is possible to condition styles to be applied only in dark mode, if we want to control the dark mode state it is possible to use TWRNProvider and pass the value of mode to theme prop. We can even combine it with the useColorScheme hook, which provides and subscribes to updates of color schemes from the Appearance module and updates our styles when a change made by the user in the device mode is detected.
 
 
 ```js
