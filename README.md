@@ -157,11 +157,11 @@ React Native v0.71 default [template](https://github.com/facebook/react-native/b
 
 
 
-### Función styled
+### Styled function
 
 #### Create new componentes with styled function
 
-La función styled, nos permite crear componentes a partir de otro, utilizando tagged template literals. Para ello utilizamos styled, y le pasamos como parámetro un componente que acepte un objeto de estilos en la propiedad style.
+The styled function allows us to create components from another component using tagged template literals. We use styled and pass it as a parameter a component that accepts a styles object in the style property.
 
 ```js
 
@@ -194,9 +194,9 @@ const MyComponent = () => {
 
 ```
 
-#### Pasar props
+#### Pass props
 
-Puedes pasar props a los componentes creados por la función styled, y acceder a ellos en la interpolación. El siguiente ejemplo recibe un color para el color de fondo del botón
+You can pass props to the components created by the styled function, and access them in the interpolation. The following example receives a color for the background color of the button.
 
 
 ```js
@@ -230,44 +230,44 @@ export default App;
 
 ### Hook useTW
 
-#### Función tw
+#### The tw function
 ```js
   tw: (string) => styles
 ```
 
-La función tw es otra alternativa para crear nuestros estilos. Nos permite crear un estilo a partir de una cadena de texto con los estilos que queremos aplicar.
+In addition to the styled function, the tw function allows us to create a style from a string of text with the styles we want to apply.
 #### Modo oscuro
 ```js
   mode: ‘light' | ‘dark' - default ‘light'
 ```
 
-Podemos utilizar mode para saber si nuestro estado actual es dark o light.
+We can use mode to know if our current state is dark or light.
 
 #### Colores
 ```js
   colors: Object
 ```
-El objeto colors nos permite acceder a los colores disponibles para usar en nuestros en estilos.
+The colors object allows us to access the colors available for use in our styles.
 
 ### TWRNProvider
 
-Podemos extender las funcionalidades de la librería, pasando valores al TWRNProvider.
+We can extend the functionality of the library by passing values to the TWRNProvider.
 
 #### mode
 
-Podemos controlar el estado del modo actual del provider, ya sea ‘light' o ‘dark' 
+We can control the current mode state of the provider, either 'light' or 'dark'.
 
 #### colors
 
-Pasa un objeto de colores al provider, para poder acceder a ellos mediante estilos que acepte un color, tales como backgroundColor(bg) o color(color).
+Pass a colors object to the provider to be able to access them through styles that accept a color, such as backgroundColor(bg) or color(color).
 
 #### styles
 
-A veces necesitamos agregar más estilos de los que la librería cuenta por default. Para ello podemos pasar al provider, un objeto de nuevos estilos y utilizarlos dentro de nuestras funciones.
+Sometimes we need to add more styles than the library has by default. To do this, we can pass a new styles object to the provider and use it within our functions.
 
-#### Diseño responsive
+#### Responsive design
 
-Una forma de crear interfaces que se adapten a las dimensiones de las pantallas de diferentes dispositivos, es usar porcentajes. Cuando creemos estilos, podemos pasar como valores a algunas propiedades con las funciones dentro de estilos hp(number) y wp(number), las cuales, nos retornarán como valor, el porcentaje del alto o ancho de la pantalla, respectivamente.
+A way to create interfaces that adapt to the dimensions of the screens of different devices is to use percentages. When we create styles, we can pass values to some properties with the functions within styles hp(number) and wp(number), which will return as a value, the percentage of the height or width of the screen, respectively.
 
 ```js
 import { Button }  from ‘react-native';
@@ -279,11 +279,12 @@ const SmallButton = styled(Button)`
 `;
 ```
 
-El código anterior, crea un nuevo componente a partir de un botón de react native y le agrega los estilos width con el 50% del ancho de la pantalla del dipositivo, y height con el 10% del alto de la pantalla del dispositivo. Puedes usar hp y wp en cualquier estilo que acepte valores numéricos.
+The code above creates a new component from a React Native button and adds the styles width with 50% of the device screen width, and height with 10% of the device screen height. You can use hp and wp in any style that accepts numeric values.
 
 ### Modo oscuro
 
-Es posible condicionar estilos para ser aplicados solamente al modo oscuro, si queremos controlar el estado del modo oscuro es posible usar TWRNProvider y pasarle el valor mode a la prop theme. Incluso podemos combinarlo con el hook useColorScheme, el cual proporciona y se suscribe a actualizaciones de esquemas de color desde el módulo Apariencia y actualizar nuestros estilos cuando se detecte un cambio hecho por el usuario, en el modo del dispositivo.
+It is possible to condition styles to be applied only in dark mode, if we want to control the dark mode state it is possible to use TWRNProvider and pass the value of mode to the theme property. We can even combine it with the useColorScheme hook, which provides and subscribes to updates of color schemes from the Appearance module and updates our styles when a change made by the user in the device mode is detected.
+
 
 ```js
 import { useColorScheme } from 'react-native';
@@ -299,7 +300,7 @@ const App = () => {
 };
 ```
 
-Y dentro de tu aplicación
+In your application
 
 ```js
 const Container = styled(View)`
@@ -308,11 +309,11 @@ const Container = styled(View)`
 `;
 ```
 
-El estilo bg-white, el cual regresa un backgroundColor: ‘white' como valor, se aplicará siempre, sin embargo, puede ser sobreescrito por el segundo estilo: dark:bg-black, cuando el tema configurado en el estado del provider sea “dark”.
+The "bg-white" style, which returns a "backgroundColor: 'white'" value, will always be applied, however, it can be overridden by the second style: "dark:bg-black", when the mode configured in the TWRNProvider state is "dark".
 
 ### Plataforma (iOS, Android)
 
-Podemos condicionar estilos a una plataforma específica (Android o iOS), anteponiento la palabra android o ios a los estilos que queramos condicionar.
+We can condition styles to a specific platform (Android or iOS) by prefixing the style name with "android" or "ios" respectively, for the styles we want to condition.
 
 ```js
 const Container = styled(View)`
@@ -321,7 +322,7 @@ const Container = styled(View)`
 `;
 ```
 
-El backgroundColor con valor #a4c639 será aplicado solo en dispositivos con sistema operativo Android, y el backgroundColor #5856d6 será aplicado solo en dispositivos iOS.
+"The backgroundColor with the value #a4c639 will only be applied on devices with Android operating system, and the backgroundColor #5856d6 will only be applied on iOS devices."
 
 ### Available Computed Properties
 
