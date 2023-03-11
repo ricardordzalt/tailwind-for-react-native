@@ -170,9 +170,9 @@ import { styled } from 'tailwind-for-react-native';
 
 const Button = styled(Pressable)`
   rounded-8
-  padding-6
-  height-50
-  width-70%
+  p-6
+  h-50
+  w-70%
   justify-center
   items-center
 `;
