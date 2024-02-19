@@ -74,12 +74,11 @@ function YourApp(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   const {tw} = useTW();
   const statusBarBackgroundColor = tw('bg-lighter dark:bg-darker');
-
   return (
     <CustomSafeAreaView>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={statusBarBackgroundColor}
+        backgroundColor={statusBarBackgroundColor.backgroundColor}
       />
       <CustomScrollView contentInsetAdjustmentBehavior="automatic">
         <Header />

@@ -93,12 +93,11 @@ React Native v0.73.4 default wrote with tailwind-for-react-native below.
       const isDarkMode = useColorScheme() === 'dark';
       const {tw} = useTW();
       const statusBarBackgroundColor = tw('bg-lighter dark:bg-darker');
-
       return (
         <CustomSafeAreaView>
           <StatusBar
             barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={statusBarBackgroundColor}
+            backgroundColor={statusBarBackgroundColor.backgroundColor}
           />
           <CustomScrollView contentInsetAdjustmentBehavior="automatic">
             <Header />
