@@ -6,6 +6,8 @@ export type TWRNTheme = {
   mode?: Mode;
   styles?: any;
   colors?: any;
+  wpFactorConversion: number;
+  hpFactorConversion: number;
 };
 
 export type TWRNContextType = {
@@ -14,6 +16,8 @@ export type TWRNContextType = {
   setMode: Dispatch<SetStateAction<Mode>>;
   styles?: any;
   colors?: any;
+  wpFactorConversion: number;
+  hpFactorConversion: number;
 };
 
 export type TWRNProviderProps = {

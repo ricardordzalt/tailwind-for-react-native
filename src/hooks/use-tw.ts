@@ -17,6 +17,8 @@ const useTW = (): any => {
     colors: contextColors,
     mode,
     toggleMode,
+    wpFactorConversion,
+    hpFactorConversion,
   } = useTWRNContext();
   const allStyles = {
     ...STYLES,
@@ -63,6 +65,8 @@ const useTW = (): any => {
               styleString: currentStyleString,
               window,
               colors: allColors,
+              wpFactorConversion,
+              hpFactorConversion,
             });
             styles = {
               ...styles,
@@ -74,6 +78,8 @@ const useTW = (): any => {
             styleString: currentStyleString,
             window,
             colors: allColors,
+            wpFactorConversion,
+            hpFactorConversion,
           });
           styles = {
             ...styles,

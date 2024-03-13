@@ -6,6 +6,8 @@ const getStyleFromStyleString = ({
   styleString,
   window,
   colors,
+  wpFactorConversion,
+  hpFactorConversion,
 }: getStyleFromStyleStringType) => {
   const splittedStyleString = styleString.split('-');
   let keyProp = '',
@@ -45,12 +47,21 @@ const getStyleFromStyleString = ({
       if (index === splittedStyleString.length - 1) {
         if (el.includes('(') && el.includes(')')) {
           const {height, width} = window;
-          const numberValue = Number(
-            el.replace('wp(', '').replace('hp(', '').replace(')', ''),
-          );
-          value = el.startsWith('w')
-            ? width * (numberValue / 100)
-            : height * (numberValue / 100);
+          if(el.includes('wp(') || el.includes('hp(')){
+            const numberValue = Number(
+              el.replace('wp(', '').replace('hp(', '').replace(')', ''),
+            );
+            value = el.startsWith('w')
+              ? width * (numberValue / 100)
+              : height * (numberValue / 100);
+          }else if(el.includes('wppx(') || el.includes('hppx(')){
+            const numberValue = Number(
+              el.replace('wppx(', '').replace('hppx(', '').replace(')', ''),
+            );
+            value = el.startsWith('w')
+              ? width * (numberValue / 100) / wpFactorConversion
+              : height * (numberValue / 100) / hpFactorConversion;
+            }
         } else if (
           typeof Number(el) === 'number' &&
           !el.includes('%') &&

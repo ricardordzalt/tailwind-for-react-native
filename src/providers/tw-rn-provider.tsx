@@ -6,6 +6,8 @@ const DEFAULT_VALUES: TWRNContextType = {
   mode: 'light',
   toggleMode: () => {},
   setMode: () => {},
+  wpFactorConversion: 3.6,
+  hpFactorConversion: 8,
 };
 
 export const TWRNContext = createContext<TWRNContextType>(DEFAULT_VALUES);
@@ -14,7 +16,14 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
   children,
   theme,
 }) => {
-  const {mode = 'light', styles = {}, colors: colorsTheme = {}} = theme ?? {};
+  const {
+    mode = 'light',
+    styles = {},
+    colors: colorsTheme = {},
+    wpFactorConversion = 3.6,
+    hpFactorConversion = 8,
+  } = theme ?? {};
+
   const colors = {
     ...COLORS,
     ...colorsTheme,
@@ -42,6 +51,8 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
         setMode: setModeState,
         styles,
         colors,
+        wpFactorConversion,
+        hpFactorConversion,
       }}>
       {children}
     </TWRNContext.Provider>
