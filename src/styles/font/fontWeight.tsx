@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const fontSizeProperties = StyleSheet.create({
+export const fontWeightProperties = StyleSheet.create({
   'font-thin': {fontWeight: '100',},
   'font-extralight': {fontWeight: '200',},
   'font-light': {fontWeight: '300',},

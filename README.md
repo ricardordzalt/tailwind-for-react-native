@@ -421,11 +421,11 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 
 | Class      | Affected Properties | Accepted Values |
 | ----------- | ----------- | ----------- |
-| rounded      | borderRadius       | number, wp(number), hp(number)       |
-| rounded-tl      | borderTopLeftRadius       | number, wp(number), hp(number)       |
-| rounded-tr      | borderTopRightRadius       | number, wp(number), hp(number)       |
-| rounded-br      | borderBottomRightRadius       | number, wp(number), hp(number)       |
-| rounded-bl      | borderBottomLeftRadius       | number, wp(number), hp(number)       |
+| border      | borderRadius       | number, wp(number), hp(number)       |
+| border-tl       | borderTopLeftRadius       | number, wp(number), hp(number)       |
+| border-tr       | borderTopRightRadius       | number, wp(number), hp(number)       |
+| border-br       | borderBottomRightRadius       | number, wp(number), hp(number)       |
+| border-bl       | borderBottomLeftRadius       | number, wp(number), hp(number)       |
 
 #### Border Width
 
@@ -461,6 +461,13 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 | Class      | Affected Properties | Accepted Values |
 | ----------- | ----------- | ----------- |
 | font-weight      | fontWeight       | number       |
+
+#### Line Height
+
+| Class      | Affected Properties | Accepted Values |
+| ----------- | ----------- | ----------- |
+| line-height      | lineHeight       | number, wp(number), hp(number)       |
+
 
 #### Flex
 

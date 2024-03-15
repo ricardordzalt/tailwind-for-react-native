@@ -4,7 +4,7 @@
     "url": "https://github.com/ricardordzalt/tailwind-for-react-native"
   },
   "name": "tailwind-for-react-native",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Tailwind for react native",
   "private": false,
   "scripts": {

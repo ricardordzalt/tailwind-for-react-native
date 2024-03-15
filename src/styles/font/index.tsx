@@ -1,8 +1,8 @@
-import {fontSizeProperties} from './fontSize';
+import {fontWeightProperties} from './fontWeight';
 import {fontStyleProperties} from './fontStyle';
 
 const fontStyles = {
-  ...fontSizeProperties,
+  ...fontWeightProperties,
   ...fontStyleProperties,
 };
 
