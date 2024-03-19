@@ -1,5 +1,7 @@
-import {fontWeightProperties} from './fontWeight';
-import {fontStyleProperties} from './fontStyle';
+import {FontWeightProperties, fontWeightProperties} from './fontWeight';
+import {FontStyleProperties, fontStyleProperties} from './fontStyle';
+
+export type FontStyles = FontWeightProperties & FontStyleProperties;
 
 const fontStyles = {
   ...fontWeightProperties,

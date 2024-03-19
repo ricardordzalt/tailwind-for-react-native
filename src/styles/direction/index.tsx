@@ -1,7 +1,9 @@
-import {directionProperties} from './direction';
+import {DirectionProperties, directionProperties} from './direction';
 
-const directionStyles = {
+export type DirectionStyles = DirectionProperties;
+
+const directionStyles: DirectionStyles = {
   ...directionProperties,
 };
 
-export { directionStyles };
+export {directionStyles};

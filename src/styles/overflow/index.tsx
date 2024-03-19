@@ -1,7 +1,9 @@
-import {overflowProperties} from './overflow';
+import {OverflowProperties, overflowProperties} from './overflow';
 
-const overflowStyles = {
+export type OverflowStyles = OverflowProperties;
+
+const overflowStyles: OverflowStyles = {
   ...overflowProperties,
 };
 
-export { overflowStyles };
+export {overflowStyles};

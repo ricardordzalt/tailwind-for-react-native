@@ -1,12 +1,20 @@
-import {fontStyles} from './font';
-import {flexStyles} from './flex';
-import {textStyles} from './text';
-import {positionStyles} from './position';
-import {directionStyles} from './direction';
-import {displayStyles} from './display';
-import {overflowStyles} from './overflow';
+import {FontStyles, fontStyles} from './font';
+import {FlexStyles, flexStyles} from './flex';
+import {TextStyles, textStyles} from './text';
+import {PositionStyles, positionStyles} from './position';
+import {DirectionStyles, directionStyles} from './direction';
+import {DisplayStyles, displayStyles} from './display';
+import {OverflowStyles, overflowStyles} from './overflow';
 
-export const styleProperties: any = {
+type StyleProperties = FlexStyles &
+  FontStyles &
+  TextStyles &
+  PositionStyles &
+  DirectionStyles &
+  DisplayStyles &
+  OverflowStyles;
+
+export const styleProperties: StyleProperties = {
   ...flexStyles,
   ...fontStyles,
   ...textStyles,

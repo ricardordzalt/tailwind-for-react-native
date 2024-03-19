@@ -149,7 +149,7 @@ import { Pressable, Text } from 'react-native';
 import { styled } from 'tailwind-for-react-native';
 
 const Button = styled(Pressable)`
-  rounded-8
+  border-radius-8
   p-6
   h-50
   w-70%
@@ -421,11 +421,11 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 
 | Class      | Affected Properties | Accepted Values |
 | ----------- | ----------- | ----------- |
-| border      | borderRadius       | number, wp(number), hp(number)       |
-| border-tl       | borderTopLeftRadius       | number, wp(number), hp(number)       |
-| border-tr       | borderTopRightRadius       | number, wp(number), hp(number)       |
-| border-br       | borderBottomRightRadius       | number, wp(number), hp(number)       |
-| border-bl       | borderBottomLeftRadius       | number, wp(number), hp(number)       |
+| border-radius    | borderRadius               | number, wp(number), hp(number)       |
+| border-radius-tl | borderTopLeftRadius        | number, wp(number), hp(number)       |
+| border-radius-tr | borderTopRightRadius       | number, wp(number), hp(number)       |
+| border-radius-br | borderBottomRightRadius    | number, wp(number), hp(number)       |
+| border-radius-bl | borderBottomLeftRadius     | number, wp(number), hp(number)       |
 
 #### Border Width
 
@@ -598,6 +598,13 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 | font-bold      | fontWeight: '700'       |
 | font-extrabold      | fontWeight: '800'       |
 | font-black      | fontWeight: '900'       |
+
+#### Font Style
+
+| Class      | Properties |
+| ----------- | ----------- |
+| font-style-normal      | fontStyle: 'normal'       |
+| font-style-italic      | fontStyle: 'italic'       |
 
 ### Position
 

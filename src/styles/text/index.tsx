@@ -1,6 +1,8 @@
-import {textAlignProperties} from './textAlign';
+import {TextAlignProperties, textAlignProperties} from './textAlign';
 
-const textStyles = {
+export type TextStyles = TextAlignProperties;
+
+const textStyles: TextStyles = {
   ...textAlignProperties,
 };
 

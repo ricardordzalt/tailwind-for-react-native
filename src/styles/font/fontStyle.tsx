@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 
-export const fontStyleProperties = StyleSheet.create({
-  'font-normal': {fontStyle: 'normal'},
-  'font-italic': {fontStyle: 'italic'},
+export type FontStyleProperties = {
+  'font-style-normal': {fontStyle: 'normal'};
+  'font-style-italic': {fontStyle: 'italic'};
+};
+
+export const fontStyleProperties: FontStyleProperties = StyleSheet.create({
+  'font-style-normal': {fontStyle: 'normal'},
+  'font-style-italic': {fontStyle: 'italic'},
 });

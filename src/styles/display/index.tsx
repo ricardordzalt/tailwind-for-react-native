@@ -1,7 +1,9 @@
-import {displayProperties} from './display';
+import {DisplayProperties, displayProperties} from './display';
 
-const displayStyles = {
+export type DisplayStyles = DisplayProperties;
+
+const displayStyles: DisplayStyles = {
   ...displayProperties,
 };
 
-export { displayStyles };
+export {displayStyles};

@@ -1,7 +1,9 @@
-import {positionProperties} from './position';
+import {PositionProperties, positionProperties} from './position';
 
-const positionStyles = {
+export type PositionStyles = PositionProperties;
+
+const positionStyles: PositionStyles = {
   ...positionProperties,
 };
 
-export { positionStyles };
+export {positionStyles};
