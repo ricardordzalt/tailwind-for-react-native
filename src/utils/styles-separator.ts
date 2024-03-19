@@ -1,11 +1,8 @@
-import {StylesType, ArrayOfStyleStringType} from './styles-separator.d';
+export type StylesType = string;
+export type ArrayOfStyleStringType = string[];
 
 const stylesSeparator = (
   stylesString: StylesType = '',
-): ArrayOfStyleStringType => {
-  const styles = stylesString.split(' ');
-  const filteredEmptyStyles = styles.filter(style => style !== '');
-  return filteredEmptyStyles;
-};
+): ArrayOfStyleStringType => stylesString.split(' ').filter(Boolean);
 
 export default stylesSeparator;

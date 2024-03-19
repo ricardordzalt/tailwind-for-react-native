@@ -1,30 +1,23 @@
 import {Platform} from 'react-native';
 
+type PlatformType = typeof Platform.OS;
+
 const getFilteredArrayOfStyleStringsByPlatform = (
-  arrayOfStyleString: string[],
-  platform: typeof Platform.OS,
+  arrayOfStyleStrings: string[],
+  platform: PlatformType,
 ): string[] => {
-  const filteredArrayOfStyleStringsByPlatform = arrayOfStyleString
+  return arrayOfStyleStrings
     .map((styleString: string) => {
-      const specifiesPlatform =
-        styleString.startsWith('android:') || styleString.startsWith('ios:');
-      const matchPlatform = specifiesPlatform
-        ? (styleString.startsWith('android:') && platform === 'android') ||
-          (styleString.startsWith('ios:') && platform === 'ios')
-        : true;
-      if (matchPlatform) {
-        const styleStringWithoutPlatform = styleString
-          .replace('ios:', '')
-          .replace('android:', '');
-        return styleStringWithoutPlatform;
-      }
-      if (!matchPlatform) {
-        return null;
+      const isPlatformSpecific = styleString.startsWith(`${platform}:`);
+      const isGeneric =
+        !styleString.includes('android:') && !styleString.includes('ios:');
+
+      if (isPlatformSpecific || isGeneric) {
+        return styleString.replace(/(android:|ios:)/, '');
       }
       return null;
     })
-    .filter(e => e !== null);
-  return filteredArrayOfStyleStringsByPlatform as string[];
+    .filter((styleString): styleString is string => styleString !== null); // Explicit type guard
 };
 
 export default getFilteredArrayOfStyleStringsByPlatform;

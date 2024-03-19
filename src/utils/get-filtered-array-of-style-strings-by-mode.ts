@@ -1,23 +1,17 @@
 import {Mode} from '../providers/tw-rn-provider.d';
 
 const getFilteredArrayOfStyleStringsByMode = (
-  arrayOfStyleString: string[],
+  arrayOfStyleStrings: string[],
   mode: Mode,
 ): string[] => {
-  const filteredArrayOfStyleStringsByMode = arrayOfStyleString
-    .map((styleString: string) => {
-      const isLightMode = mode === 'light';
-      const isDarkStyleString = styleString.startsWith('dark:');
-      if (isLightMode && isDarkStyleString) {
-        return null;
-      } else if (!isLightMode && isDarkStyleString){
-        const styleStringWithoutMode = styleString.replace('dark:', '');
-        return styleStringWithoutMode;
-      }
-      return styleString;
-    })
-    .filter(e => e !== null);
-  return filteredArrayOfStyleStringsByMode as string[];
+  return arrayOfStyleStrings
+    .map(
+      styleString =>
+        mode === 'light' && styleString.startsWith('dark:')
+          ? null
+          : styleString.replace(/^dark:/, ''), // Remove 'dark:' prefix if present.
+    )
+    .filter((styleString): styleString is string => styleString !== null); // Type guard here
 };
 
 export default getFilteredArrayOfStyleStringsByMode;
