@@ -25,9 +25,14 @@ const combineTWAndPropStyles = (twStyles: any, propStyles: any) => {
     return allStyles;
   }
 };
+type Styled = <P extends {}>(
+  ReactComponent: React.ComponentType<P>,
+) => (
+  ...args: any[]
+) => (props: P & {style?: React.CSSProperties}) => React.ReactElement;
 
-const styled =
-  (ReactComponent: React.ComponentType) =>
+const styled: Styled =
+  ReactComponent =>
   (...args: any[]) => {
     return (props: any) => {
       const {tw} = useTW();
