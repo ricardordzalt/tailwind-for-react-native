@@ -10,45 +10,95 @@ const getStyleFromStyleString = ({
   hpFactorConversion,
 }: getStyleFromStyleStringType) => {
   const splittedStyleString = styleString.split('-');
-  let keyProp = splittedStyleString
-    .slice(0, -1)
-    .join('-') as keyof StylesPrefixes;
-  const lastTwo = splittedStyleString.slice(-2).join('-');
-  const lastOne = splittedStyleString[splittedStyleString.length - 1];
-  let value: string | number =
-    getPropByString(colors, lastTwo) || getPropByString(colors, lastOne) || '';
-
+  let keyProp = '' as keyof StylesPrefixes,
+    value: string | number = '';
   if (
-    !value &&
-    (lastOne.includes('wp(') ||
-      lastOne.includes('hp(') ||
-      lastOne.includes('wppx(') ||
-      lastOne.includes('hppx('))
+    splittedStyleString.length > 2 &&
+    getPropByString(
+      colors,
+      `${splittedStyleString[splittedStyleString.length - 2]}-${
+        splittedStyleString[splittedStyleString.length - 1]
+      }`,
+    )
   ) {
-    const numericValue = parseFloat(lastOne.replace(/\D+/g, ''));
-    const isWidth = lastOne.startsWith('w');
-    const factor = lastOne.includes('ppx')
-      ? isWidth
-        ? wpFactorConversion
-        : hpFactorConversion
-      : 100;
-    value = ((isWidth ? window.width : window.height) * numericValue) / factor;
+    splittedStyleString.forEach((el, index) => {
+      if (index >= splittedStyleString.length - 2 && !value) {
+        value = getPropByString(
+          colors,
+          `${splittedStyleString[splittedStyleString.length - 2]}-${
+            splittedStyleString[splittedStyleString.length - 1]
+          }`,
+        );
+      } else if (index < splittedStyleString.length - 2) {
+        keyProp += index === 0 ? el : '-' + el;
+      }
+    });
   } else if (
-    !value &&
-    !isNaN(Number(lastOne)) &&
-    !lastOne.includes('%') &&
-    !lastOne.includes('#')
+    splittedStyleString.length === 2 &&
+    getPropByString(colors, splittedStyleString[splittedStyleString.length - 1])
   ) {
-    value = Number(lastOne);
-  } else if (!value) {
-    value = lastOne;
+    keyProp = splittedStyleString[0] as keyof StylesPrefixes;
+    value = getPropByString(
+      colors,
+      splittedStyleString[splittedStyleString.length - 1],
+    );
+  } else {
+    splittedStyleString.forEach((el, index) => {
+      if (index === splittedStyleString.length - 1) {
+        if (el.includes('(') && el.includes(')')) {
+          const {height, width} = window;
+          if (el.includes('wp(') || el.includes('hp(')) {
+            const numberValue = Number(
+              el.replace('wp(', '').replace('hp(', '').replace(')', ''),
+            );
+            value = el.startsWith('w')
+              ? width * (numberValue / 100)
+              : height * (numberValue / 100);
+          } else if (el.includes('wppx(') || el.includes('hppx(')) {
+            const numberValue = Number(
+              el.replace('wppx(', '').replace('hppx(', '').replace(')', ''),
+            );
+            value = el.startsWith('w')
+              ? (width * (numberValue / 100)) / wpFactorConversion
+              : (height * (numberValue / 100)) / hpFactorConversion;
+          }
+        } else if (
+          typeof Number(el) === 'number' &&
+          !el.includes('%') &&
+          !el.includes('#') &&
+          // Probably bug, white or black values should'nt pass this if
+          el !== 'white' &&
+          el !== 'black' &&
+          el !== 'auto'
+        ) {
+          // In some cases, value needs to be a number
+          value = Number(el);
+        } else {
+          value = el;
+        }
+        value = getPropByString(colors, value)
+          ? getPropByString(colors, value)
+          : value;
+      } else {
+        keyProp += index === 0 ? el : '-' + el;
+      }
+    });
   }
-
   const property = stylesPrefixes[keyProp];
-  return property
-    ? Array.isArray(property)
-      ? property.reduce((acc, prop) => ({...acc, [prop]: value}), {})
-      : {[property]: value}
+  let properties = {};
+  if (Array.isArray(property)) {
+    for (let i = 0; i < property.length; i++) {
+      properties = {...properties, [property[i]]: value};
+    }
+  }
+  return [property]
+    ? typeof property === 'string'
+      ? {
+          [property]: value,
+        }
+      : Array.isArray(property)
+      ? properties
+      : {}
     : {};
 };
 
