@@ -637,6 +637,14 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 | text-right      | textAlign: 'right'       |
 | text-justify      | textAlign: 'justify'       |
 
+#### Text Decoration Line
+
+| Class      | Properties |
+| ----------- | ----------- |
+| none                    | textDecorationLine: 'none'           |
+| underline               | textDecorationLine: 'underline'      |
+| line-through            | textDecorationLine: 'line-through'   |
+| underline-line-through  | textDecorationLine: 'underline line-through'       |
 
 ### Constants
 
