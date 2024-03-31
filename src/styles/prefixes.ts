@@ -21,10 +21,10 @@ export type StylesPrefixes = {
   pl: 'paddingLeft';
   flex: 'flex';
   'border-radius': 'borderRadius';
-  'border-tl': 'borderTopLeftRadius';
-  'border-tr': 'borderTopRightRadius';
-  'border-br': 'borderBottomRightRadius';
-  'border-bl': 'borderBottomLeftRadius';
+  'border-radius-tl': 'borderTopLeftRadius';
+  'border-radius-tr': 'borderTopRightRadius';
+  'border-radius-br': 'borderBottomRightRadius';
+  'border-radius-bl': 'borderBottomLeftRadius';
   'border-b': 'borderBottomWidth';
   'border-e': 'borderEndWidth';
   'border-l': 'borderLeftWidth';
