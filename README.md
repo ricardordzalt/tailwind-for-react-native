@@ -555,6 +555,14 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 | self-baseline   | alignSelf: 'baseline'        |
 | self-stretch   | alignSelf: 'stretch'        |
 
+##### Border Style
+
+| Class      | Properties |
+| ----------- | ----------- |
+| border-solid      | borderStyle: 'solid'       |
+| border-dotted   | borderStyle: 'dotted'        |
+| border-dashed   | borderStyle: 'dashed'        |
+
 ##### Flex Direction
 
 | Class      | Properties |

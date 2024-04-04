@@ -5,6 +5,7 @@ import {PositionStyles, positionStyles} from './position';
 import {DirectionStyles, directionStyles} from './direction';
 import {DisplayStyles, displayStyles} from './display';
 import {OverflowStyles, overflowStyles} from './overflow';
+import {BorderStyles, borderStyles} from './border';
 
 type StyleProperties = FlexStyles &
   FontStyles &
@@ -12,7 +13,8 @@ type StyleProperties = FlexStyles &
   PositionStyles &
   DirectionStyles &
   DisplayStyles &
-  OverflowStyles;
+  OverflowStyles &
+  BorderStyles;
 
 export const styleProperties: StyleProperties = {
   ...flexStyles,
@@ -22,4 +24,5 @@ export const styleProperties: StyleProperties = {
   ...directionStyles,
   ...displayStyles,
   ...overflowStyles,
+  ...borderStyles,
 };
