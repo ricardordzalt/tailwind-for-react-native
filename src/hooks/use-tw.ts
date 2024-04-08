@@ -92,11 +92,15 @@ const useTW = (): any => {
     }
     return styles;
   };
+  const hppx = (numberValue) =>  (window?.height * (numberValue / 100)) / hpFactorConversion
+  const wppx = (numberValue) =>  (window?.width * (numberValue / 100)) / wpFactorConversion
   return {
     tw,
     mode,
     toggleMode,
     colors: contextColors,
+    hppx,
+    wppx
   };
 };
 
