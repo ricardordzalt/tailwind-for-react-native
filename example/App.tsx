@@ -72,9 +72,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function YourApp(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const {tw, hppx, wppx} = useTW();
-  console.log("hppx", hppx(30))
-  console.log("wppx", wppx(30))
+  const {tw} = useTW();
   const statusBarBackgroundColor = tw('bg-lighter dark:bg-darker');
   return (
     <CustomSafeAreaView>
