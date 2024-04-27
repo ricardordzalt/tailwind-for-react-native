@@ -24,14 +24,17 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
     hpFactorConversion = 8,
   } = theme ?? {};
 
-  const colors = {
-    ...COLORS,
-    ...colorsTheme,
-  };
   const [modeState, setModeState] = useState<Mode>(
     // Ensures its dark or light mode
     mode === 'dark' ? 'dark' : 'light',
   );
+
+  const colorsThemeByMode = modeState === 'dark' ? colorsTheme?.dark : colorsTheme?.light
+
+  const colors = {
+    ...COLORS,
+    ...colorsThemeByMode,
+  };
 
   useEffect(() => {
     if (['dark', 'light'].includes(theme?.mode ?? '')) {

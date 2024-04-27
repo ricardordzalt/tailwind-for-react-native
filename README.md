@@ -247,7 +247,10 @@ We can use mode to know if our current state is dark or light.
 
 #### Colores
 ```js
-  colors: Object
+  colors: {
+    light: Object,
+    dark: Object,
+  }
 ```
 The colors object allows us to access the colors available for use in our styles.
 
@@ -261,7 +264,7 @@ We can control the current mode state of the provider, either 'light' or 'dark'.
 
 #### colors
 
-Pass a colors object to the provider to be able to access them through styles that accept a color, such as backgroundColor(bg) or color(color).
+Pass a colors object with light or dark fields with its colors to the provider to be able to access them through styles that accept a color, such as backgroundColor(bg) or color(color).
 
 #### styles
 
@@ -283,7 +286,7 @@ const SmallButton = styled(Button)`
 
 The code above creates a new component from a React Native button and adds the styles width with 50% of the device screen width, and height with 10% of the device screen height. You can use hp and wp in any style that accepts numeric values.
 
-### Modo oscuro
+### Dark mode
 
 It is possible to condition styles to be applied only in dark mode, if we want to control the dark mode state it is possible to use TWRNProvider and pass the value of mode to theme prop. We can even combine it with the useColorScheme hook, which provides and subscribes to updates of color schemes from the Appearance module and updates our styles when a change made by the user in the device mode is detected.
 
