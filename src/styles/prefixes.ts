@@ -53,6 +53,7 @@ export type StylesPrefixes = {
   r: 'right';
   t: 'top';
   b: 'bottom';
+  opacity: 'opacity';
 };
 
 const stylesPrefixes: StylesPrefixes = {
@@ -110,6 +111,7 @@ const stylesPrefixes: StylesPrefixes = {
   r: 'right',
   t: 'top',
   b: 'bottom',
+  opacity: 'opacity',
 };
 
 export default stylesPrefixes;

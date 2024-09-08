@@ -502,6 +502,12 @@ Example: If your device width is 390px, wp(50) will return 195. Also hp(number) 
 | ----------- | ----------- | ----------- |
 | z      | zIndex       | number       |
 
+#### Opacity
+
+| Class      | Affected Properties | Accepted Values |
+| ----------- | ----------- | ----------- |
+| opacity     | opacity     | number      |
+
 
 
 ### Available predefined properties
