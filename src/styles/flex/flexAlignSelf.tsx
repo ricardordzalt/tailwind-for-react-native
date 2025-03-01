@@ -6,6 +6,7 @@ export type FlexAlignSelfProperties = {
   'self-center': {alignSelf: 'center'};
   'self-baseline': {alignSelf: 'baseline'};
   'self-stretch': {alignSelf: 'stretch'};
+  'self-auto': {alignSelf: 'auto'};
 };
 
 export const flexAlignSelfProperties: FlexAlignSelfProperties =
@@ -15,4 +16,5 @@ export const flexAlignSelfProperties: FlexAlignSelfProperties =
     'self-center': {alignSelf: 'center'},
     'self-baseline': {alignSelf: 'baseline'},
     'self-stretch': {alignSelf: 'stretch'},
+    'self-auto': {alignSelf: 'auto'},
   });

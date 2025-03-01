@@ -2,13 +2,13 @@ import {StyleSheet} from 'react-native';
 
 export type BorderStyleProperties = {
   'border-solid': {
-    borderStyle: 'solid',
+    borderStyle: 'solid';
   };
   'border-dotted': {
-    borderStyle: 'dotted',
+    borderStyle: 'dotted';
   };
   'border-dashed': {
-    borderStyle: 'dashed',
+    borderStyle: 'dashed';
   };
 };
 
