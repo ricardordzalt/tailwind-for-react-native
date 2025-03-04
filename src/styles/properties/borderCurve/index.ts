@@ -4,7 +4,9 @@ export type BorderCurveKeys =
   | 'border-curve-circular'
   | 'border-curve-continuous';
 
-export type BorderCurve = Record<BorderCurveKeys, ViewStyle>;
+export type BorderCurveStyle = {borderCurve: ViewStyle['borderCurve']};
+
+export type BorderCurve = Record<BorderCurveKeys, BorderCurveStyle>;
 
 export const borderCurve = StyleSheet.create<BorderCurve>({
   'border-curve-circular': {borderCurve: 'circular'},

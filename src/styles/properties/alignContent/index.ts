@@ -9,7 +9,9 @@ export type AlignContentKeys =
   | 'content-around'
   | 'content-evenly';
 
-export type AlignContent = Record<AlignContentKeys, ViewStyle>;
+export type AlignContentStyle = {alignContent: ViewStyle['alignContent']};
+
+export type AlignContent = Record<AlignContentKeys, AlignContentStyle>;
 
 export const alignContent = StyleSheet.create<AlignContent>({
   'content-start': {

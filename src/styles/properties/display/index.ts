@@ -1,15 +1,12 @@
-
-import { StyleSheet, TextStyle } from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 
 export type DisplayKeys = 'd-flex' | 'd-none';
 
-export type DisplayProperties = Record<DisplayKeys, TextStyle>;
+export type DisplayStyle = {display: ViewStyle['display']};
 
-export const displayProperties = StyleSheet.create<DisplayProperties>({
-  'd-flex': {
-    display: 'flex',
-  },
-  'd-none': {
-    display: 'none',
-  },
+export type Display = Record<DisplayKeys, DisplayStyle>;
+
+export const display = StyleSheet.create<Display>({
+  'd-flex': {display: 'flex'},
+  'd-none': {display: 'none'},
 });

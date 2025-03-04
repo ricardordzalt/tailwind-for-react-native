@@ -2,9 +2,16 @@ import {StyleSheet, ViewStyle} from 'react-native';
 
 export type BackfaceVisibilityKeys = 'backface-hidden' | 'backface-visible';
 
-export type BackfaceVisibility = Record<BackfaceVisibilityKeys, ViewStyle>;
+export type BackfaceVisibilityStyle = {
+  backfaceVisibility: ViewStyle['backfaceVisibility'];
+};
+
+export type BackfaceVisibility = Record<
+  BackfaceVisibilityKeys,
+  BackfaceVisibilityStyle
+>;
 
 export const backfaceVisibility = StyleSheet.create<BackfaceVisibility>({
-  'backface-hidden': {backfaceVisibility: 'visible'},
-  'backface-visible': {backfaceVisibility: 'hidden'},
+  'backface-hidden': {backfaceVisibility: 'hidden'},
+  'backface-visible': {backfaceVisibility: 'visible'},
 });

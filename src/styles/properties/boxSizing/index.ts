@@ -1,10 +1,12 @@
 import {StyleSheet, ViewStyle} from 'react-native';
 
-export type BorderStyleKeys = 'box-border' | 'box-content';
+export type BoxSizingKeys = 'box-border' | 'box-content';
 
-export type BorderStyleProperties = Record<BorderStyleKeys, ViewStyle>;
+export type BoxSizingStyle = {boxSizing: ViewStyle['boxSizing']};
 
-export const borderStyleProperties = StyleSheet.create<BorderStyleProperties>({
+export type BoxSizing = Record<BoxSizingKeys, BoxSizingStyle>;
+
+export const boxSizing = StyleSheet.create<BoxSizing>({
   'box-border': {boxSizing: 'border-box'},
   'box-content': {boxSizing: 'content-box'},
 });

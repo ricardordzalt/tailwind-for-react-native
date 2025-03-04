@@ -7,7 +7,9 @@ export type AlignItemsKeys =
   | 'items-baseline'
   | 'items-stretch';
 
-export type AlignItems = Record<AlignItemsKeys, ViewStyle>;
+export type AlignItemsStyle = {alignItems: ViewStyle['alignItems']};
+
+export type AlignItems = Record<AlignItemsKeys, AlignItemsStyle>;
 
 export const alignItems = StyleSheet.create<AlignItems>({
   'items-start': {alignItems: 'flex-start'},

@@ -1,11 +1,13 @@
-import { StyleSheet, TextStyle } from 'react-native';
+import {StyleSheet, TextStyle} from 'react-native';
 
 export type DirectionKeys = 'dir-inherit' | 'dir-ltr' | 'dir-rtl';
 
-export type DirectionProperties = Record<DirectionKeys, TextStyle>;
+export type DirectionStyle = {direction: TextStyle['direction']};
 
-export const directionProperties = StyleSheet.create<DirectionProperties>({
-  'dir-inherit': { direction: 'inherit' },
-  'dir-ltr': { direction: 'ltr' },
-  'dir-rtl': { direction: 'rtl' },
+export type Direction = Record<DirectionKeys, DirectionStyle>;
+
+export const direction = StyleSheet.create<Direction>({
+  'dir-inherit': {direction: 'inherit'},
+  'dir-ltr': {direction: 'ltr'},
+  'dir-rtl': {direction: 'rtl'},
 });

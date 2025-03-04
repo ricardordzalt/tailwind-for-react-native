@@ -8,7 +8,9 @@ export type AlignSelfKeys =
   | 'self-stretch'
   | 'self-auto';
 
-export type AlignSelf = Record<AlignSelfKeys, ViewStyle>;
+export type AlignSelfStyle = {alignSelf: ViewStyle['alignSelf']};
+
+export type AlignSelf = Record<AlignSelfKeys, AlignSelfStyle>;
 
 export const alignSelf = StyleSheet.create<AlignSelf>({
   'self-start': {alignSelf: 'flex-start'},

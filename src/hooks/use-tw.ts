@@ -1,12 +1,13 @@
 import {Platform, useWindowDimensions} from 'react-native';
 import {COLORS} from '../constants/colors';
 import {useTWRNContext} from '../providers/tw-rn-provider';
-import {styleProperties as STYLES} from '../styles';
+// import {styleProperties as STYLES} from '../styles';
 import getFilteredArrayOfStyleStringsByPlatform from '../utils/get-filtered-array-of-style-strings-by-platform';
 import getFilteredArrayOfStyleStringsByMode from '../utils/get-filtered-array-of-style-strings-by-mode';
 import getStyleFromStyleString from '../utils/get-style-from-style-string';
 import stylesSeparator from '../utils/styles-separator';
 import getNestedStyleFromString from '../utils/get-nested-style-from-string';
+import {properties as STYLES} from '../styles/properties';
 
 export type StylesType = string;
 export type TailwindStylesGeneratorType = (StylesType: string) => any;

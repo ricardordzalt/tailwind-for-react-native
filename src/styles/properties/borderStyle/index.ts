@@ -5,9 +5,11 @@ export type BorderStyleKeys =
   | 'border-dotted'
   | 'border-dashed';
 
-export type BorderStyleProperties = Record<BorderStyleKeys, ViewStyle>;
+export type BorderStyleStyle = {borderStyle: ViewStyle['borderStyle']};
 
-export const borderStyleProperties = StyleSheet.create<BorderStyleProperties>({
+export type BorderStyle = Record<BorderStyleKeys, BorderStyleStyle>;
+
+export const borderStyle = StyleSheet.create<BorderStyle>({
   'border-solid': {borderStyle: 'solid'},
   'border-dotted': {borderStyle: 'dotted'},
   'border-dashed': {borderStyle: 'dashed'},
