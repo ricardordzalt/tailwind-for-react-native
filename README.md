@@ -1,150 +1,150 @@
-# Get started
+# tailwind-for-react-native
+
+## Get started
 
 ### Installation
 
-Install this library with npm:
+Install this library with **npm**:
 
-    npm i tailwind-for-react-native
+```bash
+npm i tailwind-for-react-native
+```
 
-or with yarn:
+or with **yarn**:
 
-    yarn add tailwind-for-react-native
+```bash
+yarn add tailwind-for-react-native
+```
+
+---
 
 ### Example
-React Native v0.73.4 default wrote with tailwind-for-react-native below.
-<details>
-  <summary>See example</summary>
-  <br>
 
-  ```javascript
-    import React from 'react';
-    import type {PropsWithChildren} from 'react';
-    import {
-      SafeAreaView,
-      ScrollView,
-      StatusBar,
-      Text,
-      useColorScheme,
-      View,
-    } from 'react-native';
+The following snippet shows the default template rewritten with **tailwind‑for‑react‑native**.
 
-    import {
-      Colors,
-      DebugInstructions,
-      Header,
-      LearnMoreLinks,
-      ReloadInstructions,
-    } from 'react-native/Libraries/NewAppScreen';
-    import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
+```tsx
+import React from 'react';
+import type {PropsWithChildren} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
-    const CustomSafeAreaView = styled(SafeAreaView)`
-      bg-lighter
-      dark:bg-darker
-    `;
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
 
-    const CustomScrollView = styled(ScrollView)`
-      bg-lighter
-      dark:bg-darker
-    `;
+const CustomSafeAreaView = styled(SafeAreaView)`
+  bg-lighter
+  dark:bg-darker
+`;
 
-    const ContentContainer = styled(View)`
-      bg-white
-      dark:bg-black
-    `;
+const CustomScrollView = styled(ScrollView)`
+  bg-lighter
+  dark:bg-darker
+`;
 
-    const BoldText = styled(Text)`
-      font-bold
-    `;
+const ContentContainer = styled(View)`
+  bg-white
+  dark:bg-black
+`;
 
-    const SectionContainer = styled(View)`
-      mt-32
-      px-24
-    `;
+const BoldText = styled(Text)`
+  font-bold
+`;
 
-    const SectionTitle = styled(Text)`
-      font-size-24
-      font-semibold
-      color-black
-      dark:color-white
-    `;
+const SectionContainer = styled(View)`
+  mt-32
+  px-24
+`;
 
-    const SectionText = styled(Text)`
-      mt-8
-      font-size-18
-      font-normal
-      color-dark
-      dark:color-light
-    `;
+const SectionTitle = styled(Text)`
+  font-size-24
+  font-semibold
+  color-black
+  dark:color-white
+`;
 
-    type SectionProps = PropsWithChildren<{
-      title: string;
-    }>;
+const SectionText = styled(Text)`
+  mt-8
+  font-size-18
+  font-normal
+  color-dark
+  dark:color-light
+`;
 
-    function Section({children, title}: SectionProps): React.JSX.Element {
-      return (
-        <SectionContainer>
-          <SectionTitle>{title}</SectionTitle>
-          <SectionText>{children}</SectionText>
-        </SectionContainer>
-      );
-    }
+type SectionProps = PropsWithChildren<{ title: string }>;
 
-    function YourApp(): React.JSX.Element {
-      const isDarkMode = useColorScheme() === 'dark';
-      const {tw} = useTW();
-      const statusBarBackgroundColor = tw('bg-lighter dark:bg-darker');
-      return (
-        <CustomSafeAreaView>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={statusBarBackgroundColor.backgroundColor}
-          />
-          <CustomScrollView contentInsetAdjustmentBehavior="automatic">
-            <Header />
-            <ContentContainer>
-              <Section title="Step One">
-                Edit <BoldText>App.tsx</BoldText> to change this screen and then
-                come back to see your edits.
-              </Section>
-              <Section title="See Your Changes">
-                <ReloadInstructions />
-              </Section>
-              <Section title="Debug">
-                <DebugInstructions />
-              </Section>
-              <Section title="Learn More">
-                Read the docs to discover what to do next:
-              </Section>
-              <LearnMoreLinks />
-            </ContentContainer>
-          </CustomScrollView>
-        </CustomSafeAreaView>
-      );
-    }
+function Section({children, title}: SectionProps) {
+  return (
+    <SectionContainer>
+      <SectionTitle>{title}</SectionTitle>
+      <SectionText>{children}</SectionText>
+    </SectionContainer>
+  );
+}
 
-    const App = () => {
-      const mode = useColorScheme();
-      return (
-        <TWRNProvider theme={{mode, colors: Colors}}>
-          <YourApp />
-        </TWRNProvider>
-      );
-    };
+function YourApp() {
+  const isDarkMode = useColorScheme() === 'dark';
+  const {tw} = useTW();
+  const statusBarBackgroundColor = tw('bg-lighter dark:bg-darker');
+  return (
+    <CustomSafeAreaView>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={statusBarBackgroundColor.backgroundColor}
+      />
+      <CustomScrollView contentInsetAdjustmentBehavior="automatic">
+        <Header />
+        <ContentContainer>
+          <Section title="Step One">
+            Edit <BoldText>App.tsx</BoldText> to change this screen and then
+            come back to see your edits.
+          </Section>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
+          <LearnMoreLinks />
+        </ContentContainer>
+      </CustomScrollView>
+    </CustomSafeAreaView>
+  );
+}
 
-    export default App;
-  ```
-</details>
+const App = () => {
+  const mode = useColorScheme();
+  return (
+    <TWRNProvider theme={{mode, colors: Colors}}>
+      <YourApp />
+    </TWRNProvider>
+  );
+};
 
+export default App;
+```
 
+---
 
-### Styled function
+## API Reference
 
-#### Create new componentes with styled function
+### `styled()` – create styled components
 
-The styled function allows us to create components from another component using tagged template literals. We use styled and pass it as a parameter a component that accepts a style prop.
-
-```js
-
+```ts
 import { Pressable, Text } from 'react-native';
 import { styled } from 'tailwind-for-react-native';
 
@@ -161,507 +161,405 @@ const ButtonText = styled(Text)`
   font-size-16
   color-#fff
 `;
-
-const MyComponent = () => {
-  return (
-    <Button>
-      <ButtonText>
-        Press me
-      </ButtonText>
-    </Button>
-  );
-};
-
 ```
 
-#### Pass props
+### `useTW()` – utility hook
 
-You can pass props to the components created by the styled function, and access them in the interpolation. The following example receives a color for the background color of the button.
+```ts
+import { useTW } from 'tailwind-for-react-native';
 
-
-```js
-import { Pressable, Text } from "react-native";
-import { styled } from "tailwind-for-react-native";
-
-// This component uses color prop to set backgroundColor style
-// and uses #fff as default value
-const Button = styled(Pressable)`
-  bg-${({ color }) => color ?? "#fff"}
-`;
-
-const App = () => {
-  return (
-    <>
-      {/* This button is red */}
-      <Button color="#f00">
-        <Text>Press me</Text>
-      </Button>
-      {/* This button is blue */}
-      <Button color="#00f">
-        <Text>Press me</Text>
-      </Button>
-    </>
-  );
-};
-
-export default App;
+const { tw } = useTW();
+const style = tw('bg-blue-500 font-bold');
 ```
 
+---
+
+# Style System
+
+The library exposes **two kinds of utilities**:
+
+1. **Computed properties** – short aliases that accept a value (e.g. `mt-8`, `w-50%`).
+2. **Pre‑defined properties** – boolean class‑like shorthands (e.g. `items-center`, `border-dashed`).
+
+Below you will find an exhaustive reference for the current release.
+
+> ℹ️  Functions **wp(…)** and **hp(…)** convert percentages of the current window width/height to pixels.
+
+---
+
+## Computed properties
+
+| Class                                 | Affected style(s)                | Accepted values                   |
+| ------------------------------------- | -------------------------------- | --------------------------------- |
+| **m**                                 | `margin`                         | number · string · `wp()` · `hp()` |
+| **mt**                                | `marginTop`                      | —                                 |
+| **mr**                                | `marginRight`                    | —                                 |
+| **mb**                                | `marginBottom`                   | —                                 |
+| **ml**                                | `marginLeft`                     | —                                 |
+| **mx**                                | `marginLeft` `marginRight`       | —                                 |
+| **my**                                | `marginTop` `marginBottom`       | —                                 |
+| **me**                                | `marginEnd`                      | —                                 |
+| **ms**                                | `marginStart`                    | —                                 |
+| **p**                                 | `padding`                        | number · string · `wp()` · `hp()` |
+| **pt**                                | `paddingTop`                     | —                                 |
+| **pr**                                | `paddingRight`                   | —                                 |
+| **pb**                                | `paddingBottom`                  | —                                 |
+| **pl**                                | `paddingLeft`                    | —                                 |
+| **px**                                | `paddingLeft` `paddingRight`     | —                                 |
+| **py**                                | `paddingTop` `paddingBottom`     | —                                 |
+| **pe**                                | `paddingEnd`                     | —                                 |
+| **ps**                                | `paddingStart`                   | —                                 |
+| **h**                                 | `height`                         | number · string · `wp()` · `hp()` |
+| **min-h**                             | `minHeight`                      | —                                 |
+| **max-h**                             | `maxHeight`                      | —                                 |
+| **w**                                 | `width`                          | —                                 |
+| **min-w**                             | `minWidth`                       | —                                 |
+| **max-w**                             | `maxWidth`                       | —                                 |
+| **l**                                 | `left`                           | —                                 |
+| **r**                                 | `right`                          | —                                 |
+| **t**                                 | `top`                            | —                                 |
+| **b**                                 | `bottom`                         | —                                 |
+| **flex**                              | `flex`                           | number                            |
+| **flex-grow**                         | `flexGrow`                       | number                            |
+| **flex-shrink**                       | `flexShrink`                     | number                            |
+| **z**                                 | `zIndex`                         | number                            |
+| **opacity**                           | `opacity`                        | number                            |
+| **aspect**                            | `aspectRatio`                    | number                            |
+| **gap**                               | `gap`                            | number · string                   |
+| **gap-x**                             | `columnGap`                      | number · string                   |
+| **gap-y**                             | `rowGap`                         | number · string                   |
+| **border-radius**                     | `borderRadius`                   | number · `wp()` · `hp()`          |
+| **border-radius-tl**                  | `borderTopLeftRadius`            | —                                 |
+| **border-radius-tr**                  | `borderTopRightRadius`           | —                                 |
+| **border-radius-bl**                  | `borderBottomLeftRadius`         | —                                 |
+| **border-radius-br**                  | `borderBottomRightRadius`        | —                                 |
+| **border-radius-te**                  | `borderTopEndRadius`             | —                                 |
+| **border-radius-ts**                  | `borderTopStartRadius`           | —                                 |
+| **border-radius-be**                  | `borderBottomEndRadius`          | —                                 |
+| **border-radius-bs**                  | `borderBottomStartRadius`        | —                                 |
+| **border-radius-ee**                  | `borderEndEndRadius`             | —                                 |
+| **border-radius-es**                  | `borderEndStartRadius`           | —                                 |
+| **border-radius-se**                  | `borderStartEndRadius`           | —                                 |
+| **border-radius-ss**                  | `borderStartStartRadius`         | —                                 |
+| **border-w**                          | `borderWidth`                    | number · `wp()` · `hp()`          |
+| **border-b / -t / -l / -r / -s / -e** | respective side widths           | number · `wp()` · `hp()`          |
+| **color / text**                      | `color`                          | constant · hex                    |
+| **bg**                                | `backgroundColor`                | constant · hex                    |
+| **border**                            | `borderColor`                    | constant · hex                    |
+| **border-b-color**                    | `borderBottomColor`              | constant · hex                    |
+| **border-e-color**                    | `borderEndColor`                 | constant · hex                    |
+| **border-l-color**                    | `borderLeftColor`                | constant · hex                    |
+| **border-r-color**                    | `borderRightColor`               | constant · hex                    |
+| **border-s-color**                    | `borderStartColor`               | constant · hex                    |
+| **border-t-color**                    | `borderTopColor`                 | constant · hex                    |
+| **font-size**                         | `fontSize`                       | number · `wp()` · `hp()`          |
+| **font-weight**                       | `fontWeight`                     | number                            |
+| **line-height**                       | `lineHeight`                     | number · `wp()` · `hp()`          |
+| **tracking**                          | `letterSpacing`                  | number                            |
+| **outline-w**                         | `outlineWidth`                   | number                            |
+| **outline**                           | `outlineColor`                   | constant · hex                    |
+| **outline-offset**                    | `outlineOffset`                  | number                            |
+| **overlay**                           | `overlayColor`                   | constant                          |
+| **shadow / elevation**                | `shadowColor` / `elevation` etc. | platform‑specific                 |
+| **text-shadow**                       | `textShadowColor`                | constant · hex                    |
+| **text-shadow-radius**                | `textShadowRadius`               | number                            |
+| **decoration**                        | `textDecorationColor`            | constant · hex                    |
+| **tint**                              | `tintColor`                      | constant · hex                    |
+| **start**                             | `start`                          | number · string · `wp()` · `hp()` |
+| **end**                               | `end`                            | number · string · `wp()` · `hp()` |
+| **basis**                             | `flexBasis`                      | number · string                   |
+| **font**                              | `fontFamily`                     | constant                          |
+
+---
+
+## Pre‑defined properties
 
-### Hook useTW
+The following tables show every boolean utility now bundled with the library.
 
-
-```js
-import { Pressable, Text } from "react-native";
-import { useTW } from "tailwind-for-react-native";
-
-const App = () => {
-  const {tw} = useTW();
-  // Create a style object for your components with tw function
-  const buttonStyle = tw('bg-#fff');
-  const textStyle = tw('color-#00f font-size-10');
-  return (
-    <>
-      <Button style={buttonStyle}>
-        <Text style={textStyle}>Press me</Text>
-      </Button>
-    </>
-  );
-};
-
-export default App;
-```
-
-#### The tw function
-```js
-  tw: (string) => styles
-```
-
-In addition to the styled function, the tw function allows us to create a style from a string of text with the styles we want to apply.
-#### Dark mode
-```js
-  mode: 'light' | 'dark' - default 'light'
-```
-
-We can use mode to know if our current state is dark or light.
-
-#### Colores
-```js
-  colors: {
-    light: Object,
-    dark: Object,
-  }
-```
-The colors object allows us to access the colors available for use in our styles.
-
-### TWRNProvider
-
-We can extend the functionality of the library by passing values to the TWRNProvider.
-
-#### mode
-
-We can control the current mode state of the provider, either 'light' or 'dark'.
-
-#### colors
-
-Pass a colors object with light or dark fields with its colors to the provider to be able to access them through styles that accept a color, such as backgroundColor(bg) or color(color).
-
-#### styles
-
-Sometimes we need to add more styles than the library has by default. To do this, we can pass a new styles object to the provider and use it within our functions.
-
-#### Responsive design
-
-A way to create interfaces that adapt to the dimensions of the screens of different devices is to use percentages. When we create styles, we can pass values to some properties with the functions within styles hp(number) and wp(number), which will return as a value, the percentage of the height or width of the screen, respectively.
-
-```js
-import { Button }  from 'react-native';
-import { styled }  from 'tailwind-for-react-native';
-
-const SmallButton = styled(Button)`
-  w-wp(50)
-  h-hp(10)
-`;
-```
-
-The code above creates a new component from a React Native button and adds the styles width with 50% of the device screen width, and height with 10% of the device screen height. You can use hp and wp in any style that accepts numeric values.
-
-### Dark mode
-
-It is possible to condition styles to be applied only in dark mode, if we want to control the dark mode state it is possible to use TWRNProvider and pass the value of mode to theme prop. We can even combine it with the useColorScheme hook, which provides and subscribes to updates of color schemes from the Appearance module and updates our styles when a change made by the user in the device mode is detected.
-
-
-```js
-import { useColorScheme } from 'react-native';
-import { TWRNProvider } from 'tailwind-for-react-native';
-
-const App = () => {
-  const mode = useColorScheme();
-  return (
-    <TWRNProvider theme={{mode}}>
-      <YourApp />
-    </TWRNProvider>
-  );
-};
-```
-
-In your application
-
-```js
-const Container = styled(View)`
-  bg-white
-  dark:bg-black
-`;
-```
-
-The "bg-white" style, which returns a "backgroundColor: 'white'" value, will always be applied, however, it can be overridden by the second style: "dark:bg-black", when the mode configured in the TWRNProvider state is "dark".
-
-### Plataforma (iOS, Android)
-
-We can condition styles to a specific platform (Android or iOS) by prefixing the style name with "android" or "ios" respectively, for the styles we want to condition.
-
-```js
-const Container = styled(View)`
-  android:bg-#a4c639
-  ios:bg-#5856d6
-`;
-```
-
-"The backgroundColor with the value #a4c639 will only be applied on devices with Android operating system, and the backgroundColor #5856d6 will only be applied on iOS devices."
-
-### Available Computed Properties
-
-Available computed properties needs a dash following by the desired value
-
-NOTE: wp(number) and hp(number) will calculate the window's width and height.
-Example: If your device width is 390px, wp(50) will return 195. Also hp(number) its based on device height.
-
-#### Margin
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| m      | margin       | number, string, wp(number), hp(number)       |
-| mt      | marginTop       | number, string, wp(number), hp(number)       |
-| mr      | marginRight       | number, string, wp(number), hp(number)       |
-| mb      | marginBottom       | number, string, wp(number), hp(number)       |
-| ml      | marginLeft       | number, string, wp(number), hp(number)       |
-| mx      | marginLeft, marginRight       | number, string, wp(number), hp(number)       |
-| my      | marginTop, marginBottom       | number, string, wp(number), hp(number)       |
-
-#### Padding
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| p      | padding       | number, string, wp(number), hp(number)       |
-| pt      | paddingTop       | number, string, wp(number), hp(number)       |
-| pr      | paddingRight       | number, string, wp(number), hp(number)       |
-| pb      | paddingBottom       | number, string, wp(number), hp(number)       |
-| pl      | paddingLeft       | number, string, wp(number), hp(number)       |
-| px      | paddingLeft, paddingRight       | number, string, wp(number), hp(number)       |
-| py      | paddingTop, paddingBottom       | number, string, wp(number), hp(number)       |
-
-#### Height
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| h      | height       | number, string, wp(number), hp(number)       |
-
-#### Min Height
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| min-h      | minHeight       | number, string, wp(number), hp(number)       |
-
-#### Max Height
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| max-h      | maxHeight       | number, string, wp(number), hp(number)       |
-
-#### Width
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| w      | width       | number, string, wp(number), hp(number)       |
-
-#### Min Width
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| min-w      | minWidth       | number, string, wp(number), hp(number)       |
-
-#### Max Width
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| max-w      | maxWidth       | number, string, wp(number), hp(number)       |
-
-#### Left
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| l      | left       | number, string, wp(number), hp(number)       |
-
-#### Right
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| r      | right       | number, string, wp(number), hp(number)       |
-
-#### Top
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| t      | top       | number, string, wp(number), hp(number)       |
-
-#### Bottom
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| b      | bottom       | number, string, wp(number), hp(number)       |
-
-#### Border Radius
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| border-radius    | borderRadius               | number, wp(number), hp(number)       |
-| border-radius-tl | borderTopLeftRadius        | number, wp(number), hp(number)       |
-| border-radius-tr | borderTopRightRadius       | number, wp(number), hp(number)       |
-| border-radius-br | borderBottomRightRadius    | number, wp(number), hp(number)       |
-| border-radius-bl | borderBottomLeftRadius     | number, wp(number), hp(number)       |
-
-#### Border Width
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| border-b      | borderBottomWidth       | number, wp(number), hp(number)       |
-| border-e      | borderEndWidth       | number, wp(number), hp(number)       |
-| border-l      | borderLeftWidth       | number, wp(number), hp(number)       |
-| border-r      | borderRightWidth       | number, wp(number), hp(number)       |
-| border-s      | borderStartWidth       | number, wp(number), hp(number)       |
-| border-t      | borderTopWidth       | number, wp(number), hp(number)       |
-| border-w      | borderWidth       | number, wp(number), hp(number)       |
-
-#### Background Color
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| bg      | backgroundColor       | Color (See Constants Section), Hexadecimal color        |
-
-#### Color
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| color (text also might work)      | color       | Color (See Constants Section), Hexadecimal color        |
-
-#### Font Size
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| font-size      | fontSize       | number, wp(number), hp(number)       |
-#### Font Weight
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| font-weight      | fontWeight       | number       |
-
-#### Line Height
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| line-height      | lineHeight       | number, wp(number), hp(number)       |
-
-
-#### Flex
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| flex      | flex       | number       |
-
-#### Flex Shrink
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| flex-shrink      | flexShrink       | number       |
-
-#### Flex Grow
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| flex-grow      | flexGrow       | number       |
-
-#### Aspect Ratio
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| aspect      | aspectRatio       | number       |
-
-#### Z Index
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| z      | zIndex       | number       |
-
-#### Opacity
-
-| Class      | Affected Properties | Accepted Values |
-| ----------- | ----------- | ----------- |
-| opacity     | opacity     | number      |
-
-
-
-### Available predefined properties
-
-### Direction
-
-#### Direction
-
-| Class      | Properties |
-| ----------- | ----------- |
-| dir-inherit   | direction: 'inherit'        |
-| dir-ltr   | direction: 'ltr'        |
-| dir-rtl   | direction: 'rtl'        |
-
-### Display
+### Layout
 
 #### Display
 
-| Class      | Properties |
-| ----------- | ----------- |
-| d-flex   | display: 'flex'        |
-| d-none   | display: 'none'        |
-
-#### Flex
-
-##### Align Content
-
-| Class      | Properties |
-| ----------- | ----------- |
-| content-start      | alignContent: 'flex-start'       |
-| content-end   | alignContent: 'flex-end'        |
-| content-stretch   | alignContent: 'stretch'        |
-| content-center   | alignContent: 'center'        |
-| content-between   | alignContent: 'space-between'        |
-| content-around   | alignContent: 'space-around'        |
-
-##### Align Items
-
-| Class      | Properties |
-| ----------- | ----------- |
-| items-start      | alignItems: 'flex-start'       |
-| items-end   | alignItems: 'flex-end'        |
-| items-center   | alignItems: 'center'        |
-| items-baseline   | alignItems: 'baseline'        |
-| items-stretch   | alignItems: 'stretch'        |
-
-##### Align Self
-
-| Class      | Properties |
-| ----------- | ----------- |
-| self-start      | alignSelf: 'flex-start'       |
-| self-end   | alignSelf: 'flex-end'        |
-| self-center   | alignSelf: 'center'        |
-| self-baseline   | alignSelf: 'baseline'        |
-| self-stretch   | alignSelf: 'stretch'        |
-
-##### Border Style
-
-| Class      | Properties |
-| ----------- | ----------- |
-| border-solid      | borderStyle: 'solid'       |
-| border-dotted   | borderStyle: 'dotted'        |
-| border-dashed   | borderStyle: 'dashed'        |
-
-##### Flex Direction
-
-| Class      | Properties |
-| ----------- | ----------- |
-| flex-col      | flexDirection: 'column'       |
-| flex-row   | flexDirection: 'row'        |
-| flex-col-reverse   | flexDirection: 'column-reverse'        |
-| flex-row-reverse   | flexDirection: 'row-reverse'        |
-
-##### Flex Wrap
-
-| Class      | Properties |
-| ----------- | ----------- |
-| flex-wrap      | flexWrap: 'wrap'       |
-| flex-nowrap   | flexWrap: 'nowrap'        |
-| flex-wrap-reverse   | flexWrap: 'wrap-reverse'        |
-
-##### Justify Content
-
-| Class      | Properties |
-| ----------- | ----------- |
-| justify-start      | justifyContent: 'flex-start'       |
-| justify-end      | justifyContent: 'flex-end'       |
-| justify-center      | justifyContent: 'center'       |
-| justify-between      | justifyContent: 'space-between'       |
-| justify-around      | justifyContent: 'space-around'       |
-| justify-evenly      | justifyContent: 'space-evenly'       |
-
-### Font
-
-#### Font Weight
-
-| Class      | Properties |
-| ----------- | ----------- |
-| font-thin      | fontWeight: '100'       |
-| font-extralight      | fontWeight: '200'       |
-| font-light      | fontWeight: '300'       |
-| font-normal      | fontWeight: '400'       |
-| font-medium      | fontWeight: '500'       |
-| font-semibold      | fontWeight: '600'       |
-| font-bold      | fontWeight: '700'       |
-| font-extrabold      | fontWeight: '800'       |
-| font-black      | fontWeight: '900'       |
-
-#### Font Style
-
-| Class      | Properties |
-| ----------- | ----------- |
-| font-style-normal      | fontStyle: 'normal'       |
-| font-style-italic      | fontStyle: 'italic'       |
-
-### Position
+| Class      | Style             |
+| ---------- | ----------------- |
+| **d-flex** | `display: 'flex'` |
+| **d-none** | `display: 'none'` |
 
 #### Position
 
-| Class      | Properties |
-| ----------- | ----------- |
-| relative   | position: 'relative'        |
-| absolute   | position: 'absolute'        |
+| Class        | Style                  |
+| ------------ | ---------------------- |
+| **relative** | `position: 'relative'` |
+| **absolute** | `position: 'absolute'` |
 
-### Overflow
+#### Box sizing
+
+| Class           | Style                      |
+| --------------- | -------------------------- |
+| **box-border**  | `boxSizing: 'border-box'`  |
+| **box-content** | `boxSizing: 'content-box'` |
 
 #### Overflow
 
-| Class      | Properties |
-| ----------- | ----------- |
-| overflow-visible   | overflow: 'visible'        |
-| overflow-hidden   | overflow: 'hidden'        |
-| overflow-scroll   | overflow: 'scroll'        |
+| Class                | Style                 |
+| -------------------- | --------------------- |
+| **overflow-visible** | `overflow: 'visible'` |
+| **overflow-hidden**  | `overflow: 'hidden'`  |
+| **overflow-scroll**  | `overflow: 'scroll'`  |
 
-### Text
+#### Direction & writing
 
-#### Text Align
+| Class            | Style                      |
+| ---------------- | -------------------------- |
+| **dir-inherit**  | `direction: 'inherit'`     |
+| **dir-ltr**      | `direction: 'ltr'`         |
+| **dir-rtl**      | `direction: 'rtl'`         |
+| **writing-auto** | `writingDirection: 'auto'` |
+| **writing-ltr**  | `writingDirection: 'ltr'`  |
+| **writing-rtl**  | `writingDirection: 'rtl'`  |
 
-| Class      | Properties |
-| ----------- | ----------- |
-| text-auto      | textAlign: 'auto'       |
-| text-left      | textAlign: 'left'       |
-| text-center      | textAlign: 'center'       |
-| text-right      | textAlign: 'right'       |
-| text-justify      | textAlign: 'justify'       |
+#### Cursor & pointer events
 
-#### Text Decoration Line
+| Class                       | Style                       |
+| --------------------------- | --------------------------- |
+| **cursor-auto**             | `cursor: 'auto'`            |
+| **cursor-pointer**          | `cursor: 'pointer'`         |
+| **pointer-events-none**     | `pointerEvents: 'none'`     |
+| **pointer-events-auto**     | `pointerEvents: 'auto'`     |
+| **pointer-events-box-none** | `pointerEvents: 'box-none'` |
+| **pointer-events-box-only** | `pointerEvents: 'box-only'` |
 
-| Class      | Properties |
-| ----------- | ----------- |
-| none                    | textDecorationLine: 'none'           |
-| underline               | textDecorationLine: 'underline'      |
-| line-through            | textDecorationLine: 'line-through'   |
-| underline-line-through  | textDecorationLine: 'underline line-through'       |
+#### Backface visibility
+
+| Class                | Style                           |
+| -------------------- | ------------------------------- |
+| **backface-hidden**  | `backfaceVisibility: 'hidden'`  |
+| **backface-visible** | `backfaceVisibility: 'visible'` |
+
+---
+
+### Flexbox helpers
+
+#### Flex direction
+
+| Class                | Style                             |
+| -------------------- | --------------------------------- |
+| **flex-col**         | `flexDirection: 'column'`         |
+| **flex-row**         | `flexDirection: 'row'`            |
+| **flex-col-reverse** | `flexDirection: 'column-reverse'` |
+| **flex-row-reverse** | `flexDirection: 'row-reverse'`    |
+
+#### Flex wrap
+
+| Class                 | Style                      |
+| --------------------- | -------------------------- |
+| **flex-wrap**         | `flexWrap: 'wrap'`         |
+| **flex-nowrap**       | `flexWrap: 'nowrap'`       |
+| **flex-wrap-reverse** | `flexWrap: 'wrap-reverse'` |
+
+#### Align content
+
+| Class               | Style                           |
+| ------------------- | ------------------------------- |
+| **content-start**   | `alignContent: 'flex-start'`    |
+| **content-end**     | `alignContent: 'flex-end'`      |
+| **content-center**  | `alignContent: 'center'`        |
+| **content-between** | `alignContent: 'space-between'` |
+| **content-around**  | `alignContent: 'space-around'`  |
+| **content-evenly**  | `alignContent: 'space-evenly'`  |
+| **content-stretch** | `alignContent: 'stretch'`       |
+
+#### Align items
+
+| Class              | Style                      |
+| ------------------ | -------------------------- |
+| **items-start**    | `alignItems: 'flex-start'` |
+| **items-end**      | `alignItems: 'flex-end'`   |
+| **items-center**   | `alignItems: 'center'`     |
+| **items-baseline** | `alignItems: 'baseline'`   |
+| **items-stretch**  | `alignItems: 'stretch'`    |
+
+#### Align self
+
+| Class             | Style                     |
+| ----------------- | ------------------------- |
+| **self-start**    | `alignSelf: 'flex-start'` |
+| **self-end**      | `alignSelf: 'flex-end'`   |
+| **self-center**   | `alignSelf: 'center'`     |
+| **self-baseline** | `alignSelf: 'baseline'`   |
+| **self-stretch**  | `alignSelf: 'stretch'`    |
+| **self-auto**     | `alignSelf: 'auto'`       |
+
+#### Justify content
+
+| Class               | Style                             |
+| ------------------- | --------------------------------- |
+| **justify-start**   | `justifyContent: 'flex-start'`    |
+| **justify-end**     | `justifyContent: 'flex-end'`      |
+| **justify-center**  | `justifyContent: 'center'`        |
+| **justify-between** | `justifyContent: 'space-between'` |
+| **justify-around**  | `justifyContent: 'space-around'`  |
+| **justify-evenly**  | `justifyContent: 'space-evenly'`  |
+
+---
+
+### Borders & Outline
+
+#### Border style
+
+| Class             | Style                   |
+| ----------------- | ----------------------- |
+| **border-solid**  | `borderStyle: 'solid'`  |
+| **border-dotted** | `borderStyle: 'dotted'` |
+| **border-dashed** | `borderStyle: 'dashed'` |
+
+#### Border curve *(Android 14 + iOS 17)*
+
+| Class                       | Style                       |
+| --------------------------- | --------------------------- |
+| **border-curve-circular**   | `borderCurve: 'circular'`   |
+| **border-curve-continuous** | `borderCurve: 'continuous'` |
+
+#### Outline style *(Web / Windows only)*
+
+| Class              | Style                    |
+| ------------------ | ------------------------ |
+| **outline-solid**  | `outlineStyle: 'solid'`  |
+| **outline-dotted** | `outlineStyle: 'dotted'` |
+| **outline-dashed** | `outlineStyle: 'dashed'` |
+
+---
+
+### Typography
+
+#### Font weight
+
+| Class           | Style |
+| --------------- | ----- |
+| font-thin       | `100` |
+| font-extralight | `200` |
+| font-light      | `300` |
+| font-normal     | `400` |
+| font-medium     | `500` |
+| font-semibold   | `600` |
+| font-bold       | `700` |
+| font-extrabold  | `800` |
+| font-black      | `900` |
+
+#### Font style
+
+| Class                 | Style                 |
+| --------------------- | --------------------- |
+| **font-style-normal** | `fontStyle: 'normal'` |
+| **font-style-italic** | `fontStyle: 'italic'` |
+
+#### Font variant
+
+| Class                 | Style                   |
+| --------------------- | ----------------------- |
+| **small-caps**        | `['small-caps']`        |
+| **oldstyle-nums**     | `['oldstyle-nums']`     |
+| **lining-nums**       | `['lining-nums']`       |
+| **tabular-nums**      | `['tabular-nums']`      |
+| **proportional-nums** | `['proportional-nums']` |
+
+#### Include font padding *(Android)*
+
+| Class                 | Style                       |
+| --------------------- | --------------------------- |
+| **font-padding**      | `includeFontPadding: true`  |
+| **font-padding-none** | `includeFontPadding: false` |
+
+#### Text align
+
+| Class            | Style     |
+| ---------------- | --------- |
+| **text-auto**    | `auto`    |
+| **text-left**    | `left`    |
+| **text-center**  | `center`  |
+| **text-right**   | `right`   |
+| **text-justify** | `justify` |
+
+#### Text align vertical *(Android only)*
+
+| Class                    | Style    |
+| ------------------------ | -------- |
+| **text-vertical-auto**   | `auto`   |
+| **text-vertical-top**    | `top`    |
+| **text-vertical-center** | `center` |
+| **text-vertical-bottom** | `bottom` |
+
+#### Text decoration line
+
+| Class                      | Style                    |
+| -------------------------- | ------------------------ |
+| **underline**              | `underline`              |
+| **line-through**           | `line-through`           |
+| **underline-line-through** | `underline line-through` |
+| **no-underline**           | `none`                   |
+
+#### Text decoration style
+
+| Class                 | Style    |
+| --------------------- | -------- |
+| **decoration-solid**  | `solid`  |
+| **decoration-double** | `double` |
+| **decoration-dotted** | `dotted` |
+| **decoration-dashed** | `dashed` |
+
+#### Text transform
+
+| Class           | Style        |
+| --------------- | ------------ |
+| **uppercase**   | `uppercase`  |
+| **lowercase**   | `lowercase`  |
+| **capitalize**  | `capitalize` |
+| **normal-case** | `none`       |
+
+#### Vertical align *(Web)*
+
+| Class               | Style    |
+| ------------------- | -------- |
+| **vertical-auto**   | `auto`   |
+| **vertical-top**    | `top`    |
+| **vertical-middle** | `middle` |
+| **vertical-bottom** | `bottom` |
+| **vertical-baseline** | `baseline` |
+
+#### User select *(Web)*
+
+| Class              | Style     |
+| ------------------ | --------- |
+| **select-auto**    | `auto`    |
+| **select-text**    | `text`    |
+| **select-none**    | `none`    |
+| **select-contain** | `contain` |
+| **select-all**     | `all`     |
+
+---
+
+### Images & media
+
+#### Resize mode
+
+| Class              | Style     |
+| ------------------ | --------- |
+| **risize-cover**   | `cover`   |
+| **risize-contain** | `contain` |
+| **risize-stretch** | `stretch` |
+| **risize-repeat**  | `repeat`  |
+| **risize-center**  | `center`  |
+
+#### Object fit *(Web / iOS 17)*
+
+| Class                 | Style        |
+| --------------------- | ------------ |
+| **object-cover**      | `cover`      |
+| **object-contain**    | `contain`    |
+| **object-fill**       | `fill`       |
+| **object-scale-down** | `scale-down` |
+
+---
 
 ### Constants
 
