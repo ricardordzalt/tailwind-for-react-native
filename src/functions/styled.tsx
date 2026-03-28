@@ -15,8 +15,10 @@ const getStyle = (stringStyles: any[], propsValues: any) => {
 
 const combineTWAndPropStyles = (twStyles: any, propStyles: any) => {
   if (Array.isArray(propStyles)) {
-    const allStyles = [...propStyles, twStyles];
+    const allStyles = [twStyles, ...propStyles];
     return allStyles;
+  } else if (propStyles == null) {
+    return twStyles;
   } else {
     const allStyles = {
       ...twStyles,

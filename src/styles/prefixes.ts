@@ -1,5 +1,6 @@
 export type StylesPrefixesKeys = keyof typeof stylesPrefixes;
 export type StylesPrefixes = Record<StylesPrefixesKeys, string | string[]>;
+export type StylePrefixType = 'number' | 'string' | 'color';
 
 const stylesPrefixes = {
   mx: ['marginLeft', 'marginRight'],
@@ -88,5 +89,28 @@ const stylesPrefixes = {
   'text-shadow-radius': 'textShadowRadius',
   'tint': 'tintColor'
 } as const;
+
+const stylePrefixTypes: Partial<Record<StylesPrefixesKeys, StylePrefixType>> = {
+  border: 'color',
+  'border-b-color': 'color',
+  'border-e-color': 'color',
+  'border-l-color': 'color',
+  'border-r-color': 'color',
+  'border-s-color': 'color',
+  'border-t-color': 'color',
+  bg: 'color',
+  color: 'color',
+  text: 'color',
+  outline: 'color',
+  overlay: 'color',
+  shadow: 'color',
+  decoration: 'color',
+  'text-shadow': 'color',
+  tint: 'color',
+  font: 'string',
+};
+
+export const getStylePrefixType = (prefix: StylesPrefixesKeys): StylePrefixType =>
+  stylePrefixTypes[prefix] ?? 'number';
 
 export default stylesPrefixes;

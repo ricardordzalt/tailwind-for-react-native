@@ -1,6 +1,21 @@
 import {getStyleFromStyleStringType} from './get-style-from-style-string.d';
-import stylesPrefixes, {StylesPrefixes} from '../styles/prefixes';
+import stylesPrefixes, {
+  getStylePrefixType,
+  StylesPrefixes,
+} from '../styles/prefixes';
 import getPropByString from './get-prop-by-string';
+
+const isDevEnvironment = () => process.env.NODE_ENV !== 'production';
+const warnInvalidStyle = (styleString: string, reason: string) => {
+  if (isDevEnvironment()) {
+    console.warn(
+      `[tailwind-for-react-native] Ignored invalid style "${styleString}": ${reason}.`,
+    );
+  }
+};
+
+const isFiniteNumberString = (value: string) =>
+  /^-?\d+(\.\d+)?$/.test(value.trim());
 
 const getStyleFromStyleString = ({
   styleString,
@@ -63,7 +78,7 @@ const getStyleFromStyleString = ({
               : (height * (numberValue / 100)) / hpFactorConversion;
           }
         } else if (
-          typeof Number(el) === 'number' &&
+          isFiniteNumberString(el) &&
           !el.includes('%') &&
           !el.includes('#') &&
           // Probably bug, white or black values should'nt pass this if
@@ -85,21 +100,46 @@ const getStyleFromStyleString = ({
     });
   }
   const property = stylesPrefixes[keyProp];
+  if (!property) {
+    warnInvalidStyle(styleString, 'unknown utility');
+    return {};
+  }
+
+  const stylePrefixType = getStylePrefixType(keyProp);
+  if (stylePrefixType === 'number' && typeof value !== 'number') {
+    const resolvedColor = getPropByString(colors, value);
+    const isAllowedStringValue =
+      typeof value === 'string' &&
+      (value.includes('%') ||
+        value === 'auto' ||
+        value.startsWith('#') ||
+        Boolean(resolvedColor));
+    if (!isAllowedStringValue) {
+      warnInvalidStyle(styleString, 'invalid numeric value');
+      return {};
+    }
+  }
+
+  if (typeof value === 'number' && Number.isNaN(value)) {
+    warnInvalidStyle(styleString, 'parsed value is NaN');
+    return {};
+  }
+
   let properties = {};
   if (Array.isArray(property)) {
     for (let i = 0; i < property.length; i++) {
       properties = {...properties, [property[i]]: value};
     }
   }
-  return [property]
-    ? typeof property === 'string'
-      ? {
-          [property]: value,
-        }
-      : Array.isArray(property)
-      ? properties
-      : {}
-    : {};
+  if (typeof property === 'string') {
+    return {
+      [property]: value,
+    };
+  }
+  if (Array.isArray(property)) {
+    return properties;
+  }
+  return {};
 };
 
 export default getStyleFromStyleString;

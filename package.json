@@ -7,7 +7,21 @@
   "version": "0.0.21",
   "description": "Tailwind for react native",
   "private": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "npm run build",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
@@ -15,7 +29,13 @@
     "test": "jest"
   },
   "devDependencies": {
-    "react-native": "0.78.0"
+    "@react-native/babel-preset": "^0.78.0",
+    "@types/jest": "^30.0.0",
+    "@types/react-test-renderer": "^19.1.0",
+    "jest": "^30.2.0",
+    "react-native": "0.78.0",
+    "react-test-renderer": "19.1.1",
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=18"

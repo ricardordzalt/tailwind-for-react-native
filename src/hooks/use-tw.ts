@@ -58,7 +58,11 @@ const useTW = (): any => {
             allStyles,
             currentStyleString,
           );
-          if (matchedNestedStyle) {
+          if (
+            matchedNestedStyle &&
+            typeof matchedNestedStyle === 'object' &&
+            !Array.isArray(matchedNestedStyle)
+          ) {
             styles = {
               ...styles,
               ...matchedNestedStyle,

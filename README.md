@@ -172,6 +172,57 @@ const { tw } = useTW();
 const style = tw('bg-blue-500 font-bold');
 ```
 
+### `TWRNProvider` – theme and mode
+
+`theme.colors` supports both flat colors and mode overrides in the same object.
+
+- Flat colors: regular color tokens (for any mode).
+- Mode overrides: if `colors.light` / `colors.dark` are **objects**, they are used as mode-specific overrides.
+- If `colors.light` / `colors.dark` are strings (or non-objects), they are treated as normal flat color keys.
+
+```tsx
+// Flat colors only
+<TWRNProvider
+  theme={{
+    mode: 'light',
+    colors: {
+      primary: '#bbbbbb',
+      light: '#ededed',
+      dark: '#121212',
+    },
+  }}>
+  <App />
+</TWRNProvider>
+
+// Flat colors + mode overrides
+<TWRNProvider
+  theme={{
+    mode: 'dark',
+    colors: {
+      primary: '#bbbbbb',
+      light: {primary: '#f5f5f5'},
+      dark: {primary: '#111111'},
+    },
+  }}>
+  <App />
+</TWRNProvider>
+```
+
+### Style precedence in `styled(...)`
+
+When using `styled(Component)`, styles passed via the `style` prop always have final priority:
+
+- Object style: `{...twStyles, ...propStyle}`
+- Array style: `[twStyles, ...propStyleArray]`
+
+This allows local JSX overrides without changing the base styled component.
+
+### Invalid utilities
+
+- Invalid classes are ignored (fail-soft).
+- In development (`NODE_ENV !== 'production'`), invalid classes emit `console.warn`.
+- In production, invalid classes are ignored silently.
+
 ---
 
 # Style System

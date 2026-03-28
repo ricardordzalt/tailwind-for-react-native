@@ -1,16 +1,19 @@
-import React, {useState, createContext, useContext, useEffect} from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import { COLORS } from "../constants/colors";
-import {Mode, TWRNContextType, TWRNProviderProps} from './tw-rn-provider.d';
+import { Mode, TWRNContextType, TWRNProviderProps } from './tw-rn-provider.d';
 
 const DEFAULT_VALUES: TWRNContextType = {
   mode: 'light',
-  toggleMode: () => {},
-  setMode: () => {},
+  toggleMode: () => { },
+  setMode: () => { },
   wpFactorConversion: 3.6,
   hpFactorConversion: 8,
 };
 
 export const TWRNContext = createContext<TWRNContextType>(DEFAULT_VALUES);
+
+const isObjectRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
 
 export const TWRNProvider: React.FC<TWRNProviderProps> = ({
   children,
@@ -29,11 +32,27 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
     mode === 'dark' ? 'dark' : 'light',
   );
 
-  const colorsThemeByMode = modeState === 'dark' ? colorsTheme?.dark : colorsTheme?.light
+  const themeColors = isObjectRecord(colorsTheme) ? colorsTheme : {};
+  const themeLightColors = isObjectRecord(themeColors.light)
+    ? themeColors.light
+    : undefined;
+  const themeDarkColors = isObjectRecord(themeColors.dark)
+    ? themeColors.dark
+    : undefined;
+  const modeColors = modeState === 'dark' ? themeDarkColors : themeLightColors;
+
+  const baseThemeColors = {...themeColors};
+  if (themeLightColors) {
+    delete baseThemeColors.light;
+  }
+  if (themeDarkColors) {
+    delete baseThemeColors.dark;
+  }
 
   const colors = {
     ...COLORS,
-    ...colorsThemeByMode,
+    ...baseThemeColors,
+    ...modeColors,
   };
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 export type getStyleFromStyleStringType = {
-  styleString: String;
+  styleString: string;
   window: any;
   colors: any;
   wpFactorConversion: number;
