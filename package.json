@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "prepack": "npm run build",
+    "prepack": "npm run test -- --runInBand && npm run build",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
