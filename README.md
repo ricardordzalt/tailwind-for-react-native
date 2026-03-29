@@ -235,6 +235,8 @@ The library exposes **two kinds of utilities**:
 Below you will find an exhaustive reference for the current release.
 
 > ℹ️  Functions **wp(…)** and **hp(…)** convert percentages of the current window width/height to pixels.
+>
+> ℹ️  Logical aliases keep the published short forms for inline start/end (`ms` / `me`, `ps` / `pe`), add Tailwind-style block start/end shorthands (`mbs` / `mbe`, `pbs` / `pbe`), and also support long forms like `m-inline` or `p-block-start`. For compatibility, the newly added logical aliases emit both the React Native logical prop and the closest legacy equivalent.
 
 ---
 
@@ -251,6 +253,12 @@ Below you will find an exhaustive reference for the current release.
 | **my**                                | `marginTop` `marginBottom`       | —                                 |
 | **me**                                | `marginEnd`                      | —                                 |
 | **ms**                                | `marginStart`                    | —                                 |
+| **m-block**                           | `marginBlock` + `marginVertical` | —                                 |
+| **mbs / m-block-start**               | `marginBlockStart` + `marginTop` | —                                 |
+| **mbe / m-block-end**                 | `marginBlockEnd` + `marginBottom` | —                                |
+| **m-inline**                          | `marginInline` + `marginHorizontal` | —                              |
+| **m-inline-start**                    | `marginInlineStart` + `marginStart` | —                              |
+| **m-inline-end**                      | `marginInlineEnd` + `marginEnd` | —                                |
 | **p**                                 | `padding`                        | number · string · `wp()` · `hp()` |
 | **pt**                                | `paddingTop`                     | —                                 |
 | **pr**                                | `paddingRight`                   | —                                 |
@@ -260,6 +268,12 @@ Below you will find an exhaustive reference for the current release.
 | **py**                                | `paddingTop` `paddingBottom`     | —                                 |
 | **pe**                                | `paddingEnd`                     | —                                 |
 | **ps**                                | `paddingStart`                   | —                                 |
+| **p-block**                           | `paddingBlock` + `paddingVertical` | —                               |
+| **pbs / p-block-start**               | `paddingBlockStart` + `paddingTop` | —                               |
+| **pbe / p-block-end**                 | `paddingBlockEnd` + `paddingBottom` | —                              |
+| **p-inline**                          | `paddingInline` + `paddingHorizontal` | —                             |
+| **p-inline-start**                    | `paddingInlineStart` + `paddingStart` | —                             |
+| **p-inline-end**                      | `paddingInlineEnd` + `paddingEnd` | —                               |
 | **h**                                 | `height`                         | number · string · `wp()` · `hp()` |
 | **min-h**                             | `minHeight`                      | —                                 |
 | **max-h**                             | `maxHeight`                      | —                                 |
@@ -297,12 +311,15 @@ Below you will find an exhaustive reference for the current release.
 | **color / text**                      | `color`                          | constant · hex                    |
 | **bg**                                | `backgroundColor`                | constant · hex                    |
 | **border**                            | `borderColor`                    | constant · hex                    |
+| **border-block-color**                | `borderBlockColor` + top/bottom fallback | constant · hex            |
 | **border-b-color**                    | `borderBottomColor`              | constant · hex                    |
+| **border-be-color / border-block-end-color** | `borderBlockEndColor` + bottom fallback | constant · hex         |
 | **border-e-color**                    | `borderEndColor`                 | constant · hex                    |
 | **border-l-color**                    | `borderLeftColor`                | constant · hex                    |
 | **border-r-color**                    | `borderRightColor`               | constant · hex                    |
 | **border-s-color**                    | `borderStartColor`               | constant · hex                    |
 | **border-t-color**                    | `borderTopColor`                 | constant · hex                    |
+| **border-bs-color / border-block-start-color** | `borderBlockStartColor` + top fallback | constant · hex          |
 | **font-size**                         | `fontSize`                       | number · `wp()` · `hp()`          |
 | **font-weight**                       | `fontWeight`                     | number                            |
 | **line-height**                       | `lineHeight`                     | number · `wp()` · `hp()`          |

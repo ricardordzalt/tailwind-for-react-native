@@ -109,6 +109,55 @@ describe('integration: TWRNProvider + useTW', () => {
     unmountInAct(tree);
   });
 
+  it('supports logical block and inline aliases inside provider context', () => {
+    const onRead = jest.fn();
+    const Probe = () => {
+      const {tw} = useTW();
+      React.useEffect(() => {
+        onRead(
+          tw(
+            'm-block-8 mbs-4 mbe-6 m-inline-10 ms-2 me-3 p-block-12 pbs-14 pbe-16 p-inline-18 ps-20 pe-22 border-block-color-blue-500 border-bs-color-red-500 border-be-color-green-500',
+          ),
+        );
+      }, [tw]);
+      return null;
+    };
+
+    const tree = renderInAct(
+      <TWRNProvider>
+        <Probe />
+      </TWRNProvider>,
+    );
+
+    const style = onRead.mock.calls[0][0];
+    expect(style.marginBlock).toBe(8);
+    expect(style.marginVertical).toBe(8);
+    expect(style.marginBlockStart).toBe(4);
+    expect(style.marginTop).toBe(4);
+    expect(style.marginBlockEnd).toBe(6);
+    expect(style.marginBottom).toBe(6);
+    expect(style.marginInline).toBe(10);
+    expect(style.marginHorizontal).toBe(10);
+    expect(style.marginStart).toBe(2);
+    expect(style.marginEnd).toBe(3);
+    expect(style.paddingBlock).toBe(12);
+    expect(style.paddingVertical).toBe(12);
+    expect(style.paddingBlockStart).toBe(14);
+    expect(style.paddingTop).toBe(14);
+    expect(style.paddingBlockEnd).toBe(16);
+    expect(style.paddingBottom).toBe(16);
+    expect(style.paddingInline).toBe(18);
+    expect(style.paddingHorizontal).toBe(18);
+    expect(style.paddingStart).toBe(20);
+    expect(style.paddingEnd).toBe(22);
+    expect(style.borderBlockColor).toBe('#3B82F6');
+    expect(style.borderTopColor).toBe('#EF4444');
+    expect(style.borderBottomColor).toBe('#10B981');
+    expect(style.borderBlockStartColor).toBe('#EF4444');
+    expect(style.borderBlockEndColor).toBe('#10B981');
+    unmountInAct(tree);
+  });
+
   it('supports custom provider styles and nested custom styles', () => {
     const onRead = jest.fn();
     const Probe = () => {
