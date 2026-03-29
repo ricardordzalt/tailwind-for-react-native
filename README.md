@@ -149,13 +149,73 @@ type Theme = {
 Use it when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
 Every `theme` property is optional.
 
+Example using `mode`, `colors`, `styles`, and `classes` with both `tw(...)` and `styled(...)`:
+
+```tsx
+import {Pressable, Text, View} from 'react-native';
+import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
+
+const Card = styled(View)`
+  card
+`;
+
+const Title = styled(Text)`
+  title
+  color-brand
+`;
+
+const PrimaryButton = styled(Pressable)`
+  primaryButton
+`;
+
+const Screen = () => {
+  const {tw} = useTW();
+  return (
+    <Card style={tw('screen bg-surface dark:bg-black')}>
+      <Title>Provider example</Title>
+      <PrimaryButton style={tw('mt-8')}>
+        <Text style={tw('color-white')}>Continue</Text>
+      </PrimaryButton>
+    </Card>
+  );
+};
+
+const App = () => (
+  <TWRNProvider
+    theme={{
+      mode: 'dark',
+      colors: {
+        brand: '#2563EB',
+        surface: '#F5F5F5',
+        light: {surface: '#FFFFFF'},
+        dark: {brand: '#60A5FA', surface: '#111111'},
+      },
+      styles: {
+        screen: {padding: 16},
+        card: {borderRadius: 12},
+        title: {fontSize: 16, fontWeight: '700'},
+      },
+      classes: {
+        primaryButton: 'bg-brand p-10 border-radius-8',
+      },
+    }}>
+    <Screen />
+  </TWRNProvider>
+);
+```
+
+- `mode: 'dark'` enables `dark:*` utilities (for example `dark:bg-black`).
+- `colors` provides tokens like `brand` and `surface`.
+- `styles` provides object presets like `screen`, `card`, and `title`.
+- `classes` provides string aliases like `primaryButton`.
+
 ---
 
 ## Theming and Customization
 
 ### Colors
 
-Use `theme.colors` for flat tokens and mode-specific overrides:
+Use `theme.colors` for flat tokens and light/dark mode overrides:
 
 ```tsx
 import {Text, View} from 'react-native';
@@ -180,7 +240,9 @@ const App = () => (
       mode: 'dark',
       colors: {
         primary: '#bbbbbb',
+        // Overrides for light mode
         light: {primary: '#f5f5f5'},
+        // Overrides for dark mode
         dark: {primary: '#111111'},
       },
     }}>
