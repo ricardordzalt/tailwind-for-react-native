@@ -5,7 +5,7 @@ const getStyle = (stringStyles: any[], propsValues: any) => {
   const validStringStyles = stringStyles[0].map(
     (stringLine: string, index: number) => {
       const interpolationResult = stringStyles[index + 1]?.(propsValues) ?? '';
-      const stringPiece = stringLine.replace(/\n/g, '');
+      const stringPiece = stringLine.replace(/\n/g, ' ');
       return `${stringPiece}${interpolationResult}`;
     },
   );

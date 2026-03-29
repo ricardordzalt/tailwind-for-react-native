@@ -79,6 +79,19 @@ describe('styled', () => {
     unmountInAct(tree);
   });
 
+  it('parses utilities separated only by newlines in template literals', () => {
+    const StyledBox = styled(View)`bg-blue-500
+mt-8`;
+    const tree = renderInAct(<StyledBox testID="box" />);
+    const box = tree.root
+      .findAllByType(View)
+      .find(node => node.props.testID === 'box');
+    const style = StyleSheet.flatten(box?.props.style);
+    expect(style.backgroundColor).toBe('#3B82F6');
+    expect(style.marginTop).toBe(8);
+    unmountInAct(tree);
+  });
+
   it('supports logical block and inline aliases for margin, padding and border colors', () => {
     const StyledBox = styled(View)`
       m-block-8

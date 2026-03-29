@@ -3,6 +3,6 @@ export type ArrayOfStyleStringType = string[];
 
 const stylesSeparator = (
   stylesString: StylesType = '',
-): ArrayOfStyleStringType => stylesString.split(' ').filter(Boolean);
+): ArrayOfStyleStringType => stylesString.trim().split(/\s+/).filter(Boolean);
 
 export default stylesSeparator;
