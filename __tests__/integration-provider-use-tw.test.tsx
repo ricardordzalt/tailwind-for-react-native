@@ -3,6 +3,7 @@ import {Platform} from 'react-native';
 import {act} from 'react-test-renderer';
 import {TWRNProvider, useTW} from '../index';
 import {mockWindowDimensions, renderInAct, unmountInAct} from '../test-utils';
+import {COLORS} from '../src/constants/colors';
 
 describe('integration: TWRNProvider + useTW', () => {
   beforeEach(() => {
@@ -150,11 +151,11 @@ describe('integration: TWRNProvider + useTW', () => {
     expect(style.paddingHorizontal).toBe(18);
     expect(style.paddingStart).toBe(20);
     expect(style.paddingEnd).toBe(22);
-    expect(style.borderBlockColor).toBe('#3B82F6');
-    expect(style.borderTopColor).toBe('#EF4444');
-    expect(style.borderBottomColor).toBe('#10B981');
-    expect(style.borderBlockStartColor).toBe('#EF4444');
-    expect(style.borderBlockEndColor).toBe('#10B981');
+    expect(style.borderBlockColor).toBe(COLORS['blue-500']);
+    expect(style.borderTopColor).toBe(COLORS['red-500']);
+    expect(style.borderBottomColor).toBe(COLORS['green-500']);
+    expect(style.borderBlockStartColor).toBe(COLORS['red-500']);
+    expect(style.borderBlockEndColor).toBe(COLORS['green-500']);
     unmountInAct(tree);
   });
 
@@ -206,7 +207,7 @@ describe('integration: TWRNProvider + useTW', () => {
         <Probe />
       </TWRNProvider>,
     );
-    expect(onRead.mock.calls[0][0].backgroundColor).toBe('#E5E7EB');
+    expect(onRead.mock.calls[0][0].backgroundColor).toBe(COLORS['gray-200']);
     expect(onRead.mock.calls[0][0].padding).toBe(3);
     expect(onRead.mock.calls[0][0].borderRadius).toBe(8);
     unmountInAct(tree);
@@ -319,7 +320,7 @@ describe('integration: TWRNProvider + useTW', () => {
       </TWRNProvider>,
     );
     const style = onRead.mock.calls[0][0];
-    expect(style.backgroundColor).toBe('#3B82F6');
+    expect(style.backgroundColor).toBe(COLORS['blue-500']);
     expect(style.fontWeight).toBe('700');
     expect(style.marginTop).toBe(8);
     unmountInAct(tree);

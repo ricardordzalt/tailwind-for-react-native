@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import {act} from 'react-test-renderer';
 import {styled, TWRNProvider} from '../index';
 import {mockWindowDimensions, renderInAct, unmountInAct} from '../test-utils';
+import {COLORS} from '../src/constants/colors';
 
 describe('integration: TWRNProvider + styled', () => {
   beforeEach(() => {
@@ -165,11 +166,11 @@ describe('integration: TWRNProvider + styled', () => {
     expect(style.paddingStart).toBe(20);
     expect(style.paddingInlineEnd).toBe(22);
     expect(style.paddingEnd).toBe(22);
-    expect(style.borderBlockColor).toBe('#3B82F6');
-    expect(style.borderTopColor).toBe('#EF4444');
-    expect(style.borderBottomColor).toBe('#10B981');
-    expect(style.borderBlockStartColor).toBe('#EF4444');
-    expect(style.borderBlockEndColor).toBe('#10B981');
+    expect(style.borderBlockColor).toBe(COLORS['blue-500']);
+    expect(style.borderTopColor).toBe(COLORS['red-500']);
+    expect(style.borderBottomColor).toBe(COLORS['green-500']);
+    expect(style.borderBlockStartColor).toBe(COLORS['red-500']);
+    expect(style.borderBlockEndColor).toBe(COLORS['green-500']);
     unmountInAct(tree);
   });
 
@@ -224,7 +225,7 @@ describe('integration: TWRNProvider + styled', () => {
       .findAllByType(View)
       .find(node => node.props.testID === 'box');
     const style = StyleSheet.flatten(box?.props.style);
-    expect(style.backgroundColor).toBe('#E5E7EB');
+    expect(style.backgroundColor).toBe(COLORS['gray-200']);
     expect(style.padding).toBe(3);
     expect(style.borderRadius).toBe(8);
     unmountInAct(tree);
@@ -289,7 +290,7 @@ describe('integration: TWRNProvider + styled', () => {
       .find(node => node.props.testID === 'txt');
     const style = StyleSheet.flatten(txt?.props.style);
     expect(style.fontSize).toBe(16);
-    expect(style.color).toBe('#3B82F6');
+    expect(style.color).toBe(COLORS['blue-500']);
     expect(style.opacity).toBe(0.5);
     unmountInAct(tree);
   });

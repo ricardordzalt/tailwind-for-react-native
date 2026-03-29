@@ -3,6 +3,7 @@ import React from 'react';
 import {useTW} from '../index';
 import {mockWindowDimensions, readTwWithoutProvider} from '../test-utils';
 import {renderInAct, unmountInAct} from '../test-utils';
+import {COLORS} from '../src/constants/colors';
 
 describe('useTW', () => {
   beforeEach(() => {
@@ -15,9 +16,15 @@ describe('useTW', () => {
 
   it('parses basic utility styles from README examples', () => {
     const style = readTwWithoutProvider({className: 'bg-blue-500 font-bold mt-8'});
-    expect(style.backgroundColor).toBe('#3B82F6');
+    expect(style.backgroundColor).toBe(COLORS['blue-500']);
     expect(style.fontWeight).toBe('700');
     expect(style.marginTop).toBe(8);
+  });
+
+  it('supports v4 palette tokens with 950 scale', () => {
+    const style = readTwWithoutProvider({className: 'bg-olive-950 color-taupe-400'});
+    expect(style.backgroundColor).toBe(COLORS['olive-950']);
+    expect(style.color).toBe(COLORS['taupe-400']);
   });
 
   it('ignores dark: modifier in default light mode without provider', () => {
@@ -117,11 +124,11 @@ describe('useTW', () => {
     expect(style.paddingHorizontal).toBe(18);
     expect(style.paddingStart).toBe(20);
     expect(style.paddingEnd).toBe(22);
-    expect(style.borderBlockColor).toBe('#3B82F6');
-    expect(style.borderTopColor).toBe('#EF4444');
-    expect(style.borderBottomColor).toBe('#10B981');
-    expect(style.borderBlockStartColor).toBe('#EF4444');
-    expect(style.borderBlockEndColor).toBe('#10B981');
+    expect(style.borderBlockColor).toBe(COLORS['blue-500']);
+    expect(style.borderTopColor).toBe(COLORS['red-500']);
+    expect(style.borderBottomColor).toBe(COLORS['green-500']);
+    expect(style.borderBlockStartColor).toBe(COLORS['red-500']);
+    expect(style.borderBlockEndColor).toBe(COLORS['green-500']);
   });
 
   it('uses default conversion factors for both tw values and helper functions', () => {

@@ -1,16 +1,18 @@
 # tailwind-for-react-native
 
-## Get started
+Tailwind-like utilities for React Native, with support for:
 
-### Installation
+- Utility strings via `tw(...)`
+- Styled components via `styled(Component)` template literals
+- Optional theming through `TWRNProvider` (`mode`, `colors`, `styles`, `classes`)
 
-Install this library with **npm**:
+## Installation
 
 ```bash
 npm i tailwind-for-react-native
 ```
 
-or with **yarn**:
+or
 
 ```bash
 yarn add tailwind-for-react-native
@@ -18,143 +20,18 @@ yarn add tailwind-for-react-native
 
 ---
 
-### Example
+## Quick Start
 
-The following snippet shows the default template rewritten with **tailwind‑for‑react‑native**.
+### 1) Use `styled(...)`
 
 ```tsx
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
-
-const CustomSafeAreaView = styled(SafeAreaView)`
-  bg-lighter
-  dark:bg-darker
-`;
-
-const CustomScrollView = styled(ScrollView)`
-  bg-lighter
-  dark:bg-darker
-`;
-
-const ContentContainer = styled(View)`
-  bg-white
-  dark:bg-black
-`;
-
-const BoldText = styled(Text)`
-  font-bold
-`;
-
-const SectionContainer = styled(View)`
-  mt-32
-  px-24
-`;
-
-const SectionTitle = styled(Text)`
-  font-size-24
-  font-semibold
-  color-black
-  dark:color-white
-`;
-
-const SectionText = styled(Text)`
-  mt-8
-  font-size-18
-  font-normal
-  color-dark
-  dark:color-light
-`;
-
-type SectionProps = PropsWithChildren<{ title: string }>;
-
-function Section({children, title}: SectionProps) {
-  return (
-    <SectionContainer>
-      <SectionTitle>{title}</SectionTitle>
-      <SectionText>{children}</SectionText>
-    </SectionContainer>
-  );
-}
-
-function YourApp() {
-  const isDarkMode = useColorScheme() === 'dark';
-  const {tw} = useTW();
-  const statusBarBackgroundColor = tw('bg-lighter dark:bg-darker');
-  return (
-    <CustomSafeAreaView>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={statusBarBackgroundColor.backgroundColor}
-      />
-      <CustomScrollView contentInsetAdjustmentBehavior="automatic">
-        <Header />
-        <ContentContainer>
-          <Section title="Step One">
-            Edit <BoldText>App.tsx</BoldText> to change this screen and then
-            come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </ContentContainer>
-      </CustomScrollView>
-    </CustomSafeAreaView>
-  );
-}
-
-const App = () => {
-  const mode = useColorScheme();
-  return (
-    <TWRNProvider theme={{mode, colors: Colors}}>
-      <YourApp />
-    </TWRNProvider>
-  );
-};
-
-export default App;
-```
-
----
-
-## API Reference
-
-### `styled()` – create styled components
-
-```ts
-import { Pressable, Text } from 'react-native';
-import { styled } from 'tailwind-for-react-native';
+import {Pressable, Text} from 'react-native';
+import {styled} from 'tailwind-for-react-native';
 
 const Button = styled(Pressable)`
   border-radius-8
   p-6
-  h-50
-  w-70%
-  justify-center
-  items-center
+  bg-blue-500
 `;
 
 const ButtonText = styled(Text)`
@@ -163,40 +40,92 @@ const ButtonText = styled(Text)`
 `;
 ```
 
-### `useTW()` – utility hook
-
-```ts
-import { useTW } from 'tailwind-for-react-native';
-
-const { tw } = useTW();
-const style = tw('bg-blue-500 font-bold');
-```
-
-### `TWRNProvider` – theme and mode
-
-`theme.colors` supports both flat colors and mode overrides in the same object.
-
-- Flat colors: regular color tokens (for any mode).
-- Mode overrides: if `colors.light` / `colors.dark` are **objects**, they are used as mode-specific overrides.
-- If `colors.light` / `colors.dark` are strings (or non-objects), they are treated as normal flat color keys.
-- `theme.styles` accepts style objects (`{primaryButton: {padding: 8}}`).
-- `theme.classes` accepts utility aliases as strings (`{primaryButton: 'bg-blue-500 p-2'}`), including nested paths like `buttons.primary`.
+### 2) Use `useTW()`
 
 ```tsx
-// Flat colors only
-<TWRNProvider
-  theme={{
-    mode: 'light',
-    colors: {
-      primary: '#bbbbbb',
-      light: '#ededed',
-      dark: '#121212',
-    },
-  }}>
-  <App />
-</TWRNProvider>
+import {View} from 'react-native';
+import {useTW} from 'tailwind-for-react-native';
 
-// Flat colors + mode overrides
+const Example = () => {
+  const {tw} = useTW();
+  return <View style={tw('bg-blue-500 mt-8')} />;
+};
+```
+
+### 3) Add `TWRNProvider` when you need theme/config
+
+```tsx
+import React from 'react';
+import {useColorScheme} from 'react-native';
+import {TWRNProvider} from 'tailwind-for-react-native';
+
+const App = () => {
+  const mode = useColorScheme() === 'dark' ? 'dark' : 'light';
+  return <TWRNProvider theme={{mode}}>{/* app */}</TWRNProvider>;
+};
+```
+
+---
+
+## API Reference
+
+### `useTW()`
+
+Returns:
+
+- `tw(className: string)` -> style object
+- `mode` and `toggleMode()`
+- `wppx(value)` and `hppx(value)` helpers
+- `colors` from provider context
+
+```tsx
+const {tw, wppx, hppx} = useTW();
+
+const style = tw('w-wppx(50) h-hppx(25) bg-blue-500');
+const cardWidth = wppx(80);
+const cardHeight = hppx(25);
+```
+
+### `styled(Component)`
+
+Builds a component from utility classes. Interpolations are supported.
+
+```tsx
+import {View} from 'react-native';
+
+const Avatar = styled(View)<{size: number}>`
+  w-${({size}) => size}
+  h-${({size}) => size}
+  border-radius-9999
+`;
+```
+
+### `TWRNProvider`
+
+`theme` shape:
+
+```ts
+type Theme = {
+  mode?: 'light' | 'dark';
+  colors?: Record<string, any>;
+  styles?: Record<string, any>;
+  classes?: Record<string, any>;
+  wpFactorConversion?: number;
+  hpFactorConversion?: number;
+};
+```
+
+Use `TWRNProvider` when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
+
+---
+
+## Theming and Customization
+
+### Colors
+
+`theme.colors` supports flat tokens and mode-specific overrides:
+
+```tsx
 <TWRNProvider
   theme={{
     mode: 'dark',
@@ -206,10 +135,33 @@ const style = tw('bg-blue-500 font-bold');
       dark: {primary: '#111111'},
     },
   }}>
-  <App />
+  {/* ... */}
 </TWRNProvider>
+```
 
-// Reusable class aliases
+### `theme.styles` (object presets)
+
+Use object style presets and nested paths:
+
+```tsx
+<TWRNProvider
+  theme={{
+    styles: {
+      card: {padding: 12, borderRadius: 8},
+      buttons: {
+        primary: {backgroundColor: '#3B82F6'},
+      },
+    },
+  }}>
+  {/* tw('card buttons.primary') */}
+</TWRNProvider>
+```
+
+### `theme.classes` (string aliases)
+
+Use reusable utility aliases and nested paths:
+
+```tsx
 <TWRNProvider
   theme={{
     classes: {
@@ -218,28 +170,164 @@ const style = tw('bg-blue-500 font-bold');
         secondary: 'bg-gray-200 p-2',
       },
     },
-    styles: {
-      buttonLabel: {fontWeight: '700'},
-    },
+  }}>
+  {/* tw('primaryButton buttons.secondary') */}
+</TWRNProvider>
+```
+
+Class aliases support nested references and are protected against circular loops.
+
+---
+
+## Utility Behavior
+
+### Modifiers
+
+- `dark:*` applies only in dark mode.
+- `ios:*` and `android:*` apply only on the current platform.
+
+### Precedence
+
+- Inside a class list, later utilities win (`'mt-4 mt-8'` -> `mt-8`).
+
+In `styled(...)`, the runtime `style` prop has final priority over generated utility styles:
+
+```tsx
+const Badge = styled(Text)`
+  font-size-12
+  color-white
+  bg-blue-500
+`;
+
+// runtime style overrides styled utilities
+<Badge style={{fontSize: 16, color: '#111111'}}>New</Badge>;
+```
+
+### Accepted value formats
+
+Computed utilities support:
+
+- numbers (`mt-8`)
+- percentages (`w-70%`)
+- `auto` (`l-auto`)
+- hex (`color-#fff`)
+- viewport helpers (`w-wp(50)`, `h-hp(25)`)
+- pixel helpers with conversion factors (`w-wppx(50)`, `h-hppx(25)`)
+
+### Invalid classes
+
+- Invalid utilities are ignored (fail-soft).
+- In development, invalid utilities emit `console.warn`.
+- In production, they are ignored silently.
+
+### Whitespace in `styled` templates
+
+Utilities are parsed from any whitespace (spaces, tabs, new lines). Multi-line templates work even when classes are split only by line breaks.
+
+---
+
+## Responsive Guide
+
+### Available sizing approaches
+
+- `%` for fluid layouts (`w-70%`)
+- `wp()/hp()` for direct viewport percentages in px (`w-wp(50)`, `h-hp(25)`)
+- `wppx()/hppx()` for design-based scaling (`w-wppx(140)`, `h-hppx(48)`)
+
+### Configure conversion factors
+
+`wppx` and `hppx` use `wpFactorConversion` and `hpFactorConversion` from `TWRNProvider`.
+
+Default values:
+
+- `wpFactorConversion: 3.6`
+- `hpFactorConversion: 8`
+
+```tsx
+<TWRNProvider
+  theme={{
+    wpFactorConversion: 3.6,
+    hpFactorConversion: 8,
   }}>
   <App />
 </TWRNProvider>
 ```
 
-### Style precedence in `styled(...)`
+### Use `wppx/hppx` in utility strings
 
-When using `styled(Component)`, styles passed via the `style` prop always have final priority:
+```tsx
+const {tw} = useTW();
+const buttonStyle = tw('w-wppx(140) h-hppx(48) px-wppx(16) border-radius-8');
+```
 
-- Object style: `{...twStyles, ...propStyle}`
-- Array style: `[twStyles, ...propStyleArray]`
+### Use `wppx/hppx` as helpers
 
-This allows local JSX overrides without changing the base styled component.
+```tsx
+const {wppx, hppx} = useTW();
 
-### Invalid utilities
+const style = {
+  width: wppx(140),
+  height: hppx(48),
+  paddingHorizontal: wppx(16),
+};
+```
 
-- Invalid classes are ignored (fail-soft).
-- In development (`NODE_ENV !== 'production'`), invalid classes emit `console.warn`.
-- In production, invalid classes are ignored silently.
+### Practical rule of thumb
+
+- Use `%` for fluid containers.
+- Use `wp()/hp()` when you want a value tied directly to viewport percentage.
+- Use `wppx()/hppx()` when your design comes from fixed specs (for example Figma values).
+
+---
+
+## Common Recipes
+
+### 1) Button variants with `theme.classes`
+
+```tsx
+<TWRNProvider
+  theme={{
+    classes: {
+      buttonBase: 'p-12 border-radius-8 items-center justify-center',
+      buttonPrimary: 'buttonBase bg-blue-500',
+      buttonSecondary: 'buttonBase bg-gray-200',
+    },
+  }}>
+  {/* tw('buttonPrimary') / tw('buttonSecondary') */}
+</TWRNProvider>
+```
+
+### 2) Responsive card from design specs
+
+```tsx
+const Card = styled(View)`
+  w-wppx(320)
+  h-hppx(180)
+  p-wppx(16)
+  border-radius-12
+  bg-white
+`;
+```
+
+### 3) Screen paddings that scale with viewport
+
+```tsx
+const {tw} = useTW();
+
+const containerStyle = tw('px-wp(6) pt-hp(3)');
+```
+
+### 4) Custom object preset + utility alias together
+
+```tsx
+<TWRNProvider
+  theme={{
+    styles: {cardShadow: {shadowColor: '#000', elevation: 4}},
+    classes: {panel: 'p-16 border-radius-12 bg-white'},
+  }}>
+  {/* tw('panel cardShadow') */}
+</TWRNProvider>
+```
 
 ---
 
@@ -254,7 +342,7 @@ Below you will find an exhaustive reference for the current release.
 
 > ℹ️  Functions **wp(…)** and **hp(…)** convert percentages of the current window width/height to pixels.
 >
-> ℹ️  Logical aliases keep the published short forms for inline start/end (`ms` / `me`, `ps` / `pe`), add Tailwind-style block start/end shorthands (`mbs` / `mbe`, `pbs` / `pbe`), and also support long forms like `m-inline` or `p-block-start`. For compatibility, the newly added logical aliases emit both the React Native logical prop and the closest legacy equivalent.
+> ℹ️  Logical aliases keep the published short forms for inline start/end (`ms` / `me`, `ps` / `pe`), add Tailwind-style block start/end shorthands (`mbs` / `mbe`, `pbs` / `pbe`), and also support long forms like `m-inline` or `p-block-start`.
 
 ---
 
@@ -628,6 +716,8 @@ The following tables show every boolean utility now bundled with the library.
 
 #### Resize mode
 
+> ℹ️  Utility names are currently `risize-*` (spelled as implemented) for backward compatibility.
+
 | Class              | Style     |
 | ------------------ | --------- |
 | **risize-cover**   | `cover`   |
@@ -651,85 +741,35 @@ The following tables show every boolean utility now bundled with the library.
 
 #### Colors
 
-| Code      | Value |
-| ----------- | ----------- |
-| blue-50      | '#EFF6FF'       |
-| blue-100      | '#DBEAFE'       |
-| blue-200      | '#BFDBFE'       |
-| blue-300      | '#93C5FD'       |
-| blue-400      | '#60A5FA'       |
-| blue-500      | '#3B82F6'       |
-| blue-600      | '#2563EB'       |
-| blue-700      | '#1D4ED8'       |
-| blue-800      | '#1E40AF'       |
-| blue-900      | '#1E3A8A'       |
-| yellow-50      | '#FFFBEB'       |
-| yellow-100      | '#FEF3C7'       |
-| yellow-200      | '#FDE68A'       |
-| yellow-300      | '#FCD34D'       |
-| yellow-400      | '#FBBF24'       |
-| yellow-500      | '#F59E0B'       |
-| yellow-600      | '#D97706'       |
-| yellow-700      | '#B45309'       |
-| yellow-800      | '#92400E'       |
-| yellow-900      | '#78350F'       |
-| red-50      | '#FEF2F2'       |
-| red-100      | '#FEE2E2'       |
-| red-200      | '#FECACA'       |
-| red-300      | '#FCA5A5'       |
-| red-400      | '#F87171'       |
-| red-500      | '#EF4444'       |
-| red-600      | '#DC2626'       |
-| red-700      | '#B91C1C'       |
-| red-800      | '#991B1B'       |
-| red-900      | '#7F1D1D'       |
-| purple-50      | '#F5F3FF'       |
-| purple-100      | '#EDE9FE'       |
-| purple-200      | '#DDD6FE'       |
-| purple-300      | '#C4B5FD'       |
-| purple-400      | '#A78BFA'       |
-| purple-500      | '#8B5CF6'       |
-| purple-600      | '#7C3AED'       |
-| purple-700      | '#6D28D9'       |
-| purple-800      | '#5B21B6'       |
-| purple-900      | '#4C1D95'       |
-| pink-50      | '#FDF2F8'       |
-| pink-100      | '#FCE7F3'       |
-| pink-200      | '#FBCFE8'       |
-| pink-300      | '#F9A8D4'       |
-| pink-400      | '#F472B6'       |
-| pink-500      | '#EC4899'       |
-| pink-600      | '#DB2777'       |
-| pink-700      | '#BE185D'       |
-| pink-800      | '#9D174D'       |
-| pink-900      | '#831843'       |
-| indigo-50      | '#EEF2FF'       |
-| indigo-100      | '#E0E7FF'       |
-| indigo-200      | '#C7D2FE'       |
-| indigo-300      | '#A5B4FC'       |
-| indigo-400      | '#818CF8'       |
-| indigo-500      | '#6366F1'       |
-| indigo-600      | '#4F46E5'       |
-| indigo-700      | '#4338CA'       |
-| indigo-800      | '#3730A3'       |
-| indigo-900      | '#312E81'       |
-| green-50      | '#ECFDF5'       |
-| green-100      | '#D1FAE5'       |
-| green-200      | '#A7F3D0'       |
-| green-300      | '#6EE7B7'       |
-| green-400      | '#34D399'       |
-| green-500      | '#10B981'       |
-| green-600      | '#059669'       |
-| green-700      | '#047857'       |
-| green-800      | '#065F46'       |
-| green-900      | '#064E3B'       |
-| gray-50      | '#F9FAFB'       |
-| gray-100      | '#F3F4F6'       |
-| gray-200      | '#E5E7EB'       |
-| gray-300      | '#D1D5DB'       |
-| gray-400      | '#9CA3AF'       |
-| gray-500      | '#6B7280'       |
-| gray-600      | '#4B5563'       |
-| gray-700      | '#374151'       |
-| gray-800      | '#1F2937'       |
-| gray-900      | '#111827'       |
+Default color tokens in this library:
+
+| Family | 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| red | `#FEF2F2` | `#FFE2E2` | `#FFC9C9` | `#FFA2A2` | `#FF6467` | `#FB2C36` | `#E7000B` | `#C10007` | `#9F0712` | `#82181A` | `#460809` |
+| orange | `#FFF7ED` | `#FFEDD4` | `#FFD6A7` | `#FFB86A` | `#FF8904` | `#FF6900` | `#F54900` | `#CA3500` | `#9F2D00` | `#7E2A0C` | `#441306` |
+| amber | `#FFFBEB` | `#FEF3C6` | `#FEE685` | `#FFD230` | `#FFB900` | `#FE9A00` | `#E17100` | `#BB4D00` | `#973C00` | `#7B3306` | `#461901` |
+| yellow | `#FEFCE8` | `#FEF9C2` | `#FFF085` | `#FFDF20` | `#FDC700` | `#F0B100` | `#D08700` | `#A65F00` | `#894B00` | `#733E0A` | `#432004` |
+| lime | `#F7FEE7` | `#ECFCCA` | `#D8F999` | `#BBF451` | `#9AE600` | `#7CCF00` | `#5EA500` | `#497D00` | `#3C6300` | `#35530E` | `#192E03` |
+| green | `#F0FDF4` | `#DCFCE7` | `#B9F8CF` | `#7BF1A8` | `#05DF72` | `#00C950` | `#00A63E` | `#008236` | `#016630` | `#0D542B` | `#032E15` |
+| emerald | `#ECFDF5` | `#D0FAE5` | `#A4F4CF` | `#5EE9B5` | `#00D492` | `#00BC7D` | `#009966` | `#007A55` | `#006045` | `#004F3B` | `#002C22` |
+| teal | `#F0FDFA` | `#CBFBF1` | `#96F7E4` | `#46ECD5` | `#00D5BE` | `#00BBA7` | `#009689` | `#00786F` | `#005F5A` | `#0B4F4A` | `#022F2E` |
+| cyan | `#ECFEFF` | `#CEFAFE` | `#A2F4FD` | `#53EAFD` | `#00D3F2` | `#00B8DB` | `#0092B8` | `#007595` | `#005F78` | `#104E64` | `#053345` |
+| sky | `#F0F9FF` | `#DFF2FE` | `#B8E6FE` | `#74D4FF` | `#00BCFF` | `#00A6F4` | `#0084D1` | `#0069A8` | `#00598A` | `#024A70` | `#052F4A` |
+| blue | `#EFF6FF` | `#DBEAFE` | `#BEDBFF` | `#8EC5FF` | `#51A2FF` | `#2B7FFF` | `#155DFC` | `#1447E6` | `#193CB8` | `#1C398E` | `#162456` |
+| indigo | `#EEF2FF` | `#E0E7FF` | `#C6D2FF` | `#A3B3FF` | `#7C86FF` | `#615FFF` | `#4F39F6` | `#432DD7` | `#372AAC` | `#312C85` | `#1E1A4D` |
+| violet | `#F5F3FF` | `#EDE9FE` | `#DDD6FF` | `#C4B4FF` | `#A684FF` | `#8E51FF` | `#7F22FE` | `#7008E7` | `#5D0EC0` | `#4D179A` | `#2F0D68` |
+| purple | `#FAF5FF` | `#F3E8FF` | `#E9D4FF` | `#DAB2FF` | `#C27AFF` | `#AD46FF` | `#9810FA` | `#8200DB` | `#6E11B0` | `#59168B` | `#3C0366` |
+| fuchsia | `#FDF4FF` | `#FAE8FF` | `#F6CFFF` | `#F4A8FF` | `#ED6AFF` | `#E12AFB` | `#C800DE` | `#A800B7` | `#8A0194` | `#721378` | `#4B004F` |
+| pink | `#FDF2F8` | `#FCE7F3` | `#FCCEE8` | `#FDA5D5` | `#FB64B6` | `#F6339A` | `#E60076` | `#C6005C` | `#A3004C` | `#861043` | `#510424` |
+| rose | `#FFF1F2` | `#FFE4E6` | `#FFCCD3` | `#FFA1AD` | `#FF637E` | `#FF2056` | `#EC003F` | `#C70036` | `#A50036` | `#8B0836` | `#4D0218` |
+| slate | `#F8FAFC` | `#F1F5F9` | `#E2E8F0` | `#CAD5E2` | `#90A1B9` | `#62748E` | `#45556C` | `#314158` | `#1D293D` | `#0F172B` | `#020618` |
+| gray | `#F9FAFB` | `#F3F4F6` | `#E5E7EB` | `#D1D5DC` | `#99A1AF` | `#6A7282` | `#4A5565` | `#364153` | `#1E2939` | `#101828` | `#030712` |
+| zinc | `#FAFAFA` | `#F4F4F5` | `#E4E4E7` | `#D4D4D8` | `#9F9FA9` | `#71717B` | `#52525C` | `#3F3F46` | `#27272A` | `#18181B` | `#09090B` |
+| neutral | `#FAFAFA` | `#F5F5F5` | `#E5E5E5` | `#D4D4D4` | `#A1A1A1` | `#737373` | `#525252` | `#404040` | `#262626` | `#171717` | `#0A0A0A` |
+| stone | `#FAFAF9` | `#F5F5F4` | `#E7E5E4` | `#D6D3D1` | `#A6A09B` | `#79716B` | `#57534D` | `#44403B` | `#292524` | `#1C1917` | `#0C0A09` |
+| taupe | `#FBFAF9` | `#F3F1F1` | `#E8E4E3` | `#D8D2D0` | `#ABA09C` | `#7C6D67` | `#5B4F4B` | `#473C39` | `#2B2422` | `#1D1816` | `#0C0A09` |
+| mauve | `#FAFAFA` | `#F3F1F3` | `#E7E4E7` | `#D7D0D7` | `#A89EA9` | `#79697B` | `#594C5B` | `#463947` | `#2A212C` | `#1D161E` | `#0C090C` |
+| mist | `#F9FBFB` | `#F1F3F3` | `#E3E7E8` | `#D0D6D8` | `#9CA8AB` | `#67787C` | `#4B585B` | `#394447` | `#22292B` | `#161B1D` | `#090B0C` |
+| olive | `#FBFBF9` | `#F4F4F0` | `#E8E8E3` | `#D8D8D0` | `#ABAB9C` | `#7C7C67` | `#5B5B4B` | `#474739` | `#2B2B22` | `#1D1D16` | `#0C0C09` |
+
+Named color values like `white` and `black` also work as direct color strings.

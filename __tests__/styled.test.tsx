@@ -2,6 +2,7 @@ import React from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {styled} from '../index';
 import {mockWindowDimensions, renderInAct, unmountInAct} from '../test-utils';
+import {COLORS} from '../src/constants/colors';
 
 describe('styled', () => {
   beforeEach(() => {
@@ -23,7 +24,7 @@ describe('styled', () => {
     const textNode = tree.root.findByType(Text);
     const style = textNode.props.style;
     expect(style.fontSize).toBe(16);
-    expect(style.color).toBe('#3B82F6');
+    expect(style.color).toBe(COLORS['blue-500']);
     expect(style.opacity).toBe(0.5);
     unmountInAct(tree);
   });
@@ -87,7 +88,7 @@ mt-8`;
       .findAllByType(View)
       .find(node => node.props.testID === 'box');
     const style = StyleSheet.flatten(box?.props.style);
-    expect(style.backgroundColor).toBe('#3B82F6');
+    expect(style.backgroundColor).toBe(COLORS['blue-500']);
     expect(style.marginTop).toBe(8);
     unmountInAct(tree);
   });
@@ -141,11 +142,11 @@ mt-8`;
     expect(style.paddingStart).toBe(20);
     expect(style.paddingInlineEnd).toBe(22);
     expect(style.paddingEnd).toBe(22);
-    expect(style.borderBlockColor).toBe('#3B82F6');
-    expect(style.borderTopColor).toBe('#EF4444');
-    expect(style.borderBottomColor).toBe('#10B981');
-    expect(style.borderBlockStartColor).toBe('#EF4444');
-    expect(style.borderBlockEndColor).toBe('#10B981');
+    expect(style.borderBlockColor).toBe(COLORS['blue-500']);
+    expect(style.borderTopColor).toBe(COLORS['red-500']);
+    expect(style.borderBottomColor).toBe(COLORS['green-500']);
+    expect(style.borderBlockStartColor).toBe(COLORS['red-500']);
+    expect(style.borderBlockEndColor).toBe(COLORS['green-500']);
     unmountInAct(tree);
   });
 
