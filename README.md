@@ -75,22 +75,16 @@ const App = () => {
   return (
     <TWRNProvider
       theme={{
-        mode,
-        colors: {brand: '#2563EB'},
-        styles: {card: {padding: 12, borderRadius: 8}},
-        classes: {primaryButton: 'bg-brand p-2 border-radius-8'},
+        mode, // optional
+        colors: {brand: '#2563EB'}, // optional
+        styles: {card: {padding: 12, borderRadius: 8}}, // optional
+        classes: {primaryButton: 'bg-brand p-2 border-radius-8'}, // optional
       }}>
       {/* app */}
     </TWRNProvider>
   );
 };
 ```
-
-Each `theme` key is optional and independent, so you can pass only what you need:
-
-- only mode: `theme={{mode: 'dark'}}`
-- only colors: `theme={{colors: {brand: '#2563EB'}}}`
-- only classes: `theme={{classes: {primaryButton: 'bg-blue-500 p-2'}}}`
 
 ---
 
@@ -145,9 +139,7 @@ type Theme = {
 };
 ```
 
-`TWRNProvider` is optional.
-Use it when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
-Every `theme` property is optional.
+`TWRNProvider` is optional, but using it may let you work with mode-aware colors, custom style presets, string aliases, and custom conversion factors. All `theme` properties are optional.
 
 Example using `mode`, `colors`, `styles`, and `classes` with both `tw(...)` and `styled(...)`:
 
