@@ -1,10 +1,10 @@
 # tailwind-for-react-native
 
-Tailwind-like utilities for React Native, with support for:
+Utility-first styling for React Native:
 
-- Utility strings via `tw(...)`
-- Styled components via `styled(Component)` template literals
-- Optional extension through `TWRNProvider` (`mode`, `colors`, `styles`, `classes`, `wpFactorConversion`, `hpFactorConversion`)
+- Utility strings with `tw(...)`
+- Reusable components with `styled(Component)` template literals
+- Optional `TWRNProvider` for runtime mode, custom tokens, aliases, and viewport conversion settings
 
 ## Installation
 
@@ -60,10 +60,10 @@ const Example = () => {
 };
 ```
 
-You can use `tw(...)` and `styled(...)` without provider.  
-`TWRNProvider` is optional and only extends behavior when you need runtime theme/config.
+`tw(...)` and `styled(...)` work without any provider.  
+Use `TWRNProvider` only when you need runtime theme/config.
 
-### 3) Optional: add `TWRNProvider` when you need theme/config
+### 3) Optional: wrap with `TWRNProvider` to extend features
 
 ```tsx
 import React from 'react';
@@ -86,8 +86,7 @@ const App = () => {
 };
 ```
 
-All `theme` keys are optional and independent, so you can pass only what you need.
-Examples:
+Each `theme` key is optional and independent, so you can pass only what you need:
 
 - only mode: `theme={{mode: 'dark'}}`
 - only colors: `theme={{colors: {brand: '#2563EB'}}}`
@@ -102,7 +101,7 @@ Examples:
 Returns:
 
 - `tw(className: string)` -> style object
-- `mode` and `toggleMode()`
+- `mode` and `toggleMode()` (when provider is mounted)
 - `wppx(value)` and `hppx(value)` helpers
 - `colors` from provider context
 
@@ -116,7 +115,7 @@ const cardHeight = hppx(25);
 
 ### `styled(Component)`
 
-Builds a component from utility classes. Interpolations are supported.
+Creates a component from utility classes. Interpolations are supported.
 
 ```tsx
 import {View} from 'react-native';
@@ -147,8 +146,8 @@ type Theme = {
 ```
 
 `TWRNProvider` is optional.
-Use it only when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
-Every `theme` property is optional, and each one works independently.
+Use it when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
+Every `theme` property is optional.
 
 ---
 
@@ -156,7 +155,7 @@ Every `theme` property is optional, and each one works independently.
 
 ### Colors
 
-`theme.colors` supports flat tokens and mode-specific overrides:
+Use `theme.colors` for flat tokens and mode-specific overrides:
 
 ```tsx
 import {Text, View} from 'react-native';
@@ -190,11 +189,11 @@ const App = () => (
 );
 ```
 
-Both `tw('...')` and `styled(...)` resolve `primary` from provider colors.
+You can use `primary` in both `tw('...')` and `styled(...)`.
 
 ### `theme.styles` (object presets)
 
-Use object style presets and nested paths:
+Use `theme.styles` for object presets (including nested paths):
 
 ```tsx
 import {Text, View} from 'react-native';
@@ -229,11 +228,11 @@ const App = () => (
 );
 ```
 
-`tw(...)` and `styled(...)` can consume style object presets from `theme.styles`.
+You can consume these presets from both `tw(...)` and `styled(...)`.
 
 ### `theme.classes` (string aliases)
 
-Use reusable utility aliases and nested paths:
+Use `theme.classes` for reusable utility aliases and nested paths:
 
 ```tsx
 import {Pressable, Text, View} from 'react-native';
@@ -277,7 +276,7 @@ const App = () => (
 );
 ```
 
-String aliases from `theme.classes` are available in both `tw(...)` and `styled(...)`.
+These aliases are available in both `tw(...)` and `styled(...)`.
 
 Class aliases support nested references and are protected against circular loops.
 
@@ -309,7 +308,7 @@ const Badge = styled(Text)`
 
 ### Accepted value formats
 
-Computed utilities support:
+Value parser supports:
 
 - numbers (`mt-8`)
 - percentages (`w-70%`)
@@ -326,7 +325,8 @@ Computed utilities support:
 
 ### Whitespace in `styled` templates
 
-Utilities are parsed from any whitespace (spaces, tabs, new lines). Multi-line templates work even when classes are split only by line breaks.
+Utilities are parsed from any whitespace (spaces, tabs, new lines).
+Multi-line templates work even when classes are split only by line breaks.
 
 ---
 
@@ -437,16 +437,16 @@ const containerStyle = tw('px-wp(6) pt-hp(3)');
 
 # Style System
 
-The library exposes **two kinds of utilities**:
+The library has **two kinds of utilities**:
 
-1. **Computed properties** – short aliases that accept a value (e.g. `mt-8`, `w-50%`).
-2. **Pre‑defined properties** – boolean class‑like shorthands (e.g. `items-center`, `border-dashed`).
+1. **Computed properties** - short aliases that accept a value (e.g. `mt-8`, `w-50%`).
+2. **Pre-defined properties** - boolean class-like shorthands (e.g. `items-center`, `border-dashed`).
 
-Below you will find an exhaustive reference for the current release.
+The tables below list the utilities available in the current release.
 
 > ℹ️  Functions **wp(…)** and **hp(…)** convert percentages of the current window width/height to pixels.
 >
-> ℹ️  Logical aliases keep the published short forms for inline start/end (`ms` / `me`, `ps` / `pe`), add Tailwind-style block start/end shorthands (`mbs` / `mbe`, `pbs` / `pbe`), and also support long forms like `m-inline` or `p-block-start`.
+> ℹ️  Logical aliases keep the published short forms for inline start/end (`ms` / `me`, `ps` / `pe`), add short block start/end forms (`mbs` / `mbe`, `pbs` / `pbe`), and also support long forms like `m-inline` or `p-block-start`.
 
 ---
 
