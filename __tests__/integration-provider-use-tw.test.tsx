@@ -184,6 +184,59 @@ describe('integration: TWRNProvider + useTW', () => {
     unmountInAct(tree);
   });
 
+  it('supports provider class aliases and nested aliases inside provider context', () => {
+    const onRead = jest.fn();
+    const Probe = () => {
+      const {tw} = useTW();
+      React.useEffect(() => {
+        onRead(tw('primaryButton buttons.secondary rounded'));
+      }, [tw]);
+      return null;
+    };
+
+    const tree = renderInAct(
+      <TWRNProvider
+        theme={{
+          classes: {
+            primaryButton: 'bg-blue-500 p-2',
+            buttons: {secondary: 'bg-gray-200 p-3'},
+          },
+          styles: {rounded: {borderRadius: 8}},
+        }}>
+        <Probe />
+      </TWRNProvider>,
+    );
+    expect(onRead.mock.calls[0][0].backgroundColor).toBe('#E5E7EB');
+    expect(onRead.mock.calls[0][0].padding).toBe(3);
+    expect(onRead.mock.calls[0][0].borderRadius).toBe(8);
+    unmountInAct(tree);
+  });
+
+  it('ignores circular provider class aliases without breaking other utilities', () => {
+    const onRead = jest.fn();
+    const Probe = () => {
+      const {tw} = useTW();
+      React.useEffect(() => {
+        onRead(tw('loopA mt-8'));
+      }, [tw]);
+      return null;
+    };
+
+    const tree = renderInAct(
+      <TWRNProvider
+        theme={{
+          classes: {
+            loopA: 'loopB',
+            loopB: 'loopA',
+          },
+        }}>
+        <Probe />
+      </TWRNProvider>,
+    );
+    expect(onRead.mock.calls[0][0].marginTop).toBe(8);
+    unmountInAct(tree);
+  });
+
   it('applies platform-prefixed utilities and ignores non-matching ones', () => {
     const onRead = jest.fn();
     const Probe = () => {

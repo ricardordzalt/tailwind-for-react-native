@@ -1,19 +1,17 @@
-type NestedStyleObject = {
-  [key: string]: NestedStyleObject | string | number | undefined;
-};
-
 const getNestedStyleFromString = (
-  obj: NestedStyleObject,
+  obj: Record<string, unknown>,
   path: string,
-): NestedStyleObject | string | number | undefined => {
+): unknown => {
   if (!path) {
     return undefined;
   }
   const properties = path.split('.');
-  return properties.reduce<NestedStyleObject | string | number | undefined>(
+  return properties.reduce<unknown>(
     (acc, prop) => {
       // Ensure acc is an object before accessing its property.
-      return typeof acc === 'object' && acc !== null ? acc[prop] : undefined;
+      return typeof acc === 'object' && acc !== null
+        ? (acc as Record<string, unknown>)[prop]
+        : undefined;
     },
     obj,
   );

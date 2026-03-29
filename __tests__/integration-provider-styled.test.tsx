@@ -200,6 +200,36 @@ describe('integration: TWRNProvider + styled', () => {
     unmountInAct(tree);
   });
 
+  it('applies provider class aliases in styled components within provider context', () => {
+    const StyledBox = styled(View)`
+      primaryButton
+      buttons.secondary
+      rounded
+    `;
+
+    const tree = renderInAct(
+      <TWRNProvider
+        theme={{
+          classes: {
+            primaryButton: 'bg-blue-500 p-2',
+            buttons: {secondary: 'bg-gray-200 p-3'},
+          },
+          styles: {rounded: {borderRadius: 8}},
+        }}>
+        <StyledBox testID="box" />
+      </TWRNProvider>,
+    );
+
+    const box = tree.root
+      .findAllByType(View)
+      .find(node => node.props.testID === 'box');
+    const style = StyleSheet.flatten(box?.props.style);
+    expect(style.backgroundColor).toBe('#E5E7EB');
+    expect(style.padding).toBe(3);
+    expect(style.borderRadius).toBe(8);
+    unmountInAct(tree);
+  });
+
   it('ignores non-matching platform-prefixed classes in styled', () => {
     const StyledBox = styled(View)`
       ios:mt-8

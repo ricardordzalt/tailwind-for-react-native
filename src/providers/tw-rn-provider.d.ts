@@ -5,6 +5,7 @@ export type Mode = 'light' | 'dark' | null;
 export type TWRNTheme = {
   mode?: Mode;
   styles?: any;
+  classes?: any;
   colors?: any;
   wpFactorConversion?: number;
   hpFactorConversion?: number;
@@ -15,6 +16,7 @@ export type TWRNContextType = {
   toggleMode: () => void;
   setMode: Dispatch<SetStateAction<Mode>>;
   styles?: any;
+  classes?: any;
   colors?: any;
   wpFactorConversion?: number;
   hpFactorConversion?: number;

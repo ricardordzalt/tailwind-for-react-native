@@ -47,6 +47,14 @@ export const readTw = ({
   return style;
 };
 
+export const readTwWithoutProvider = ({className}: {className: string}) => {
+  const onRead = jest.fn();
+  const tree = renderInAct(<TWCapture onRead={onRead} className={className} />);
+  const style = onRead.mock.calls[0][0];
+  unmountInAct(tree);
+  return style;
+};
+
 export const mockWindowDimensions = () => {
   jest.spyOn(require('react-native'), 'useWindowDimensions').mockReturnValue({
     width: 360,

@@ -179,6 +179,8 @@ const style = tw('bg-blue-500 font-bold');
 - Flat colors: regular color tokens (for any mode).
 - Mode overrides: if `colors.light` / `colors.dark` are **objects**, they are used as mode-specific overrides.
 - If `colors.light` / `colors.dark` are strings (or non-objects), they are treated as normal flat color keys.
+- `theme.styles` accepts style objects (`{primaryButton: {padding: 8}}`).
+- `theme.classes` accepts utility aliases as strings (`{primaryButton: 'bg-blue-500 p-2'}`), including nested paths like `buttons.primary`.
 
 ```tsx
 // Flat colors only
@@ -202,6 +204,22 @@ const style = tw('bg-blue-500 font-bold');
       primary: '#bbbbbb',
       light: {primary: '#f5f5f5'},
       dark: {primary: '#111111'},
+    },
+  }}>
+  <App />
+</TWRNProvider>
+
+// Reusable class aliases
+<TWRNProvider
+  theme={{
+    classes: {
+      primaryButton: 'bg-blue-500 p-2',
+      buttons: {
+        secondary: 'bg-gray-200 p-2',
+      },
+    },
+    styles: {
+      buttonLabel: {fontWeight: '700'},
     },
   }}>
   <App />

@@ -1,8 +1,7 @@
 import {Platform} from 'react-native';
 import React from 'react';
-import {act} from 'react-test-renderer';
-import {TWRNProvider, useTW} from '../index';
-import {mockWindowDimensions, readTw} from '../test-utils';
+import {useTW} from '../index';
+import {mockWindowDimensions, readTwWithoutProvider} from '../test-utils';
 import {renderInAct, unmountInAct} from '../test-utils';
 
 describe('useTW', () => {
@@ -15,56 +14,42 @@ describe('useTW', () => {
   });
 
   it('parses basic utility styles from README examples', () => {
-    const style = readTw({className: 'bg-blue-500 font-bold mt-8'});
+    const style = readTwWithoutProvider({className: 'bg-blue-500 font-bold mt-8'});
     expect(style.backgroundColor).toBe('#3B82F6');
     expect(style.fontWeight).toBe('700');
     expect(style.marginTop).toBe(8);
   });
 
-  it('respects dark: modifier by mode', () => {
-    const lightStyle = readTw({
-      className: 'bg-white dark:bg-black',
-      theme: {mode: 'light'},
-    });
-    const darkStyle = readTw({
-      className: 'bg-white dark:bg-black',
-      theme: {mode: 'dark'},
-    });
-    expect(lightStyle.backgroundColor).toBe('white');
-    expect(darkStyle.backgroundColor).toBe('black');
+  it('ignores dark: modifier in default light mode without provider', () => {
+    const style = readTwWithoutProvider({className: 'bg-white dark:bg-black'});
+    expect(style.backgroundColor).toBe('white');
   });
 
   it('applies platform-prefixed styles only for current platform', () => {
-    const style = readTw({className: 'ios:mt-8 android:mt-12'});
+    const style = readTwWithoutProvider({className: 'ios:mt-8 android:mt-12'});
     const expectedMarginTop = Platform.OS === 'ios' ? 8 : 12;
     expect(style.marginTop).toBe(expectedMarginTop);
   });
 
   it('ignores non-matching platform classes', () => {
     const className = Platform.OS === 'ios' ? 'android:mt-12' : 'ios:mt-8';
-    const style = readTw({className});
+    const style = readTwWithoutProvider({className});
     expect(style.marginTop).toBeUndefined();
   });
 
   it('resolves utility conflicts by last class', () => {
-    const style = readTw({className: 'mt-4 mt-8'});
+    const style = readTwWithoutProvider({className: 'mt-4 mt-8'});
     expect(style.marginTop).toBe(8);
   });
 
   it('supports percentage, auto, hex, wp/hp and wppx/hppx values', () => {
-    const percentageStyle = readTw({className: 'w-70%'});
-    const autoStyle = readTw({className: 'l-auto'});
-    const hexStyle = readTw({className: 'color-#fff'});
-    const wpStyle = readTw({className: 'w-wp(50)'});
-    const hpStyle = readTw({className: 'h-hp(25)'});
-    const wppxStyle = readTw({
-      className: 'w-wppx(50)',
-      theme: {wpFactorConversion: 3.6},
-    });
-    const hppxStyle = readTw({
-      className: 'h-hppx(25)',
-      theme: {hpFactorConversion: 8},
-    });
+    const percentageStyle = readTwWithoutProvider({className: 'w-70%'});
+    const autoStyle = readTwWithoutProvider({className: 'l-auto'});
+    const hexStyle = readTwWithoutProvider({className: 'color-#fff'});
+    const wpStyle = readTwWithoutProvider({className: 'w-wp(50)'});
+    const hpStyle = readTwWithoutProvider({className: 'h-hp(25)'});
+    const wppxStyle = readTwWithoutProvider({className: 'w-wppx(50)'});
+    const hppxStyle = readTwWithoutProvider({className: 'h-hppx(25)'});
 
     expect(percentageStyle.width).toBe('70%');
     expect(autoStyle.left).toBe('auto');
@@ -77,7 +62,7 @@ describe('useTW', () => {
 
   it('warns for invalid utilities in non-production and does not break valid ones', () => {
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-    const style = readTw({className: 'foo-bar mt-8'});
+    const style = readTwWithoutProvider({className: 'foo-bar mt-8'});
     expect(style.marginTop).toBe(8);
     expect(warnSpy).toHaveBeenCalled();
     expect(warnSpy.mock.calls[0][0]).toContain('Ignored invalid style "foo-bar"');
@@ -85,7 +70,7 @@ describe('useTW', () => {
 
   it('warns for invalid numeric values and avoids NaN styles', () => {
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-    const style = readTw({className: 'mt-abc'});
+    const style = readTwWithoutProvider({className: 'mt-abc'});
     expect(style.marginTop).toBeUndefined();
     expect(Number.isNaN(style.marginTop)).toBe(false);
     expect(warnSpy).toHaveBeenCalled();
@@ -98,7 +83,7 @@ describe('useTW', () => {
       process.env.NODE_ENV = 'production';
       const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
-      const style = readTw({className: 'foo-bar mt-8'});
+      const style = readTwWithoutProvider({className: 'foo-bar mt-8'});
       expect(style.marginTop).toBe(8);
       expect(warnSpy).not.toHaveBeenCalled();
     } finally {
@@ -106,38 +91,8 @@ describe('useTW', () => {
     }
   });
 
-  it('supports provider custom styles and nested custom styles', () => {
-    const style = readTw({
-      className: 'card groups.alert',
-      theme: {
-        styles: {
-          card: {padding: 12},
-          groups: {alert: {borderWidth: 2}},
-        },
-      },
-    });
-    expect(style.padding).toBe(12);
-    expect(style.borderWidth).toBe(2);
-  });
-
-  it('supports flat colors and mode overrides from provider', () => {
-    const style = readTw({
-      className: 'bg-primary color-light',
-      theme: {
-        mode: 'dark',
-        colors: {
-          primary: '#bbbbbb',
-          light: '#ededed',
-          dark: {primary: '#111111'},
-        },
-      },
-    });
-    expect(style.backgroundColor).toBe('#111111');
-    expect(style.color).toBe('#ededed');
-  });
-
   it('supports logical block and inline aliases for margin, padding and border colors', () => {
-    const style = readTw({
+    const style = readTwWithoutProvider({
       className:
         'm-block-8 mbs-4 mbe-6 m-inline-10 ms-2 me-3 p-block-12 pbs-14 pbe-16 p-inline-18 ps-20 pe-22 border-block-color-blue-500 border-bs-color-red-500 border-be-color-green-500',
     });
@@ -169,38 +124,7 @@ describe('useTW', () => {
     expect(style.borderBlockEndColor).toBe('#10B981');
   });
 
-  it('updates output when provider mode changes at runtime', async () => {
-    const onRead = jest.fn();
-    const Probe = () => {
-      const {tw, mode} = useTW();
-      React.useEffect(() => {
-        onRead({mode, style: tw('bg-white dark:bg-black')});
-      }, [mode, tw]);
-      return null;
-    };
-    const App = () => {
-      const [mode, setMode] = React.useState<'light' | 'dark'>('light');
-      React.useEffect(() => {
-        setMode('dark');
-      }, []);
-      return (
-        <TWRNProvider theme={{mode}}>
-          <Probe />
-        </TWRNProvider>
-      );
-    };
-    const tree = renderInAct(<App />);
-    await act(async () => {
-      await Promise.resolve();
-    });
-    expect(onRead.mock.calls[0][0].style.backgroundColor).toBe('white');
-    expect(
-      onRead.mock.calls[onRead.mock.calls.length - 1][0].style.backgroundColor,
-    ).toBe('black');
-    unmountInAct(tree);
-  });
-
-  it('uses conversion factors for both tw values and helper functions', () => {
+  it('uses default conversion factors for both tw values and helper functions', () => {
     const onRead = jest.fn();
     const Probe = () => {
       const {tw, wppx, hppx} = useTW();
@@ -213,11 +137,7 @@ describe('useTW', () => {
       }, [tw, wppx, hppx]);
       return null;
     };
-    const tree = renderInAct(
-      <TWRNProvider theme={{wpFactorConversion: 3.6, hpFactorConversion: 8}}>
-        <Probe />
-      </TWRNProvider>,
-    );
+    const tree = renderInAct(<Probe />);
     expect(onRead.mock.calls[0][0].tw.width).toBe(50);
     expect(onRead.mock.calls[0][0].tw.height).toBe(25);
     expect(onRead.mock.calls[0][0].helperWidth).toBe(50);

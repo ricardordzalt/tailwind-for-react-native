@@ -1,19 +1,19 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import { COLORS } from "../constants/colors";
 import { Mode, TWRNContextType, TWRNProviderProps } from './tw-rn-provider.d';
+import isObjectRecord from '../utils/is-object-record';
 
 const DEFAULT_VALUES: TWRNContextType = {
   mode: 'light',
   toggleMode: () => { },
   setMode: () => { },
+  styles: {},
+  classes: {},
   wpFactorConversion: 3.6,
   hpFactorConversion: 8,
 };
 
 export const TWRNContext = createContext<TWRNContextType>(DEFAULT_VALUES);
-
-const isObjectRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === 'object' && value !== null && !Array.isArray(value);
 
 export const TWRNProvider: React.FC<TWRNProviderProps> = ({
   children,
@@ -21,11 +21,15 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
 }) => {
   const {
     mode = 'light',
-    styles = {},
+    styles: stylesTheme = {},
+    classes: classesTheme = {},
     colors: colorsTheme = {},
     wpFactorConversion = 3.6,
     hpFactorConversion = 8,
   } = theme ?? {};
+
+  const styles = isObjectRecord(stylesTheme) ? stylesTheme : {};
+  const classes = isObjectRecord(classesTheme) ? classesTheme : {};
 
   const [modeState, setModeState] = useState<Mode>(
     // Ensures its dark or light mode
@@ -72,6 +76,7 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
         toggleMode,
         setMode: setModeState,
         styles,
+        classes,
         colors,
         wpFactorConversion,
         hpFactorConversion,
