@@ -4,7 +4,7 @@ Tailwind-like utilities for React Native, with support for:
 
 - Utility strings via `tw(...)`
 - Styled components via `styled(Component)` template literals
-- Optional theming through `TWRNProvider` (`mode`, `colors`, `styles`, `classes`)
+- Optional extension through `TWRNProvider` (`mode`, `colors`, `styles`, `classes`, `wpFactorConversion`, `hpFactorConversion`)
 
 ## Installation
 
@@ -60,7 +60,10 @@ const Example = () => {
 };
 ```
 
-### 3) Add `TWRNProvider` when you need theme/config
+You can use `tw(...)` and `styled(...)` without provider.  
+`TWRNProvider` is optional and only extends behavior when you need runtime theme/config.
+
+### 3) Optional: add `TWRNProvider` when you need theme/config
 
 ```tsx
 import React from 'react';
@@ -69,9 +72,26 @@ import {TWRNProvider} from 'tailwind-for-react-native';
 
 const App = () => {
   const mode = useColorScheme() === 'dark' ? 'dark' : 'light';
-  return <TWRNProvider theme={{mode}}>{/* app */}</TWRNProvider>;
+  return (
+    <TWRNProvider
+      theme={{
+        mode,
+        colors: {brand: '#2563EB'},
+        styles: {card: {padding: 12, borderRadius: 8}},
+        classes: {primaryButton: 'bg-brand p-2 border-radius-8'},
+      }}>
+      {/* app */}
+    </TWRNProvider>
+  );
 };
 ```
+
+All `theme` keys are optional and independent, so you can pass only what you need.
+Examples:
+
+- only mode: `theme={{mode: 'dark'}}`
+- only colors: `theme={{colors: {brand: '#2563EB'}}}`
+- only classes: `theme={{classes: {primaryButton: 'bg-blue-500 p-2'}}}`
 
 ---
 
@@ -126,7 +146,9 @@ type Theme = {
 };
 ```
 
-Use `TWRNProvider` when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
+`TWRNProvider` is optional.
+Use it only when you need mode-aware colors, custom style presets, string aliases, or custom conversion factors.
+Every `theme` property is optional, and each one works independently.
 
 ---
 
