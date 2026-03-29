@@ -25,7 +25,7 @@ yarn add tailwind-for-react-native
 ### 1) Use `styled(...)`
 
 ```tsx
-import {Pressable, Text} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import {styled} from 'tailwind-for-react-native';
 
 const Button = styled(Pressable)`
@@ -38,6 +38,14 @@ const ButtonText = styled(Text)`
   font-size-16
   color-#fff
 `;
+
+const Example = () => (
+  <View>
+    <Button>
+      <ButtonText>Save</ButtonText>
+    </Button>
+  </View>
+);
 ```
 
 ### 2) Use `useTW()`
@@ -92,12 +100,15 @@ Builds a component from utility classes. Interpolations are supported.
 
 ```tsx
 import {View} from 'react-native';
+import {styled} from 'tailwind-for-react-native';
 
 const Avatar = styled(View)<{size: number}>`
   w-${({size}) => size}
   h-${({size}) => size}
   border-radius-9999
 `;
+
+const ProfilePicture = () => <Avatar size={48} />;
 ```
 
 ### `TWRNProvider`
@@ -126,54 +137,125 @@ Use `TWRNProvider` when you need mode-aware colors, custom style presets, string
 `theme.colors` supports flat tokens and mode-specific overrides:
 
 ```tsx
-<TWRNProvider
-  theme={{
-    mode: 'dark',
-    colors: {
-      primary: '#bbbbbb',
-      light: {primary: '#f5f5f5'},
-      dark: {primary: '#111111'},
-    },
-  }}>
-  {/* ... */}
-</TWRNProvider>
+import {Text, View} from 'react-native';
+import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
+
+const Title = styled(Text)`
+  color-primary
+`;
+
+const Screen = () => {
+  const {tw} = useTW();
+  return (
+    <View style={tw('bg-primary p-12')}>
+      <Title>Provider color token</Title>
+    </View>
+  );
+};
+
+const App = () => (
+  <TWRNProvider
+    theme={{
+      mode: 'dark',
+      colors: {
+        primary: '#bbbbbb',
+        light: {primary: '#f5f5f5'},
+        dark: {primary: '#111111'},
+      },
+    }}>
+    <Screen />
+  </TWRNProvider>
+);
 ```
+
+Both `tw('...')` and `styled(...)` resolve `primary` from provider colors.
 
 ### `theme.styles` (object presets)
 
 Use object style presets and nested paths:
 
 ```tsx
-<TWRNProvider
-  theme={{
-    styles: {
-      card: {padding: 12, borderRadius: 8},
-      buttons: {
-        primary: {backgroundColor: '#3B82F6'},
+import {Text, View} from 'react-native';
+import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
+
+const CardTitle = styled(Text)`
+  cardTitle
+`;
+
+const Screen = () => {
+  const {tw} = useTW();
+  return (
+    <View style={tw('card buttons.primary')}>
+      <CardTitle>Preset styles</CardTitle>
+    </View>
+  );
+};
+
+const App = () => (
+  <TWRNProvider
+    theme={{
+      styles: {
+        card: {padding: 12, borderRadius: 8},
+        cardTitle: {fontSize: 16},
+        buttons: {
+          primary: {backgroundColor: '#3B82F6'},
+        },
       },
-    },
-  }}>
-  {/* tw('card buttons.primary') */}
-</TWRNProvider>
+    }}>
+    <Screen />
+  </TWRNProvider>
+);
 ```
+
+`tw(...)` and `styled(...)` can consume style object presets from `theme.styles`.
 
 ### `theme.classes` (string aliases)
 
 Use reusable utility aliases and nested paths:
 
 ```tsx
-<TWRNProvider
-  theme={{
-    classes: {
-      primaryButton: 'bg-blue-500 p-2',
-      buttons: {
-        secondary: 'bg-gray-200 p-2',
+import {Pressable, Text, View} from 'react-native';
+import {styled, TWRNProvider, useTW} from 'tailwind-for-react-native';
+
+const PrimaryButton = styled(Pressable)`
+  primaryButton
+`;
+
+const SecondaryButton = styled(Pressable)`
+  buttons.secondary
+`;
+
+const Screen = () => {
+  const {tw} = useTW();
+  return (
+    <View style={tw('stack')}>
+      <PrimaryButton>
+        <Text>Primary</Text>
+      </PrimaryButton>
+      <SecondaryButton style={tw('mt-8')}>
+        <Text>Secondary</Text>
+      </SecondaryButton>
+    </View>
+  );
+};
+
+const App = () => (
+  <TWRNProvider
+    theme={{
+      classes: {
+        stack: 'p-12',
+        primaryButton: 'bg-blue-500 p-2 border-radius-6',
+        buttons: {
+          secondary: 'bg-gray-200 p-2 border-radius-6',
+        },
       },
-    },
-  }}>
-  {/* tw('primaryButton buttons.secondary') */}
-</TWRNProvider>
+    }}>
+    <Screen />
+  </TWRNProvider>
+);
 ```
+
+String aliases from `theme.classes` are available in both `tw(...)` and `styled(...)`.
 
 Class aliases support nested references and are protected against circular loops.
 
