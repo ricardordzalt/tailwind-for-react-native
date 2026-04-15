@@ -604,11 +604,21 @@ The tables below list the utilities available in the current release.
 
 ### Shadow presets
 
-`shadow` follows fixed presets from **0 to 24** (Material-style elevation scale).
+`shadow` uses fixed presets based on the Material-style elevation scale.
 
-- Base: `shadow-none`, `shadow-0`, `shadow-1` … `shadow-24`
-- Directional: `shadow-t-{level}`, `shadow-b-{level}`, `shadow-l-{level}`, `shadow-r-{level}`, `shadow-x-{level}`, `shadow-y-{level}`
-- `{level}` for directional classes: `1..24`
+| Class pattern         | Meaning |
+| --------------------- | ------- |
+| **shadow-none**       | no shadow |
+| **shadow-0**          | no shadow |
+| **shadow-1 ... shadow-24** | base shadow presets |
+| **shadow-t-{level}**  | top shadow |
+| **shadow-b-{level}**  | bottom shadow |
+| **shadow-l-{level}**  | left shadow |
+| **shadow-r-{level}**  | right shadow |
+| **shadow-x-{level}**  | horizontal shadow |
+| **shadow-y-{level}**  | vertical shadow |
+
+`{level}` for directional presets goes from `1` to `24`.
 
 Examples:
 
