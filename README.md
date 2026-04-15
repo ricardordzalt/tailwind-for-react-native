@@ -604,32 +604,22 @@ The tables below list the utilities available in the current release.
 
 ### Shadow presets
 
-`shadow` uses fixed presets based on the Material-style elevation scale.
+`shadow` uses fixed presets based on the Material-style elevation scale (`0..24`).
 
-| Class pattern         | Meaning |
-| --------------------- | ------- |
-| **shadow-none**       | no shadow |
-| **shadow-0**          | no shadow |
-| **shadow-1 ... shadow-24** | base shadow presets |
-| **shadow-t-{level}**  | top shadow |
-| **shadow-b-{level}**  | bottom shadow |
-| **shadow-l-{level}**  | left shadow |
-| **shadow-r-{level}**  | right shadow |
-| **shadow-x-{level}**  | horizontal shadow |
-| **shadow-y-{level}**  | vertical shadow |
+| Class | Effect |
+| ----- | ------ |
+| **shadow-none** | removes shadow |
+| **shadow-0** | removes shadow |
+| **shadow-1 ... shadow-24** | applies the base shadow preset |
+| **shadow-t-{level}** | applies the preset with top offset |
+| **shadow-b-{level}** | applies the preset with bottom offset |
+| **shadow-l-{level}** | applies the preset with left offset |
+| **shadow-r-{level}** | applies the preset with right offset |
+| **shadow-x-{level}** | applies the preset on the horizontal axis |
+| **shadow-y-{level}** | applies the preset on the vertical axis |
 
-`{level}` for directional presets goes from `1` to `24`.
-
-Examples:
-
-```tsx
-tw('shadow-8');
-tw('shadow-t-6');
-tw('shadow-10 shadow-red-500');
-```
-
-Reference generator (source used for preset values):  
-https://ethercreative.github.io/react-native-shadow-generator/
+`{level}` for directional presets goes from `1` to `24`.  
+Preset values are based on: https://ethercreative.github.io/react-native-shadow-generator/
 
 ---
 
