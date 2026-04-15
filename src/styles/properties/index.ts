@@ -21,6 +21,7 @@ import {overflow} from './overflow';
 import {pointerEvents} from './pointerEvents';
 import {position} from './position';
 import {resizeMode} from './resizeMode';
+import {shadow} from './shadow';
 import {textAlign} from './textAlign';
 import {textAlignVertical} from './textAlignVertical';
 import {textDecorationLine} from './textDecorationLine';
@@ -53,6 +54,7 @@ const properties = {
   ...pointerEvents,
   ...position,
   ...resizeMode,
+  ...shadow,
   ...textAlign,
   ...textAlignVertical,
   ...textDecorationLine,

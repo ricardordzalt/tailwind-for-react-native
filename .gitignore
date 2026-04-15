@@ -68,3 +68,4 @@ yarn-error.log
 # build output
 dist/
 *.tgz
+.codex

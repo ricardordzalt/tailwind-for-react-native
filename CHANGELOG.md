@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.33] - 2026-04-14
+
+### Added
+- Documented the new shadow preset system in `README.md`, including:
+  - full preset naming (`shadow-{level}` and directional variants)
+  - platform behavior (iOS shadow props + Android elevation)
+  - color override examples with `shadow-<color>`
+
+### Changed
+- Reformatted `src/styles/properties/shadow/index.ts` to keep explicit, declarative property entries while avoiding long unreadable lines.
+- Kept a single platform abstraction for `Platform.select(...)` and preserved existing shadow behavior.
+
 ## [0.0.26] - 2026-03-28
 
 ### Added

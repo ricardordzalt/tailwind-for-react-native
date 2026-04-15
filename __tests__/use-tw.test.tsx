@@ -131,6 +131,90 @@ describe('useTW', () => {
     expect(style.borderBlockEndColor).toBe(COLORS['green-500']);
   });
 
+  describe('shadow presets', () => {
+    // Platform.select is evaluated at module load time.
+    // Jest runs as 'ios' by default, so iOS props are present and elevation is undefined.
+    it('returns iOS shadow props for shadow-N (default jest platform: ios)', () => {
+      const style = readTwWithoutProvider({className: 'shadow-4'});
+      expect(style.shadowColor).toBe('#000');
+      expect(style.shadowOffset).toEqual({width: 0, height: 2});
+      expect(style.shadowOpacity).toBeCloseTo(0.25, 1);
+      expect(style.shadowRadius).toBeCloseTo(2.62, 1);
+      expect(style.elevation).toBeUndefined();
+    });
+
+    it('returns no shadow for shadow-0 and shadow-none', () => {
+      const style0 = readTwWithoutProvider({className: 'shadow-0'});
+      const styleNone = readTwWithoutProvider({className: 'shadow-none'});
+      // shadowColor is always present; iOS props are 0; elevation is Android-only
+      expect(style0.shadowColor).toBe('#000');
+      expect(style0.shadowOffset).toEqual({width: 0, height: 0});
+      expect(style0.shadowOpacity).toBe(0);
+      expect(style0.shadowRadius).toBe(0);
+      expect(styleNone.shadowColor).toBe('#000');
+      expect(styleNone.shadowOffset).toEqual({width: 0, height: 0});
+    });
+
+    it('returns maximum preset for shadow-24', () => {
+      const style = readTwWithoutProvider({className: 'shadow-24'});
+      expect(style.shadowColor).toBe('#000');
+      expect(style.shadowOffset).toEqual({width: 0, height: 12});
+      expect(style.shadowOpacity).toBeCloseTo(0.6, 1);
+      expect(style.shadowRadius).toBeCloseTo(16, 0);
+      expect(style.elevation).toBeUndefined();
+    });
+
+    it('supports directional shadow-t (top) with negative height offset', () => {
+      const style = readTwWithoutProvider({className: 'shadow-t-4'});
+      expect(style.shadowOffset).toEqual({width: 0, height: -2});
+      expect(style.elevation).toBeUndefined();
+    });
+
+    it('supports directional shadow-b (bottom) same as default', () => {
+      const base = readTwWithoutProvider({className: 'shadow-4'});
+      const bottom = readTwWithoutProvider({className: 'shadow-b-4'});
+      expect(bottom).toEqual(base);
+    });
+
+    it('supports directional shadow-l (left) with negative width offset', () => {
+      const style = readTwWithoutProvider({className: 'shadow-l-4'});
+      expect(style.shadowOffset).toEqual({width: -2, height: 0});
+      expect(style.elevation).toBeUndefined();
+    });
+
+    it('supports directional shadow-r (right) with positive width offset', () => {
+      const style = readTwWithoutProvider({className: 'shadow-r-4'});
+      expect(style.shadowOffset).toEqual({width: 2, height: 0});
+      expect(style.elevation).toBeUndefined();
+    });
+
+    it('supports axis shadow-x (horizontal) same as shadow-r', () => {
+      const right = readTwWithoutProvider({className: 'shadow-r-4'});
+      const x = readTwWithoutProvider({className: 'shadow-x-4'});
+      expect(x).toEqual(right);
+    });
+
+    it('supports axis shadow-y (vertical) same as default', () => {
+      const base = readTwWithoutProvider({className: 'shadow-4'});
+      const y = readTwWithoutProvider({className: 'shadow-y-4'});
+      expect(y).toEqual(base);
+    });
+
+    it('allows shadow color override with shadow-<color> alongside preset', () => {
+      const style = readTwWithoutProvider({className: 'shadow-4 shadow-red-500'});
+      expect(style.shadowColor).toBe(COLORS['red-500']);
+      expect(style.shadowOffset).toEqual({width: 0, height: 2});
+      expect(style.shadowOpacity).toBeCloseTo(0.25, 1);
+      expect(style.elevation).toBeUndefined();
+    });
+
+    it('supports shadow color with hex value', () => {
+      const style = readTwWithoutProvider({className: 'shadow-4 shadow-#ff0000'});
+      expect(style.shadowColor).toBe('#ff0000');
+      expect(style.elevation).toBeUndefined();
+    });
+  });
+
   it('uses default conversion factors for both tw values and helper functions', () => {
     const onRead = jest.fn();
     const Probe = () => {

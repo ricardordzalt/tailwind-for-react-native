@@ -592,7 +592,7 @@ The tables below list the utilities available in the current release.
 | **outline**                           | `outlineColor`                   | constant · hex                    |
 | **outline-offset**                    | `outlineOffset`                  | number                            |
 | **overlay**                           | `overlayColor`                   | constant                          |
-| **shadow / elevation**                | `shadowColor` / `elevation` etc. | platform‑specific                 |
+| **shadow**                            | `shadowColor` / `shadowOffset` / `shadowOpacity` / `shadowRadius` / `elevation` | presets `0..24` (+ directional variants) |
 | **text-shadow**                       | `textShadowColor`                | constant · hex                    |
 | **text-shadow-radius**                | `textShadowRadius`               | number                            |
 | **decoration**                        | `textDecorationColor`            | constant · hex                    |
@@ -601,6 +601,25 @@ The tables below list the utilities available in the current release.
 | **end**                               | `end`                            | number · string · `wp()` · `hp()` |
 | **basis**                             | `flexBasis`                      | number · string                   |
 | **font**                              | `fontFamily`                     | constant                          |
+
+### Shadow presets
+
+`shadow` follows fixed presets from **0 to 24** (Material-style elevation scale).
+
+- Base: `shadow-none`, `shadow-0`, `shadow-1` … `shadow-24`
+- Directional: `shadow-t-{level}`, `shadow-b-{level}`, `shadow-l-{level}`, `shadow-r-{level}`, `shadow-x-{level}`, `shadow-y-{level}`
+- `{level}` for directional classes: `1..24`
+
+Examples:
+
+```tsx
+tw('shadow-8');
+tw('shadow-t-6');
+tw('shadow-10 shadow-red-500');
+```
+
+Reference generator (source used for preset values):  
+https://ethercreative.github.io/react-native-shadow-generator/
 
 ---
 
