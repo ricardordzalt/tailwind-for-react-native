@@ -7,6 +7,7 @@ export type TWRNTheme = {
   styles?: any;
   classes?: any;
   colors?: any;
+  breakpoints?: Record<string, number>;
   wpFactorConversion?: number;
   hpFactorConversion?: number;
 };
@@ -18,6 +19,7 @@ export type TWRNContextType = {
   styles?: any;
   classes?: any;
   colors?: any;
+  breakpoints?: Record<string, number>;
   wpFactorConversion?: number;
   hpFactorConversion?: number;
 };

@@ -6,6 +6,7 @@ export type TWRNTheme = {
   mode?: Mode;
   styles?: Record<string, any>;
   colors?: Record<string, any>;
+  breakpoints?: Record<string, number>;
   wpFactorConversion?: number;
   hpFactorConversion?: number;
 };

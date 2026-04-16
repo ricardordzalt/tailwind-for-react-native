@@ -24,6 +24,7 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
     styles: stylesTheme = {},
     classes: classesTheme = {},
     colors: colorsTheme = {},
+    breakpoints,
     wpFactorConversion = 3.6,
     hpFactorConversion = 8,
   } = theme ?? {};
@@ -78,6 +79,7 @@ export const TWRNProvider: React.FC<TWRNProviderProps> = ({
         styles,
         classes,
         colors,
+        breakpoints,
         wpFactorConversion,
         hpFactorConversion,
       }}>

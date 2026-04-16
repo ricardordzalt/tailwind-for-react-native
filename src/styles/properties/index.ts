@@ -1,5 +1,6 @@
 import {alignContent} from './alignContent';
 import {alignItems} from './alignItems';
+import {aspectRatio} from './aspectRatio';
 import {alignSelf} from './alignSelf';
 import {backfaceVisibility} from './backfaceVisibility';
 import {borderCurve} from './borderCurve';
@@ -34,6 +35,7 @@ const properties = {
   ...alignContent,
   ...alignItems,
   ...alignSelf,
+  ...aspectRatio,
   ...backfaceVisibility,
   ...borderCurve,
   ...borderStyle,

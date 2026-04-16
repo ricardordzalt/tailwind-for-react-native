@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.35] - 2026-04-15
+
+### Added
+- Negative margin syntax: `-mt-4`, `-mx-8`, `-ml-2` now work as expected (same as Tailwind web).
+- Responsive breakpoints: `sm:`, `md:`, `lg:`, `xl:` modifiers filter by viewport width (mobile-first). Defaults: `sm: 640`, `md: 768`, `lg: 1024`, `xl: 1280`. Customizable via `theme.breakpoints` in `TWRNProvider`.
+- Aspect ratio presets: `aspect-square` (`1`) and `aspect-video` (`16/9`).
+- Style cache: `tw()` results are now memoized per input string. Cache invalidates automatically when mode, dimensions, or theme values change.
+
+### Changed
+- `TWRNTheme` and `TWRNContextType` now include optional `breakpoints` field.
+- Public types in `types/index.d.ts` updated to match.
+
+### Notes
+- All changes are backward compatible. Existing utilities and behavior are unaffected.
+
 ## [0.0.33] - 2026-04-14
 
 ### Added

@@ -1,8 +1,10 @@
+import {useRef} from 'react';
 import {Platform, useWindowDimensions} from 'react-native';
 import {COLORS} from '../constants/colors';
 import {useTWRNContext} from '../providers/tw-rn-provider';
 // import {styleProperties as STYLES} from '../styles';
 import getFilteredArrayOfStyleStringsByPlatform from '../utils/get-filtered-array-of-style-strings-by-platform';
+import getFilteredArrayOfStyleStringsByBreakpoint from '../utils/get-filtered-array-of-style-strings-by-breakpoint';
 import getFilteredArrayOfStyleStringsByMode from '../utils/get-filtered-array-of-style-strings-by-mode';
 import getStyleFromStyleString from '../utils/get-style-from-style-string';
 import stylesSeparator from '../utils/styles-separator';
@@ -22,6 +24,7 @@ const useTW = (): any => {
     colors: contextColors,
     mode,
     toggleMode,
+    breakpoints,
     wpFactorConversion,
     hpFactorConversion,
   } = useTWRNContext();
@@ -34,6 +37,40 @@ const useTW = (): any => {
   const normalizedContextColors = isObjectRecord(contextColors)
     ? contextColors
     : {};
+
+  const cacheRef = useRef(new Map<string, any>());
+  const prevDepsRef = useRef<{
+    mode: any;
+    width: number;
+    height: number;
+    contextStyles: any;
+    contextClasses: any;
+    contextColors: any;
+    breakpoints: any;
+  } | null>(null);
+
+  const prev = prevDepsRef.current;
+  if (
+    !prev ||
+    prev.mode !== mode ||
+    prev.width !== window.width ||
+    prev.height !== window.height ||
+    prev.contextStyles !== contextStyles ||
+    prev.contextClasses !== contextClasses ||
+    prev.contextColors !== contextColors ||
+    prev.breakpoints !== breakpoints
+  ) {
+    cacheRef.current.clear();
+    prevDepsRef.current = {
+      mode,
+      width: window.width,
+      height: window.height,
+      contextStyles,
+      contextClasses,
+      contextColors,
+      breakpoints,
+    };
+  }
 
   const allStyles = {
     ...STYLES,
@@ -89,9 +126,15 @@ const useTW = (): any => {
     const arrayOfStyleString = stylesSeparator(stylesString);
     const filteredArrayOfStyleStringsByPlatform =
       getFilteredArrayOfStyleStringsByPlatform(arrayOfStyleString, Platform.OS);
+    const filteredArrayOfStyleStringsByBreakpoint =
+      getFilteredArrayOfStyleStringsByBreakpoint(
+        filteredArrayOfStyleStringsByPlatform,
+        window.width,
+        breakpoints,
+      );
     const filteredArrayOfStyleStringsByMode =
       getFilteredArrayOfStyleStringsByMode(
-        filteredArrayOfStyleStringsByPlatform,
+        filteredArrayOfStyleStringsByBreakpoint,
         mode,
       );
     let styles = {};
@@ -138,8 +181,13 @@ const useTW = (): any => {
     }
     return styles;
   };
-  const tw: TailwindStylesGeneratorType = (stylesString: StylesType) =>
-    resolveStyleString(stylesString, new Set<string>());
+  const tw: TailwindStylesGeneratorType = (stylesString: StylesType) => {
+    const cached = cacheRef.current.get(stylesString);
+    if (cached) return cached;
+    const result = resolveStyleString(stylesString, new Set<string>());
+    cacheRef.current.set(stylesString, result);
+    return result;
+  };
 
   const hppx = (numberValue) =>  (window?.height * (numberValue / 100)) / hpFactorConversion
   const wppx = (numberValue) =>  (window?.width * (numberValue / 100)) / wpFactorConversion

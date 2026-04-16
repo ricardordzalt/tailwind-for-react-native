@@ -24,7 +24,14 @@ const getStyleFromStyleString = ({
   wpFactorConversion,
   hpFactorConversion,
 }: getStyleFromStyleStringType) => {
-  const splittedStyleString = styleString.split('-');
+  let isNegative = false;
+  let effectiveStyleString = styleString;
+  if (styleString.startsWith('-') && styleString.length > 1 && styleString[1] !== '#') {
+    isNegative = true;
+    effectiveStyleString = styleString.slice(1);
+  }
+
+  const splittedStyleString = effectiveStyleString.split('-');
   let keyProp = '' as keyof StylesPrefixes,
     value: string | number = '';
   if (
@@ -123,6 +130,10 @@ const getStyleFromStyleString = ({
   if (typeof value === 'number' && Number.isNaN(value)) {
     warnInvalidStyle(styleString, 'parsed value is NaN');
     return {};
+  }
+
+  if (isNegative && typeof value === 'number') {
+    value = -value;
   }
 
   let properties = {};

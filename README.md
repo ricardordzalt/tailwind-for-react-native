@@ -107,6 +107,8 @@ const cardWidth = wppx(80);
 const cardHeight = hppx(25);
 ```
 
+`tw()` results are cached per input string. The cache clears automatically when mode, dimensions, or theme values change.
+
 ### `styled(Component)`
 
 Creates a component from utility classes. Interpolations are supported.
@@ -134,6 +136,7 @@ type Theme = {
   colors?: Record<string, any>;
   styles?: Record<string, any>;
   classes?: Record<string, any>;
+  breakpoints?: Record<string, number>;
   wpFactorConversion?: number;
   hpFactorConversion?: number;
 };
@@ -342,6 +345,32 @@ Class aliases support nested references and are protected against circular loops
 
 - `dark:*` applies only in dark mode.
 - `ios:*` and `android:*` apply only on the current platform.
+- `sm:*`, `md:*`, `lg:*`, `xl:*` apply at or above the given breakpoint width (mobile-first).
+
+Default breakpoints: `sm: 640`, `md: 768`, `lg: 1024`, `xl: 1280`.
+
+```tsx
+// Override or define custom breakpoints via provider
+<TWRNProvider theme={{ breakpoints: { tablet: 768, desktop: 1024 } }}>
+```
+
+Without a provider, the default breakpoints are always available.
+
+```tsx
+tw('flex-col md:flex-row p-4 lg:p-8')
+// phone (width 400): { flexDirection: 'column', padding: 4 }
+// tablet (width 800): { flexDirection: 'row', padding: 4 }
+// desktop (width 1100): { flexDirection: 'row', padding: 8 }
+```
+
+### Negative values
+
+Prefix a utility with `-` to negate its numeric value:
+
+```tsx
+tw('-mt-4 -ml-8')
+// { marginTop: -4, marginLeft: -8 }
+```
 
 ### Precedence
 
@@ -365,6 +394,7 @@ const Badge = styled(Text)`
 Value parser supports:
 
 - numbers (`mt-8`)
+- negative numbers (`-mt-8`)
 - percentages (`w-70%`)
 - `auto` (`l-auto`)
 - hex (`color-#fff`)
@@ -554,6 +584,8 @@ The tables below list the utilities available in the current release.
 | **z**                                 | `zIndex`                         | number                            |
 | **opacity**                           | `opacity`                        | number                            |
 | **aspect**                            | `aspectRatio`                    | number                            |
+| **aspect-square**                     | `aspectRatio: 1`                 | preset                            |
+| **aspect-video**                      | `aspectRatio: 16/9`              | preset                            |
 | **gap**                               | `gap`                            | number · string                   |
 | **gap-x**                             | `columnGap`                      | number · string                   |
 | **gap-y**                             | `rowGap`                         | number · string                   |
