@@ -23,6 +23,7 @@ import {pointerEvents} from './pointerEvents';
 import {position} from './position';
 import {resizeMode} from './resizeMode';
 import {shadow} from './shadow';
+import {sizing} from './sizing';
 import {textAlign} from './textAlign';
 import {textAlignVertical} from './textAlignVertical';
 import {textDecorationLine} from './textDecorationLine';
@@ -57,6 +58,7 @@ const properties = {
   ...position,
   ...resizeMode,
   ...shadow,
+  ...sizing,
   ...textAlign,
   ...textAlignVertical,
   ...textDecorationLine,

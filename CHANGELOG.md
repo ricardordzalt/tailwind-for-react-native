@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.36] - 2026-04-16
+
+### Fixed
+- `risize-*` typo corrected to `resize-*` (no backward compatibility — use the correct class names).
+
+### Added
+- `w-full`, `h-full`, `size-full` static presets for 100% width/height.
+- `size-{n}` dynamic prefix sets both `width` and `height` simultaneously.
+- Typed `useTW()` return: `UseTWReturn` interface replaces `any`.
+
+### Changed
+- `TailwindStylesGeneratorType` now returns `Record<string, any>` instead of `any`.
+- `hppx` and `wppx` parameters are now properly typed.
+
 ## [0.0.35] - 2026-04-15
 
 ### Added

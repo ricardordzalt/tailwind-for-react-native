@@ -2,7 +2,7 @@ import {useRef} from 'react';
 import {Platform, useWindowDimensions} from 'react-native';
 import {COLORS} from '../constants/colors';
 import {useTWRNContext} from '../providers/tw-rn-provider';
-// import {styleProperties as STYLES} from '../styles';
+import type {Mode} from '../providers/tw-rn-provider.d';
 import getFilteredArrayOfStyleStringsByPlatform from '../utils/get-filtered-array-of-style-strings-by-platform';
 import getFilteredArrayOfStyleStringsByBreakpoint from '../utils/get-filtered-array-of-style-strings-by-breakpoint';
 import getFilteredArrayOfStyleStringsByMode from '../utils/get-filtered-array-of-style-strings-by-mode';
@@ -13,9 +13,18 @@ import isObjectRecord from '../utils/is-object-record';
 import {properties as STYLES} from '../styles/properties';
 
 export type StylesType = string;
-export type TailwindStylesGeneratorType = (StylesType: string) => any;
+export type TailwindStylesGeneratorType = (stylesString: string) => Record<string, any>;
 
-const useTW = (): any => {
+export interface UseTWReturn {
+  tw: TailwindStylesGeneratorType;
+  mode: Mode;
+  toggleMode: () => void;
+  colors: Record<string, any> | undefined;
+  hppx: (numberValue: number) => number;
+  wppx: (numberValue: number) => number;
+}
+
+const useTW = (): UseTWReturn => {
   // For screen dimensions
   const window = useWindowDimensions();
   const {
@@ -189,8 +198,8 @@ const useTW = (): any => {
     return result;
   };
 
-  const hppx = (numberValue) =>  (window?.height * (numberValue / 100)) / hpFactorConversion
-  const wppx = (numberValue) =>  (window?.width * (numberValue / 100)) / wpFactorConversion
+  const hppx = (numberValue: number): number =>  (window?.height * (numberValue / 100)) / hpFactorConversion
+  const wppx = (numberValue: number): number =>  (window?.width * (numberValue / 100)) / wpFactorConversion
   return {
     tw,
     mode,

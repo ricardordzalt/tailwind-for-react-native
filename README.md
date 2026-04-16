@@ -573,6 +573,10 @@ The tables below list the utilities available in the current release.
 | **max-h**                             | `maxHeight`                      | —                                 |
 | **w**                                 | `width`                          | —                                 |
 | **min-w**                             | `minWidth`                       | —                                 |
+| **size**                              | `width` `height`                 | number · string · `wp()` · `hp()` |
+| **w-full**                            | `width: '100%'`                  | preset                            |
+| **h-full**                            | `height: '100%'`                 | preset                            |
+| **size-full**                         | `width: '100%'` `height: '100%'` | preset                           |
 | **max-w**                             | `maxWidth`                       | —                                 |
 | **l**                                 | `left`                           | —                                 |
 | **r**                                 | `right`                          | —                                 |
@@ -925,15 +929,13 @@ The following tables show every boolean utility now bundled with the library.
 
 #### Resize mode
 
-> ℹ️  Utility names are currently `risize-*` (spelled as implemented) for backward compatibility.
-
 | Class              | Style     |
 | ------------------ | --------- |
-| **risize-cover**   | `cover`   |
-| **risize-contain** | `contain` |
-| **risize-stretch** | `stretch` |
-| **risize-repeat**  | `repeat`  |
-| **risize-center**  | `center`  |
+| **resize-cover**   | `cover`   |
+| **resize-contain** | `contain` |
+| **resize-stretch** | `stretch` |
+| **resize-repeat**  | `repeat`  |
+| **resize-center**  | `center`  |
 
 #### Object fit *(Web / iOS 17)*
 

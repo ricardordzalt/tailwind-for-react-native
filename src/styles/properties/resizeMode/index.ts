@@ -1,20 +1,20 @@
-import {ImageStyle, StyleSheet, ViewStyle} from 'react-native';
+import {ImageStyle, StyleSheet} from 'react-native';
 
 export type ResizeModeKey =
-  | 'risize-cover'
-  | 'risize-contain'
-  | 'risize-stretch'
-  | 'risize-repeat'
-  | 'risize-center';
+  | 'resize-cover'
+  | 'resize-contain'
+  | 'resize-stretch'
+  | 'resize-repeat'
+  | 'resize-center';
 
 export type ResizeModeStyle = {resizeMode: ImageStyle['resizeMode']};
 
 export type ResizeMode = Record<ResizeModeKey, ResizeModeStyle>;
 
 export const resizeMode = StyleSheet.create<ResizeMode>({
-  'risize-cover': {resizeMode: 'cover'},
-  'risize-contain': {resizeMode: 'contain'},
-  'risize-stretch': {resizeMode: 'stretch'},
-  'risize-repeat': {resizeMode: 'repeat'},
-  'risize-center': {resizeMode: 'center'},
+  'resize-cover': {resizeMode: 'cover'},
+  'resize-contain': {resizeMode: 'contain'},
+  'resize-stretch': {resizeMode: 'stretch'},
+  'resize-repeat': {resizeMode: 'repeat'},
+  'resize-center': {resizeMode: 'center'},
 });

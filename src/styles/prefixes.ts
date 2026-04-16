@@ -25,6 +25,7 @@ const stylesPrefixes = {
   w: 'width',
   'max-w': 'maxWidth',
   'min-w': 'minWidth',
+  size: ['width', 'height'],
   m: 'margin',
   mt: 'marginTop',
   mr: 'marginRight',
